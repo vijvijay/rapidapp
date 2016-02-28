@@ -1,0 +1,32 @@
+#!/bin/bash
+
+#Either AWS or our loadbalancer has issued us termination orders
+#Do all cleanups and save state, ...
+
+if [[ -f /tmp/terminationnotice ]]
+then
+	#If /tmp/terminationnotice is present, it must have been created by another 
+	#instance of this script. So, we need not execute. Exit!!!
+	exit
+fi
+
+#mark that this script has started once
+touch /tmp/terminationnotice
+
+
+# list out all running processes for each user (like thunar(along with which dir is open, 
+# thunderbird, ...) and save this list in each user's $home/.rapidapp/openapps. This will be
+# used to reopen the same apps with as close a state as possible to when it was closed.
+
+
+# Send "kill -USR1" ??? signal to all soffice.bin processes to save current state of 
+# open files to user's NFS home dir. Hence there will be no data loss - state is 
+# saved WITHOUT asking user "DO YOU WANT TO SAVE ?"
+# When reopening the same session in another machine, soffice should open all these files
+# WITHOUT asking user "DO YOU WANT TO RECOVER ?"
+
+#flush NFS mount (how???)
+
+
+#finally shutdown
+#sudo shutdown now

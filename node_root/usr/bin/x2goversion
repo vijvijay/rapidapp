@@ -1,0 +1,52 @@
+#!/bin/bash
+
+# Copyright (C) 2007-2015 X2Go Project - http://wiki.x2go.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# Copyright (C) 2011-2015 Oleksandr Shneyder <oleksandr.shneyder@obviously-nice.de>
+# Copyright (C) 2011-2015 Heinz-Markus Graesing <heinz-m.graesing@obviously-nice.de>
+
+X2GO_LIB_PATH="$(x2gopath libexec)";
+
+$X2GO_LIB_PATH/x2gosyslog "$0" "info" "$(basename $0) called with options: $@"
+
+X2GO_VERSIONS_BASEPATH="$(dirname $0)/../share/x2go/versions"
+
+get_version() {
+	cat "$1" | egrep -v "^#.*" | head -n1 | cut -d" " -f1
+}
+
+if [ -n "$1" ]; then
+	X2GO_COMPONENT="$1"
+	X2GO_COMPONENT_VERFILE="${X2GO_VERSIONS_BASEPATH}/VERSION.${X2GO_COMPONENT}"
+
+	if [ -f "${X2GO_COMPONENT_VERFILE}" ]; then
+		echo "$(get_version ${X2GO_COMPONENT_VERFILE})"
+	else
+		echo "Version information for X2Go component '$X2GO_COMPONENT' is not available." >&1
+		exit 1
+	fi
+else
+	cd "${X2GO_VERSIONS_BASEPATH}"
+	for compfile in `ls "${X2GO_VERSIONS_BASEPATH}"`; do 
+		X2GO_COMPONENT="$(echo $compfile | cut -d"." -f2)"
+		X2GO_COMPONENT_VERSION="$(get_version $compfile)"
+		echo "${X2GO_COMPONENT}: ${X2GO_COMPONENT_VERSION}"
+	done
+	cd - >/dev/null
+fi
+

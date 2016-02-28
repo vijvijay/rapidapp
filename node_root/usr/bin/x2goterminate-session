@@ -1,0 +1,54 @@
+#!/bin/bash
+
+if [ $# -eq 1   ]; then
+	SESSION_NAME="$1"
+else 
+	SESSION_NAME="$X2GO_SESSION"
+fi
+
+X2GO_ROOT="${HOME}/.x2go"
+
+X2GO_LIB_PATH="$(x2gopath libexec)";
+
+$X2GO_LIB_PATH/x2gosyslog "$0" "info" "$(basename $0) called with options: $@"
+
+X2GO_AGENT_PID=`$X2GO_LIB_PATH/x2gogetagent "$SESSION_NAME"` 
+X2GO_AGENT_PID=`echo "$X2GO_AGENT_PID"| awk {'print $1'}`
+
+# stop x2godesktopsharing process gracefully...
+x2gofeature X2GO_DESKTOPSHARING &>/dev/null && x2goterminate-desktopsharing "$SESSION_NAME" || true
+
+# run x2goserver-extensions for pre-terminate
+x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" pre-terminate || true
+
+if kill -TERM $X2GO_AGENT_PID &>/dev/null; then
+	$X2GO_LIB_PATH/x2gosyslog "$0" "notice" "session with ID "$SESSION_NAME" has been terminated successfully"
+
+	# run x2goserver-extensions for post-terminate
+	x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" post-terminate || true
+
+else
+	err_msg="ERROR: failed to terminate session with ID $SESSION_NAME"
+
+	# some x2goclient versions behave weirdly if we give an error message here, so we only write syslog for now...
+	#echo "$err_msg" 1>&2
+
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$err_msg"
+
+	# run x2goserver-extensions for fail-terminate
+	x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" fail-terminate || true
+fi
+
+# disable ssh-agent-forwarding socket file symlink
+X2GOSSH_AUTH_SOCK="$X2GO_ROOT/C-$SESSION_NAME/ssh-agent.PID"
+if [ -L "$X2GOSSH_AUTH_SOCK" ]; then
+	rm -f "$X2GOSSH_AUTH_SOCK"
+fi
+
+$X2GO_LIB_PATH/x2gochangestatus 'F' "$SESSION_NAME"  > /dev/null
+
+#rapidapp code begin
+#update terminated status in loadbalancer's DB
+usr=`echo $SESSION_NAME | sed 's/-.*//'`
+curl -s "http://lb.rapidapp.online/lb/session_status_change.php?uid=$usr&state=session_terminated" >/dev/null 2>/dev/null
+#rapidapp code end

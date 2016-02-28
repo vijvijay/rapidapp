@@ -1,0 +1,67 @@
+#!/bin/bash
+
+if [ $# -eq 1   ]; then
+	SESSION_NAME="$1"
+else 
+	SESSION_NAME="$X2GO_SESSION"
+fi
+
+X2GO_ROOT="${HOME}/.x2go"
+
+X2GO_LIB_PATH="$(x2gopath libexec)";
+
+$X2GO_LIB_PATH/x2gosyslog "$0" "info" "$(basename $0) called with options: $@"
+
+X2GO_AGENT_PID=`$X2GO_LIB_PATH/x2gogetagent "$SESSION_NAME"` 
+X2GO_AGENT_PID=`echo "$X2GO_AGENT_PID"| awk {'print $1'}`
+
+# workaround for knotify, keep silent in case no knotify is running
+killall -HUP knotify &>/dev/null
+
+# terminate x2godesktopsharing instance and remember that it was running...
+x2gofeature X2GO_DESKTOPSHARING &>/dev/null && x2gosuspend-desktopsharing "$SESSION_NAME" || true
+
+# run x2goserver-extensions for pre-suspend
+x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" pre-suspend || true
+
+export HOSTNAME
+x2goumount-session "$SESSION_NAME"
+
+STATE=`$X2GO_LIB_PATH/x2gogetagentstate "$SESSION_NAME"`
+
+if [ "$STATE" == "RESUMING" ] || [ "$STATE" == "STARTING" ] || [ "$STATE" == "RUNNING" ]
+then
+	if kill -HUP $X2GO_AGENT_PID &>/dev/null; then
+		$X2GO_LIB_PATH/x2gosyslog "$0" "notice" "session with ID $SESSION_NAME has been suspended successfully"
+
+		# run x2goserver-extensions for post-suspend
+		x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" post-suspend || true
+
+		$X2GO_LIB_PATH/x2gochangestatus 'S' "$SESSION_NAME"  > /dev/null
+
+	else
+		err_msg="ERROR: failed to suspend session with ID $SESSION_NAME"
+		echo "$err_msg" 1>&2
+		$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$err_msg"
+
+		# run x2goserver-extensions for fail-suspend
+		x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" fail-suspend || true
+
+		# If we reach here it means that the x2goagent process of the session has vanisshed
+		# If this happens then we mark the session as finished...
+		$X2GO_LIB_PATH/x2gochangestatus 'F' "$SESSION_NAME"  > /dev/null
+	fi
+else
+	$X2GO_LIB_PATH/x2gosyslog "$0" "notice" "session with ID $SESSION_NAME is not in running state"
+fi
+
+# disable ssh-agent-forwarding socket file symlink
+X2GOSSH_AUTH_SOCK="$X2GO_ROOT/C-$SESSION_NAME/ssh-agent.PID"
+if [ -L "$X2GOSSH_AUTH_SOCK" ]; then
+	rm -f "$X2GOSSH_AUTH_SOCK"
+fi
+
+#rapidapp code begin
+#update terminated status in loadbalancer's DB
+curl -s "http://lb.rapidapp.online/lb/session_status_change.php?uid=$USER&state=session_suspended" >/dev/null 2>/dev/null
+#rapidapp code end

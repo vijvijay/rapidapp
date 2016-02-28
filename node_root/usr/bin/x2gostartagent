@@ -1,0 +1,402 @@
+#!/bin/bash
+
+#rapidapp code begin
+#If we are starting a new session, terminate all older sessions!!!
+x2golistsessions | awk 'BEGIN{FS="|"}{print "x2goterminate-session "$2}' | bash >/dev/null 2>/dev/null
+#rapidapp code end
+
+X2GO_LIB_PATH="$(x2gopath libexec)";
+
+$X2GO_LIB_PATH/x2gosyslog "$0" "info" "$(basename $0) called with options: $@"
+set -- "${@:1:1}" "isdn" "${@:3}"
+$X2GO_LIB_PATH/x2gosyslog "$0" "info" "$(basename $0) called with modified options: $@ . 2nd op = $2"
+
+X2GO_PORT=49 #First port for X2GO=50
+SSH_PORT=30000 #First ssh port 30001
+
+# some sanity checks before session startup...
+if egrep "^backend[ ]*=[ ]*postgres" /etc/x2go/x2gosql/sql 1>/dev/null 2>/dev/null && [ "x$USER" = "xroot" ]; then
+	msg="The super-user \"root\" is not allowed to launch X2Go sessions."
+	echo "$msg"
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$msg"
+	exit -1
+elif [ -z "$USER" ]; then
+	msg="The \$USER environment variable is not set. Aborting session startup."
+	echo "$msg"
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$msg"
+	exit -2
+elif [ -z "$HOME" ]; then
+	msg="The \$HOME environment variable is not set. Aborting session startup."
+	echo "$msg"
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$msg"
+	exit -4
+elif ! echo $HOME | iconv -f ASCII -t ASCII 1>/dev/null 2>/dev/null; then
+	msg="Your home directory path contains non-ASCII characters. Aborting session startup."
+	echo "$msg"
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$msg"
+	exit -5
+fi
+
+X2GO_ROOT="${HOME}/.x2go"
+export NX_ROOT=$X2GO_ROOT
+
+X2GO_NXAGENT_DEFAULT_OPTIONS="-extension XFIXES -extension GLX -nolisten tcp"
+
+if [ -r /etc/x2go/x2goagent.options ]; then
+	source /etc/x2go/x2goagent.options
+fi
+
+if [ -z "$X2GO_NXAGENT_OPTIONS" ]; then
+	X2GO_NXAGENT_OPTIONS="$X2GO_NXAGENT_DEFAULT_OPTIONS"
+fi
+
+REMOTE=localhost
+
+# shadow sessions (via x2godesktopsharing) set the X2GO_CLIENT var in the process environment
+# so either it is already set or we obtain it from SSH_CLIENT/SSH_CONNECTION
+if [ -z "$X2GO_CLIENT" ] && [ -n "$SSH_CLIENT" ]; then
+	X2GO_CLIENT=`echo $SSH_CLIENT | awk '{print $1}'`
+elif [ -z "$X2GO_CLIENT" ] && [ -n "$SSH_CONNECTION" ]; then
+	X2GO_CLIENT=`echo $SSH_CONNECTION | awk '{print $1}'`
+fi
+if [ -z "$X2GO_CLIENT" ]; then
+	msg="The \$X2GO_CLIENT environment variable is not set. Possible reasons: \$SSH_CLIENT not set or \$SSH_CONNECTION not set. Or \$X2GO_CLIENT not set by ,,X2Go Desktop Sharing'' applet. Aborting session startup."
+	echo "$msg"
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$msg"
+	exit -3
+fi
+
+$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "client announced itself as ,,$X2GO_CLIENT''"
+
+X2GO_GEOMETRY="$1"; shift
+X2GO_LINK="$1"; shift
+X2GO_PACK="$1"; shift
+X2GO_TYPE="$1"; shift
+X2GO_KBD_LAYOUT="$1"; shift
+X2GO_KBD_TYPE="$1"; shift
+X2GO_SET_KBD="$1"; shift
+X2GO_STYPE="$1"; shift
+X2GO_CMD="$1"; shift
+X2GO_RESIZE=1
+X2GO_FULLSCREEN=0
+
+X2GO_CLIPBOARD=""
+
+XAUTHORITY=${XAUTHORITY:-"$HOME/.Xauthority"}
+
+
+if [ "$X2GO_STYPE" == "S" ]; then
+
+	SHADOW_MODE=`echo $X2GO_CMD |awk '{split($0,a,"XSHAD"); print a[1]}'`
+	SHADOW_USER=`echo $X2GO_CMD |awk '{split($0,a,"XSHAD"); print a[2]}'`
+	SHADOW_DESKTOP=`echo $X2GO_CMD |awk '{split($0,a,"XSHAD"); print a[3]}'`
+
+	if [ -z "$1" ]; then
+
+		# can this line be removed?
+		#echo "suser $SHADOW_USER user $USER " >> /tmp/uagent
+
+		$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "shadow session requested: mode $SHADOW_MODE, user: $SHADOW_USER, desktop: $SHADOW_DESKTOP"
+	else
+		SHADREQ_USER="$1"; shift
+		$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "preparing shadow session request for user $SHADREQ_USER, agent starts for user ${USER}"
+	fi
+
+	if [ "$SHADOW_USER" != "$USER" ]; then
+
+		$X2GO_LIB_PATH/x2gosyslog "$0" "notice" "user ,,$USER'' requests desktop sharing from user ,,$SHADOW_USER'' for desktop ,,$SHADOW_DESKTOP''"
+		$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "executing command: x2godesktopsharing client $X2GO_CLIENT $X2GO_GEOMETRY $X2GO_LINK $X2GO_PACK $X2GO_TYPE $X2GO_KBD_LAYOUT $X2GO_KBD_TYPE $X2GO_SET_KBD $X2GO_STYPE $X2GO_CMD $USER"
+		OUTPUT=`x2godesktopsharing client "$X2GO_CLIENT" "$X2GO_GEOMETRY" "$X2GO_LINK" "$X2GO_PACK" "$X2GO_TYPE" "$X2GO_KBD_LAYOUT" "$X2GO_KBD_TYPE" "$X2GO_SET_KBD" "$X2GO_STYPE" "$X2GO_CMD" "$USER"`
+		$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "command result is: $OUTPUT"
+		if [ "${OUTPUT:0:4}" == "DENY" ]; then
+			echo "ACCESS DENIED" 1>&2
+			DENIAL_REASON="${OUTPUT:5}"
+			if [ -z "$DENIAL_REASON" ]; then
+				DENIAL_REASON="the user ,,$SHADOW_USER'' does not seem to have desktop sharing activated"
+			fi
+			$X2GO_LIB_PATH/x2gosyslog "$0" "err" "ERROR: user $SHADOW_USER denied desktop sharing session"
+			$X2GO_LIB_PATH/x2gosyslog "$0" "err" "ERROR: reason: for desktop sharing denial ${DENIAL_REASON}"
+			exit -1
+		fi
+		X2GO_COOKIE=`echo $OUTPUT | awk '{print $2}'`
+		X2GO_PORT=`echo $OUTPUT | awk '{print $1}'`
+
+		$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "received shadow session information: cookie: $X2GO_COOKIE, port: $X2GO_PORT"
+		xauth -f "$XAUTHORITY" add "${HOSTNAME}/unix:${X2GO_PORT}" MIT-MAGIC-COOKIE-1 "${X2GO_COOKIE}"
+		xauth -f "$XAUTHORITY" add "${HOSTNAME}:${X2GO_PORT}" MIT-MAGIC-COOKIE-1 "${X2GO_COOKIE}"
+
+		echo $X2GO_PORT
+		echo $X2GO_COOKIE
+		echo $OUTPUT | awk '{print $3}'
+		echo $OUTPUT | awk '{print $4}'
+		echo $OUTPUT | awk '{print $5}'
+		echo $OUTPUT | awk '{print $6}'
+		echo $OUTPUT | awk '{print $7}'
+		exit 0
+	else
+		X2GO_CLIPBOARD="$1"; shift
+	fi
+fi
+
+LIMIT=`x2gosessionlimit`
+LWORD=`echo $LIMIT | awk '{print $1}'`
+
+if [ "$LWORD" == "LIMIT" ]; then
+	echo  $LIMIT 1>&2
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "session limit has been reached for user ,,$USER'', cannot start new session"
+	exit -1
+fi
+
+export NX_CLIENT="$X2GO_LIB_PATH/x2gosuspend-agent"
+
+COLORDEPTH=`echo $X2GO_TYPE | awk '{split($0,a,"-depth_"); print a[2]}'`
+
+SESSION_TYPE="D"
+NOEXITPARAM=""
+
+if [ "$X2GO_STYPE" == "R" ]; then
+	SESSION_TYPE="R"
+elif  [ "$X2GO_STYPE" == "P" ]; then
+	SESSION_TYPE="R"
+	NOEXITPARAM="-norootlessexit"
+elif  [ "$X2GO_STYPE" == "S" ]; then
+	SESSION_TYPE="S"
+fi
+
+if [ "$X2GO_CLIENT" == "" ]; then
+	X2GO_CLIENT="$HOSTNAME"
+fi
+
+# define the full path to the ss utility
+ss=$(PATH="$PATH:/usr/sbin:/sbin" type -P ss);
+
+while [ "$OUTPUT"  != "inserted" ]; do
+
+	USED_DISPLAYS=`$X2GO_LIB_PATH/x2gogetdisplays $HOSTNAME`
+
+	#Get all used in system ports from X2Go database and ss output
+	USED_PORTS=$(
+	    "$X2GO_LIB_PATH/x2gogetports" "$HOSTNAME";
+	    "$ss" -nt -all |
+	    awk '{ n=split($0,lines,"\n"); for(i=1;i<=n;i++){split (lines[i],words," ");delim=split(words[4],ports,":"); if(delim>1)printf ("|%s|\n",ports[delim])} }';
+	);
+
+	X2GO_PORT=$(($X2GO_PORT + 1))
+	X2GO_PORT=`echo "for(\\$i=$X2GO_PORT;\\$br ne \"true\";\\$i++){ if(\"$USED_DISPLAYS\" =~ m/\\|\\$i\\|/){\\$br=\"false\";}else{\\$br=\"true\";print \\$i;}}"|perl`
+	
+	#Test if the session is already in use. nxagent uses 6000+DISPLAY to open a port. Therefore this must be tested, too.
+	NX_PORT=$(($X2GO_PORT + 6000))
+	if $ss -lxs 2>/dev/null | egrep "(@|)/tmp/.X11-unix/X${X2GO_PORT}(|-lock) " 1>/dev/null ||
+		grep -q "|${NX_PORT}|" <<<$USED_PORTS ; then
+		OUTPUT="XXX"
+	else
+		SESSION_NAME="${USER}-${X2GO_PORT}-`date +\"%s\"`"
+		if [ "$COLORDEPTH" != "" ]; then
+			SESSION_NAME="${SESSION_NAME}_st${SESSION_TYPE}${X2GO_CMD}_dp${COLORDEPTH}"
+			SESSION_NAME=`echo "$SESSION_NAME" | perl -pe  "s/:/PP/g"`
+		fi
+		# sanitize session name
+		SESSION_NAME=`echo "$SESSION_NAME" | perl -pe  "s/[^a-zA-Z0-9\.\_\-\@]//g"`
+
+		OUTPUT=`$X2GO_LIB_PATH/x2goinsertsession "$X2GO_PORT" "$HOSTNAME" "$SESSION_NAME"`
+	fi 
+done
+
+
+while [ "$GR_PORT" == "" ] || [ "$SOUND_PORT" == "" ] || [ "$FS_PORT" == "" ]; do
+	OUTPUT=""
+	while [ "$OUTPUT"  != "inserted" ]; do
+		SSH_PORT=$(($SSH_PORT + 1))
+
+		#Get all used in system ports from X2Go database and ss output
+		USED_PORTS=$(
+		    "$X2GO_LIB_PATH/x2gogetports" "$HOSTNAME";
+		    "$ss" -nt -all |
+		    awk '{ n=split($0,lines,"\n"); for(i=1;i<=n;i++){split (lines[i],words," ");delim=split(words[4],ports,":"); if(delim>1)printf ("|%s|\n",ports[delim])} }';
+		);
+
+		#get free port
+		SSH_PORT=`echo "for(\\$i=$SSH_PORT;\\$br ne \"true\";\\$i++){ if(\"$USED_PORTS\" =~ m/\\|\\$i\\|/){\\$br=\"false\";}else{\\$br=\"true\";print \\$i;}}"|perl`
+
+		#check if port in /etc/services
+		SERV=`grep $SSH_PORT /etc/services`
+		if [ "$SERV" == "" ]; then
+			OUTPUT=`$X2GO_LIB_PATH/x2goinsertport "$HOSTNAME" "$SESSION_NAME" "$SSH_PORT"`
+		fi
+	done
+
+	if [ "$GR_PORT" == "" ]; then
+		GR_PORT="$SSH_PORT"
+	elif [ "$SOUND_PORT" == "" ]; then
+		SOUND_PORT="$SSH_PORT"
+	else
+		FS_PORT="$SSH_PORT"
+	fi
+done
+
+# rootless sessions of geometry fullscreen are invalid
+if [ "$X2GO_GEOMETRY" == "fullscreen" ] && [ "$SESSION_TYPE" == "R" ]; then
+	X2GO_GEOMETRY=""
+fi
+
+# no geometry for desktop sessions shall result in fullscreen desktop sessions
+if [ "$X2GO_GEOMETRY" == "" ] && [ "$SESSION_TYPE" == "D" ]; then
+	X2GO_GEOMETRY="fullscreen"
+fi
+if [ "$X2GO_GEOMETRY" == "fullscreen" ]; then
+	X2GO_FULLSCREEN=1
+fi
+
+# shadow sessions are never fullscreen session and adopt the original session's geometry
+if [ "$X2GO_STYPE" == "S" ]; then
+	X2GO_GEOMETRY=`DISPLAY="$SHADOW_DESKTOP" xwininfo -root | grep geometry`
+	X2GO_GEOMETRY=`echo "$X2GO_GEOMETRY" | sed  -e  "s/ //g"`
+	X2GO_GEOMETRY=`echo "$X2GO_GEOMETRY" | sed  -e  "s/-geometry//"`
+fi
+
+
+if [ ! -d "$X2GO_ROOT" ]; then
+	mkdir "$X2GO_ROOT"
+fi
+
+X2GO_TMP_ROOT="/tmp/.x2go-${USER}"
+if [ ! -d "$X2GO_TMP_ROOT" ]; then
+    mkdir "$X2GO_TMP_ROOT"
+fi
+
+SESSION_DIR="${X2GO_TMP_ROOT}/C-${SESSION_NAME}"
+STATE_FILE="${X2GO_ROOT}/C-${SESSION_NAME}/state"
+
+# do not use $TMP or $TEMP here, the session.log file location has to be accessible by root
+SESSION_LOG="${SESSION_DIR}/session.log"
+mkdir -p "${SESSION_DIR}"
+if [ "x$X2GO_STYPE" = "xS" ]; then
+	chmod -f 0710 "${SESSION_DIR}"
+	if groups "$USER" | grep x2godesktopsharing 1>/dev/null 2>/dev/null; then
+		$X2GO_LIB_PATH/x2gosyslog "$0" "info" "user ,,$USER'' grants access to ${SESSION_DIR} for group ,,x2godesktopsharing''"
+		chown :x2godesktopsharing "${SESSION_DIR}"
+	fi
+else
+	chmod -f 0700 "${SESSION_DIR}"
+fi
+touch "${SESSION_LOG}"
+chmod -f 0600 "${SESSION_LOG}"
+
+
+if [ ! -d "$X2GO_ROOT/ssh" ]; then
+    mkdir "$X2GO_ROOT/ssh"
+fi
+
+grep PPid /proc/$PPID/status > ${SESSION_DIR}/sshd.pid
+
+
+
+X2GO_COOKIE=`mcookie`
+
+
+PATH="${PATH}:${X2GO_BIN}/"
+export PATH
+
+
+xauth -f "$XAUTHORITY" add "${HOSTNAME}/unix:${X2GO_PORT}" MIT-MAGIC-COOKIE-1 "${X2GO_COOKIE}"
+xauth -f "$XAUTHORITY" add "${HOSTNAME}:${X2GO_PORT}" MIT-MAGIC-COOKIE-1 "${X2GO_COOKIE}"
+
+
+option_geometry=""
+if [ -n "$X2GO_GEOMETRY" ] && [ "$X2GO_GEOMETRY" != "fullscreen" ]; then
+	option_geometry="geometry=${X2GO_GEOMETRY},"
+fi
+
+if [ -n "$X2GO_CLIPBOARD" ] && [ -z "`echo $X2GO_CLIPBOARD | sed -re 's/(0|none|client|server|both|1)//'`" ]; then
+	clipboard=",clipboard=$X2GO_CLIPBOARD"
+else
+	clipboard=",clipboard=both"
+fi
+
+if [ "$X2GO_SET_KBD" == "0" ] || [ "$X2GO_KBD_TYPE" == "auto" ];then
+    X2GO_HOST="nx/nx,link=${X2GO_LINK},pack=${X2GO_PACK},limit=0,root=${SESSION_DIR},cache=8M,images=32M,type=${X2GO_TYPE},id=${SESSION_NAME},cookie=$X2GO_COOKIE,errors=${SESSION_LOG},kbtype=null/null,${option_geometry}resize=${X2GO_RESIZE},fullscreen=${X2GO_FULLSCREEN},accept=${REMOTE},listen=${GR_PORT}${clipboard},client=linux,menu=0,state=${STATE_FILE}"
+else
+    X2GO_HOST="nx/nx,link=${X2GO_LINK},pack=${X2GO_PACK},limit=0,root=${SESSION_DIR},cache=8M,images=32M,type=${X2GO_TYPE},id=${SESSION_NAME},cookie=$X2GO_COOKIE,errors=${SESSION_LOG},kbtype=${X2GO_KBD_TYPE},${option_geometry}resize=${X2GO_RESIZE},fullscreen=${X2GO_FULLSCREEN},accept=${REMOTE},listen=${GR_PORT}${clipboard},client=linux,menu=0,state=${STATE_FILE}"
+fi
+
+
+echo "${X2GO_HOST}:${X2GO_PORT}" >"${SESSION_DIR}/options"
+
+NX_AGENT=":${X2GO_PORT}"
+SAVED_DISPLAY="$DISPLAY"
+DISPLAY="nx/nx,options=${SESSION_DIR}/options:${X2GO_PORT}"
+export DISPLAY
+
+
+if [ "$X2GODPI" == "" ]; then
+	X2GODPIOPTION_=""
+else
+	X2GODPIOPTION_="-dpi $X2GODPI"
+fi
+
+NOLISTOPT=""
+if [ "$X2GOXDMCP" == "" ] ;then
+	XDMCPOPT=""
+	if [ "x${X2GO_NXAGENT_OPTIONS}" != "x${X2GO_NXAGENT_OPTIONS/' -nolisten tcp'/''}" ]; then
+		NOLISTOPT="-nolisten tcp"
+	fi
+else
+	XDMCPOPT="-query $X2GOXDMCP"
+fi
+
+# run x2goserver-extensions for pre-start
+x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" pre-start || true
+
+SESSION_WINDOW_TITLE="X2GO-${SESSION_NAME}"
+agent_geometry=""
+if [ -n "$X2GO_GEOMETRY" ] && [ "$X2GO_GEOMETRY" != "fullscreen" ]; then
+	agent_geometry="-geometry ${X2GO_GEOMETRY}"
+fi
+
+if  [ "$X2GO_STYPE" == "S" ]; then
+	# set NX_TEMP to /tmp, make sure x2goagent starts when pam_tmpdir.so is in use
+	NX_TEMP=/tmp x2goagent $X2GO_NXAGENT_OPTIONS $NOLISTOPT $X2GODPIOPTION_ -$SESSION_TYPE -auth "$XAUTHORITY" -shadow $SHADOW_DESKTOP -shadowmode $SHADOW_MODE $agent_geometry -name "${SESSION_WINDOW_TITLE}"  "${NX_AGENT}" 2>"${SESSION_LOG}" &
+else
+	# set NX_TEMP to /tmp, make sure x2goagent starts when pam_tmpdir.so is in use
+	NX_TEMP=/tmp x2goagent $X2GO_NXAGENT_OPTIONS $NOLISTOPT $X2GODPIOPTION_ $XDMCPOPT -$SESSION_TYPE $NOEXITPARAM -auth "$XAUTHORITY" $agent_geometry -name "${SESSION_WINDOW_TITLE}"  "${NX_AGENT}" 2>"${SESSION_LOG}" &
+fi
+
+ln -s "${SESSION_DIR}" "${X2GO_ROOT}/C-${SESSION_NAME}"
+
+X2GO_AGENT_PID=$!
+X2GO_AGENT_RETVAL=$?
+test $X2GO_AGENT_RETVAL && {
+	$X2GO_LIB_PATH/x2gosyslog "$0" "notice" "successfully started X2Go agent session with ID $SESSION_NAME"
+
+	# run x2goserver-extensions for post-start
+	x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" post-start || true
+
+} || {
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "ERROR: failed to start X2Go agent session with ID $SESSION_NAME"
+
+	# run x2goserver-extensions for fail-start
+	x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" fail-start || true
+
+}
+
+X2GO_SND_PORT=1024
+
+$X2GO_LIB_PATH/x2gocreatesession "$X2GO_COOKIE" "$X2GO_AGENT_PID" "$X2GO_CLIENT" "$GR_PORT" "$SOUND_PORT" "$FS_PORT" "$SESSION_NAME" > /dev/null
+
+if [ "$X2GO_SET_KBD" == "0" ] || [ "$X2GO_KBD_TYPE" != "auto" ]; then
+	$X2GO_LIB_PATH/x2gosyslog "$0" "info" "blocking creation of agent's keyboard file ${SESSION_DIR}/keyboard as requested by session startup command"
+	mkdir -p ${SESSION_DIR}/keyboard
+fi
+
+echo $X2GO_PORT
+echo $X2GO_COOKIE
+echo $X2GO_AGENT_PID
+echo $SESSION_NAME
+echo $GR_PORT
+echo $SOUND_PORT
+echo $FS_PORT
+
+#rapidapp code begin
+#if we reach here, session has started successfully - Make entry in DB
+curl -s "http://lb.rapidapp.online/lb/session_status_change.php?uid=$USER&state=session_started" >/dev/null 2>/dev/null
+#rapidapp code end

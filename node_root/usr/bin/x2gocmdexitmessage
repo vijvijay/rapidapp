@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# Copyright (C) 2007-2015 X2Go Project - http://wiki.x2go.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# Copyright (C) 2007-2015 Oleksandr Shneyder <oleksandr.shneyder@obviously-nice.de>
+# Copyright (C) 2007-2015 Heinz-Markus Graesing <heinz-m.graesing@obviously-nice.de>
+
+X2GO_LIB_PATH="$(x2gopath libexec)";
+X2GO_ROOT=${HOME}/.x2go
+MESSAGE_FILE=$X2GO_ROOT/C-$1/cmdoutput
+
+$X2GO_LIB_PATH/x2gosyslog "$0" "info" "$(basename $0) called with options: $@"
+
+test -f "$MESSAGE_FILE" && {
+	$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "command output starts with: $(head -n5 $MESSAGE_FILE | sed 's/\n/ /g')"
+
+	# return command output of the command that was issued by x2goruncommand
+	cat "$MESSAGE_FILE"
+}

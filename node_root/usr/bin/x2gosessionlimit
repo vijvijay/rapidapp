@@ -1,0 +1,120 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2007-2015 X2Go Project - http://wiki.x2go.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# Copyright (C) 2007-2015 Oleksandr Shneyder <oleksandr.shneyder@obviously-nice.de>
+# Copyright (C) 2007-2015 Heinz-Markus Graesing <heinz-m.graesing@obviously-nice.de>
+
+use strict;
+use Config::Simple;
+use Sys::Syslog qw( :standard :macros );
+
+use lib `x2gopath lib`;
+use x2gologlevel;
+
+openlog($0,'cons,pid','user');
+setlogmask( LOG_UPTO(x2gologlevel()) );
+
+
+syslog('info', "x2gosessionlimit has been called");
+
+my $maxlimit=-1;
+my $Config = new Config::Simple(syntax=>'ini');
+$Config->read('/etc/x2go/x2goserver.conf' );
+
+sub getGroupLimit
+{
+	my $group=shift;
+	my $strlimit=$Config->param("limit groups.$group");
+	if ($strlimit ne "")
+	{
+		if ($strlimit == 0)
+		{
+			print "0\n";
+			exit 0;
+		}
+		if ($strlimit > $maxlimit)
+		{
+			$maxlimit=$strlimit;
+		}
+	}
+}
+
+my $uname;
+$uname=getpwuid($<);
+
+my $runningsessions=`x2golistsessions --all-servers`;
+my @sessions=split("\n",$runningsessions);
+my $scount=@sessions;
+
+my $strlimit=$Config->param("limit users.$uname");
+
+if($strlimit ne "")
+{
+	if ($strlimit == 0)
+	{
+		print "0\n";
+		closelog;
+		exit 0;
+	}
+	if ($scount < $strlimit)
+	{
+		print "$strlimit\n";
+		closelog;
+		exit 0;
+	}
+	print "LIMIT\n";
+	exit 0;
+}
+
+
+my ($name, $pass, $uid, $pgid, $quota, $comment, $gcos, $dir, $shell, $expire) = getpwnam($uname);
+
+while (my ($name, $passwd, $gid, $members)  = getgrent()) 
+{
+	if ( $pgid eq $gid)
+	{
+		getGroupLimit $name;
+	}
+	my @memebers=split(" ",$members);
+	foreach my $member (@memebers) 
+	{
+		if ($uname eq $member  )
+		{
+			getGroupLimit $name;
+		}
+	}
+}
+
+
+if ($scount < $maxlimit)
+{
+	print "$maxlimit\n";
+	closelog;
+	exit 0;
+}
+
+if ($maxlimit != -1) {
+	print "LIMIT\n";
+	closelog;
+	exit 0;
+}
+
+# closing syslog 
+closelog;
+

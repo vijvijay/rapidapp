@@ -1,0 +1,6 @@
+#!/bin/bash
+
+username=$1
+
+sudo x2golistsessions_root | grep "|$username-" | awk 'BEGIN{FS="|"}{print "sudo x2goterminate-session "$2}' | bash
+

@@ -1,0 +1,17 @@
+#!/bin/bash
+
+cpuidle=`cat /tmp/cpuidle`
+instanceid=`curl -s http://instance-data/latest/meta-data/instance-id | sed 's/i-//'`
+ami_id=`curl -s http://instance-data/latest/meta-data/ami-id | sed 's/ami-//'`
+az=`curl -s http://instance-data/latest/meta-data/placement/availability-zone | sed 's/ap-southeast-1//' | tr '[a-z]' '[A-Z]'`
+publicip=`curl -s http://instance-data/latest/meta-data/public-ipv4`
+upt=`uptime | sed 's/.*up //' | sed 's/,  *[0-9]* users.*//' | sed 's/user.*//'`
+diskusage=`du -sh ~ | awk '{print $1}'`
+
+echo -e "Headroom \t= $cpuidle"
+echo -e "Node ID\t\t= $instanceid"
+echo -e "Img    \t\t= $ami_id"
+echo -e "Zone   \t\t= $az"
+echo -e "Node up\t\t= $upt"
+echo -e "Node IP\t\t= $publicip"
+echo -e "Disk Usage\t= ${diskusage}B"

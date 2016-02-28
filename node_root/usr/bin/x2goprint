@@ -1,0 +1,143 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2007-2015 X2Go Project - http://wiki.x2go.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# Copyright (C) 2007-2015 Oleksandr Shneyder <oleksandr.shneyder@obviously-nice.de>
+# Copyright (C) 2007-2015 Heinz-Markus Graesing <heinz-m.graesing@obviously-nice.de>
+
+use strict;
+use File::Basename;
+use File::Copy;
+use File::Path;
+use Sys::Syslog qw( :standard :macros );
+
+use lib `x2gopath lib`;
+use x2godbwrapper;
+use x2gologlevel;
+use x2goutils;
+
+openlog($0,'cons,pid','user');
+setlogmask( LOG_UPTO(x2gologlevel()) );
+
+
+syslog('info', "x2goprint has been called with options: @ARGV");
+
+sub check_root
+{
+	my ($uname, $pass, $uid, $pgid, $quota, $comment, $gcos, $homedir, $shell, $expire) = getpwuid($<);
+	my $realuser=$uname;
+	if ($realuser ne "root")
+	{
+		syslog('err', "ERROR: x2goprint was called by user $realuser directly, x2goprint exits now!");
+		die "$realuser, you cannot use x2goprint as non-root user...";
+	}
+}
+
+sub check_usage
+{
+	if (scalar(@ARGV) == 1)
+	{
+		syslog('info', "x2goprint was called with only one cmd line arg, running in x2golistsessions wrapper mode");
+		system ("su", "@ARGV[0]", "-s", "/bin/sh", "-c", "x2golistsessions --all-servers");
+		exit 0;
+	}
+	elsif (scalar(@ARGV) != 4)
+	{
+		syslog('err', "ERROR: x2goprint was called with a wrong number of cmd line args, x2goprint exits now!");
+		print { \*STDERR } "ERROR: Usage:\nx2goprint user session file titleFile\nx2goprint user\n";
+		exit 1;
+	}
+}
+
+# sanity check, this script has to be run with root privileges
+check_root();
+
+# check number of cmd line args
+check_usage();
+
+# get options from the command line
+my ($user, $session, $pdfFile, $titleFile)=@ARGV;
+
+# location for incoming jobs is ~x2goprint
+my ($tm,$tm,$uid,$gid,$tm,$tm,$tm,$homedir)=getpwnam("x2goprint");
+my $printdir=$homedir;
+
+# extract necessary information from title file and drop it afterwards
+my $title='UNTITLED';
+if( -e "$printdir/$titleFile")
+{
+	open (TITLE,"<$printdir/$titleFile");
+	$title=<TITLE>;
+	close (TITLE);
+	unlink("$printdir/$titleFile");
+}
+syslog('notice', "x2goprint is processing $printdir/$pdfFile with print job title ,,$title\''");
+
+# temp location for placing incoming spool files, so that
+# they can can be picked by the session user and further processed
+# with user privileges
+($tm,$tm,$uid,$gid,$tm,$tm,$tm,$homedir)=getpwnam($user);
+
+my $spoolbase="/tmp/.x2go-$user/spool";
+my $spooldir="$spoolbase/C-$session";
+my $spooltmp="$spoolbase/tmp";
+mkpath($spooltmp);
+chown $uid, $gid, "$spooltmp";
+chmod 0700, "$spooltmp";
+
+# this last part mainly uses the session user's privileges
+my $mounts=x2goutils::system_capture_merged_output("su", "$user", "-c", "x2golistmounts $session");
+if ( $mounts=~m/$spooldir/)
+{
+
+	# if the client side spool dir (the directory where x2goclient
+	# waits for incoming print job files) is mounted in the session
+	# we will copy the print files from the temp location above to
+	# the SSHFS share mounted from the client system.
+
+	syslog('info', "client-side spool dir is mounted, transferring printable file $pdfFile to X2Go client system");
+
+	if (not move("$printdir/$pdfFile", "$spooltmp")) {
+		syslog('err', "ERROR: x2goprint failed to process print spool job for file $pdfFile");
+		die "$0: Can't move $printdir/$pdfFile to $spooltmp/";
+	}
+	chown $uid, $gid, "$spooltmp/$pdfFile";
+
+	system("su", "$user", "-c", "mv $spooltmp/$pdfFile $spooldir");
+	syslog('debug', "x2goprint moved file $pdfFile to X2Go client's spool dir");
+
+	open (RFILE,">$spooltmp/$pdfFile.ready");
+	print RFILE "$pdfFile\n$title";
+	close (RFILE);
+
+	chown $uid, $gid, "$spooltmp/$pdfFile.ready";
+	system ("su", "$user", "-c", "mv $spooltmp/$pdfFile.ready $spooldir");
+	syslog('debug', "x2goprint moved file $pdfFile.ready to X2Go client's spool dir, X2Go client should start the print dialog very soon");
+
+} else {
+
+	# if the client-side spool dir is not mounted via SSHFS, we will simply drop the
+	# printable PDF file
+
+	syslog('info', "client-side spool dir is _not_ mounted, dropping spool job $pdfFile");
+
+	unlink("$printdir/$pdfFile");
+}
+
+# closing syslog 
+closelog;

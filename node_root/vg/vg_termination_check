@@ -1,0 +1,36 @@
+#!/bin/bash
+
+for i in `seq 1 12`
+do
+	#One iteration
+	echo "Iteration $i"
+
+	#if /tmp/terminationnotice present, already vg_termination_process is running. Quit
+	if [[ -f /tmp/terminationnotice ]]
+	then
+		exit
+	fi
+
+	#check if aws has issued us termination notice. 
+	#If yes, inform load balancer and initiate session close and termination formalities
+	if [ -z $(curl -Is http://169.254.169.254/latest/meta-data/spot/termination-time | head -1 | grep 404 | awk '{print $2}') ]
+        then
+		curl -s http://ldap.ap.appocloud.com/lb/awsterminationnoticed.php
+		/usr/bin/vg_termination_process &
+		exit
+	fi
+
+	if [[ $(($i % 6)) -eq 0 ]]
+	then
+		#check if our loadbalancer has issued us termination notice for scaling down. 
+		#If yes, initiate session close and termination formalities
+		vgterminate=`curl -s http://ldap.calif.appocloud.com/lb/terminationnotice.php`
+		if [[ $vgterminate -eq 1 ]]
+		then
+			/usr/bin/vg_termination_process &
+			exit
+		fi
+	fi
+	#sleep for 5 seconds. We need to run every five secs
+	sleep 5
+done

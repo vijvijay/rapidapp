@@ -1,0 +1,154 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2007-2015 X2Go Project - http://wiki.x2go.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# Copyright (C) 2007-2015 Oleksandr Shneyder <oleksandr.shneyder@obviously-nice.de>
+# Copyright (C) 2007-2015 Heinz-Markus Graesing <heinz-m.graesing@obviously-nice.de>
+
+use strict;
+use Sys::Hostname;
+use Sys::Syslog qw( :standard :macros );
+
+use lib `x2gopath lib`;
+use x2godbwrapper; 
+use x2gologlevel;
+
+
+my $x2go_lib_path = `x2gopath libexec`;
+
+openlog($0,'cons,pid','user');
+setlogmask( LOG_UPTO(x2gologlevel()) );
+
+if ( @ARGV ) {
+	syslog('info', "x2golistsessions has been called with options: @ARGV");
+} else {
+	# hiding normal x2golistsessions calls into debug loglevel
+	syslog('debug', "x2golistsessions has been called with no option");
+}
+
+if ((hostname eq '(none)') || (hostname eq 'localhost')) {
+	die "Hostname of X2Go Server is not set-up correctly, check /etc/hostname. Exiting..."
+}
+
+sub is_suspended
+{
+	my $state=get_agent_state(@_);
+	if(($state eq 'SUSPENDING')||($state eq 'SUSPENDED'))
+	{
+		return 1;
+	}
+	return 0;
+}
+
+
+sub is_running
+{
+	my $state=get_agent_state(@_);
+	if(($state eq 'STARTING')||($state eq 'RESUMING')||($state eq 'RUNNING'))
+	{
+		return 1;
+	}
+	return 0;
+}
+
+
+sub has_agent_state_file
+{
+	my $sess=@_[0];
+	my $user=@_[1];
+	my $stateFile = "/tmp/.x2go-".$user."/C-".$sess."/state";
+	if ( -e $stateFile )
+	{
+		return 1;
+	}
+	return 0;
+}
+
+sub get_agent_state
+{
+	my $sess=@_[0];
+	my $user=@_[1];
+	my $state;
+	my $stateFile = "/tmp/.x2go-".$user."/C-".$sess."/state";
+	if (! -e $stateFile )
+	{
+		syslog('warning', "$sess: state file for this session does not exists: $stateFile (this can be ignored during session startups)");
+		$state="UNKNOWN";
+	}
+	else
+	{
+		open(F,"<$stateFile");
+		$state=<F>;
+		close(F);
+	}
+	return $state;
+}
+
+
+
+my $serv=shift;
+if( ! $serv)
+{
+	$serv=hostname;
+}
+
+my @outp;
+if($serv eq "--all-servers")
+{
+	@outp=db_listsessions_all();
+}
+else
+{
+	@outp=db_listsessions($serv);
+}
+
+for (my $i=0;$i<@outp;$i++)
+{
+	@outp[$i] =~ s/ //g;
+	@outp[$i] =~ s/\*/ /g;
+	my @sinfo=split('\\|',"@outp[$i]");
+	if (@sinfo[4]eq 'F') {
+		print "@outp[$i]\n";
+	} else {
+		if (has_agent_state_file(@sinfo[1], @sinfo[11]))
+		{
+			if (@sinfo[4]eq 'R')
+			{
+				if(is_suspended(@sinfo[1], @sinfo[11]))
+				{
+					db_changestatus( 'S', @sinfo[1]);
+					@outp[$i] =~ s/\|R\|/\|S\|/;
+					system("x2goumount-session", "@sinfo[1]");
+					system("$x2go_lib_path/x2gormforward", "@sinfo[1]");
+				}
+			}
+			elsif (@sinfo[4]eq 'S')
+			{
+				if(is_running(@sinfo[1], @sinfo[11]))
+				{
+					db_changestatus( 'R', @sinfo[1] );
+					@outp[$i] =~ s/\|S\|/\|R\|/;
+				}
+			}
+		}
+		print "@outp[$i]\n";
+	}
+}
+
+# closing syslog 
+closelog;

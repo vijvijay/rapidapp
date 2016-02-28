@@ -1,0 +1,53 @@
+#!/bin/bash
+
+debug=false
+
+cpuuptrigger=35
+cpulimit=50
+cpuminbegin=1
+sleepinterval=15 #seconds
+
+prevoffenders=""
+curroffenders=""
+
+date
+for iter in `seq 1 4`
+do
+	#find current offenders
+	curroffenders=""
+	for i in `top -b -n 1 | tail -n +8 | grep -v " root " | head -5 | awk '{print $1"|"$9"|"$11}'`
+	do
+		processid=`echo $i | awk 'BEGIN{FS="|"}{print $1}'`
+		cpupct=`echo $i | awk 'BEGIN{FS="|"}{print $2}' | sed 's/\..*//'`
+		cpumins=`echo $i | awk 'BEGIN{FS="|"}{print $3}' | sed 's/:.*//'`
+		if [[ $cpupct -ge $cpuuptrigger  && $cpumins -ge $cpuminbegin ]]
+		then
+			if [[ "$debug" = true ]]
+			then
+				echo "PID($processid) CPUMins($cpumins) => CPU%($cpupct (>$cpuuptrigger)). Adding to curroffenders"
+			fi
+			curroffenders="$curroffenders $processid"
+		fi
+	done
+
+	if [[ "$debug" = true ]]
+	then
+		echo "Iteration $iter: curroffenders=$curroffenders, prevoffenders=$prevoffenders"
+	fi
+
+	#compare current offenders with prevoffenders
+	for offender in $curroffenders
+	do
+		if [[ $prevoffenders =~ $offender ]]
+		then
+			echo "[iter $iter] Consecutive offender: PID($offender). Limiting cpu to $cpulimit%"
+			top -b -n1 | grep "^ *$offender "
+			ps -f -p $offender | tail -1
+			#cpulimit the process
+			sudo cpulimit -p $offender -b -l $cpulimit
+		fi
+	done
+
+	prevoffenders=$curroffenders
+	sleep $sleepinterval
+done

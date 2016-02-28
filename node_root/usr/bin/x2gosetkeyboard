@@ -1,0 +1,93 @@
+#!/bin/bash
+
+# Copyright (C) 2007-2015 X2Go Project - http://wiki.x2go.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# Copyright (C) 2011-2015 Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+# Copyright (C) 2011-2015 Oleksandr Shneyder <oleksandr.shneyder@obviously-nice.de>
+# Copyright (C) 2011-2015 Heinz-Markus Graesing <heinz-m.graesing@obviously-nice.de>
+
+X2GO_LIB_PATH="$(x2gopath libexec)";
+
+$X2GO_LIB_PATH/x2gosyslog "$0" "info" "$(basename $0) called with options: $@"
+
+SESSION_NAME=${1:-$X2GO_SESSION}
+
+# set up paths
+X2GO_SESSION_ROOT=${HOME}/.x2go
+X2GO_SESSION_DIR=${X2GO_SESSION_ROOT}/C-${SESSION_NAME}
+
+# client keyboard configuration
+X2GO_CLIENT_KBD_FILE=${X2GO_SESSION_DIR}/keyboard
+
+# if there is a directory at the location of the keyboard file, we consider this as blocking this script
+if [ -d ${X2GO_CLIENT_KBD_FILE} ]; then
+	$X2GO_LIB_PATH/x2gosyslog "$0" "info" "${X2GO_CLIENT_KBD_FILE} is blocked, not setting keyboard parameters from client-side settings"
+	rm -Rf ${X2GO_CLIENT_KBD_FILE}
+	exit 0
+fi
+
+# wait for the keyboard file to appear
+i=0
+while ! [ -f ${X2GO_CLIENT_KBD_FILE} ] && [ $i -lt 30 ]; do
+	$X2GO_LIB_PATH/x2gosyslog "$0" "info" "Waiting for ${X2GO_CLIENT_KBD_FILE} to appear"
+	sleep 1
+	i=$((i+1))
+done
+if  ! [ -f ${X2GO_CLIENT_KBD_FILE} ]; then
+	$X2GO_LIB_PATH/x2gosyslog "$0" "warning" "${X2GO_CLIENT_KBD_FILE} did not appear within 30s after agent startup"
+	exit 0
+fi
+
+read_keyboard_file() {
+
+	# retrieve keyboard settings from keyboard file in X2Go session dir
+	XKB_RULES="$(cat ${X2GO_CLIENT_KBD_FILE}  | egrep "^rules.*" | head -n1 | cut -d "=" -f2 | cut -d" " -f1)"
+	XKB_MODEL="$(cat ${X2GO_CLIENT_KBD_FILE}  | egrep "^model.*" | head -n1 | cut -d "=" -f2 | cut -d" " -f1)"
+	XKB_LAYOUT="$(cat ${X2GO_CLIENT_KBD_FILE} | egrep "^layout.*" | head -n1 | cut -d "=" -f2 | cut -d" " -f1)"
+	XKB_VARIANT="$(cat ${X2GO_CLIENT_KBD_FILE} | egrep "^variant.*" | head -n1 | cut -d "=" -f2 | cut -d" " -f1)"
+	XKB_OPTIONS="$(cat ${X2GO_CLIENT_KBD_FILE} | egrep "^options.*" | head -n1 | cut -d "=" -f2 | cut -d" " -f1)"
+
+}
+
+reset_keymap() {
+	setxkbmap -layout us -option "" -model pc104
+}
+
+update_keymap() {
+
+	if [ "$XKB_RULES" = "evdev" ]; then
+		XKB_RULES="base"
+	fi
+	# prepare for setxkbmap call
+	[ -n "$XKB_RULES" ] && XKB_RULES="-rules $XKB_RULES"
+	[ -n "$XKB_MODEL" ] && XKB_MODEL="-model $XKB_MODEL"
+	[ -n "$XKB_LAYOUT" ] && XKB_LAYOUT="-layout $XKB_LAYOUT"
+	[ -n "$XKB_VARIANT" ] && XKB_VARIANT="-variant $XKB_VARIANT"
+	[ -n "$XKB_OPTIONS" ] && XKB_OPTIONS="-option $XKB_OPTIONS"
+
+	# update keyboard map
+	setxkbmap $XKB_RULES $XKB_MODEL $XKB_LAYOUT $XKB_VARIANT $XKB_OPTIONS
+}
+
+### main ###
+$X2GO_LIB_PATH/x2gosyslog "$0" "notice" "Setting X keyboard according to ${X2GO_CLIENT_KBD_FILE}"
+read_keyboard_file
+reset_keymap
+update_keymap
+
+xmodmap -e "keycode 49 = U20B9 U223c" > /dev/null 2> /dev/null

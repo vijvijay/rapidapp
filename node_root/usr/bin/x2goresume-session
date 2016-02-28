@@ -1,0 +1,275 @@
+#!/bin/bash
+
+X2GO_LIB_PATH="$(x2gopath libexec)";
+
+if [ $# -lt 7 ]
+then
+	msg="not enough command line arguments"
+	echo "$msg"
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$msg"
+	exit -1
+fi
+SESSION_NAME="$1"
+X2GO_GEOMETRY="$2"
+X2GO_LINK="$3"
+X2GO_PACK="$4"
+X2GO_KBD_LAYOUT="$5"
+X2GO_KBD_TYPE="$6"
+X2GO_SET_KBD="$7"
+X2GO_CLIPBOARD="$8"
+
+X2GO_AGENT_PID=`$X2GO_LIB_PATH/x2gogetagent "$SESSION_NAME"`
+
+X2GO_ROOT="${HOME}/.x2go"
+X2GO_RESIZE=1
+X2GO_FULLSCREEN=0
+
+# refresh up ssh-agent-forwarding socket file symlink
+X2GOSSH_AUTH_SOCK="$X2GO_ROOT/C-$SESSION_NAME/ssh-agent.PID"
+if [ -L "$X2GOSSH_AUTH_SOCK" ]; then
+	rm -f "$X2GOSSH_AUTH_SOCK"
+fi
+if [ -S "$SSH_AUTH_SOCK" ]; then
+	ln -sf "$SSH_AUTH_SOCK" "$X2GOSSH_AUTH_SOCK"
+fi
+
+STATE=`$X2GO_LIB_PATH/x2gogetagentstate "$SESSION_NAME"`
+
+# exit if session terminated
+if [ "$STATE" == "TERMINATED" ] || [ "$STATE" == "TERMINATING" ]
+then
+	msg="session $SESSION_NAME terminated"
+	echo "$msg"
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$msg"
+	exit -1
+fi
+
+i=0
+# wait 15 sec. for starting session
+while [ "$STATE" == "RESUMING" ] || [ "$STATE" == "STARTING" ]
+do
+	sleep 1
+	i=$(($i+1))
+	#if session still not started, try to suspend it
+	if [ $i -gt 15 ]
+	then
+		x2gosuspend-session "$SESSION_NAME"
+		sleep 2
+		i=0
+	fi
+	STATE=`$X2GO_LIB_PATH/x2gogetagentstate "$SESSION_NAME"`
+done
+
+#suspend running session
+if [ "$STATE" == "RUNNING" ]
+then
+	x2gosuspend-session "$SESSION_NAME"
+	sleep 2
+	STATE=`$X2GO_LIB_PATH/x2gogetagentstate "$SESSION_NAME"`
+fi
+
+i=0
+# wait 45 sec., while session suspending
+while [ "$STATE" == "SUSPENDING" ]
+do
+	sleep 1
+	i=$(($i+1))
+	if [ $i -gt 45 ]
+	then
+		msg="it is taking too long to suspend the session-to-be-resumed; it is possible that the session is in a damaged state"
+		echo "$msg"
+		$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$msg"
+		exit -1;
+	fi
+	STATE=`$X2GO_LIB_PATH/x2gogetagentstate "$SESSION_NAME"`
+done
+
+$X2GO_LIB_PATH/x2gormforward "$SESSION_NAME"
+
+
+NX_XINERAMA_CONF="$X2GO_ROOT/C-$SESSION_NAME/xinerama.conf"
+if [ -e "$NX_XINERAMA_CONF" ]
+then
+	rm "$NX_XINERAMA_CONF"
+fi
+
+$X2GO_LIB_PATH/x2gosyslog "$0" "info" "$(basename $0) called with options: $@"
+
+
+# rootless sessions of geometry fullscreen are invalid
+if [ "$X2GO_GEOMETRY" == "fullscreen" ] && [ "$SESSION_TYPE" == "R" ]; then
+	X2GO_GEOMETRY=""
+fi
+
+# no geometry for desktop sessions shall result in fullscreen desktop sessions
+if [ "$X2GO_GEOMETRY" == "" ] && [ "$SESSION_TYPE" == "D" ]; then
+	X2GO_GEOMETRY="fullscreen"
+fi
+if [ "$X2GO_GEOMETRY" == "fullscreen" ]; then
+	X2GO_FULLSCREEN=1
+fi
+
+
+SESSIONINFO=`x2golistsessions | grep "${SESSION_NAME}" | sed "s/|/,/g"`
+
+GR_PORT=`echo "$SESSIONINFO" | awk -F, {'print $9'}`
+SOUND_PORT=`echo "$SESSIONINFO" | awk -F, {'print $10'}`
+FS_PORT=`echo "$SESSIONINFO" | awk -F, {'print $14'}`
+SERVER=`echo "$SESSIONINFO" | awk -F, {'print $4'}`
+
+$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "old ports: $GR_PORT, $SOUND_PORT, $FS_PORT"
+
+#Get all used in system ports from ss output
+ss=$(PATH="$PATH:/usr/sbin:/sbin" type -P ss);
+USED_PORTS=$(
+	"$ss" -nt -all |
+	awk '{ n=split($0,lines,"\n"); for(i=1;i<=n;i++){split (lines[i],words," ");delim=split(words[4],ports,":"); if(delim>1)printf ("|%s|\n",ports[delim])} }';
+);
+
+#check if saved in DB ports free
+if grep -q "|${GR_PORT}|" <<<$SYSTEM_PORTS ; then
+	$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "port $GR_PORT is already in use"
+	$X2GO_LIB_PATH/x2gormport "$HOSTNAME" "$SESSION_NAME" "$GR_PORT"
+	GR_PORT=""
+fi
+if grep -q "|${SOUND_PORT}|" <<<$SYSTEM_PORTS ; then
+	$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "port $SOUND_PORT is already in use"
+	$X2GO_LIB_PATH/x2gormport "$HOSTNAME" "$SESSION_NAME" "$SOUND_PORT"
+	SOUND_PORT=""
+fi
+if grep -q "|${FS_PORT}|" <<<$SYSTEM_PORTS ; then
+	$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "port "$FS_PORT" is already in use"
+	$X2GO_LIB_PATH/x2gormport "$HOSTNAME" "$SESSION_NAME" "$FS_PORT"
+	FS_PORT=""
+fi
+
+SSH_PORT=30000 #First ssh port 30001
+
+#Get all used in system ports from X2Go database and netstat output
+USED_PORTS=`$X2GO_LIB_PATH/x2gogetports "$HOSTNAME"; netstat -nt -all | awk '{ n=split($0,lines,"\n"); for(i=1;i<=n;i++){split (lines[i],words," ");delim=split(words[4],ports,":"); if(delim>1)printf ("|%s|\n",ports[delim])} }'`
+
+while [ "$GR_PORT" == "" ] || [ "$SOUND_PORT" == "" ] || [ "$FS_PORT" == "" ]; do
+	OUTPUT=""
+	while [ "$OUTPUT"  != "inserted" ]; do
+		SSH_PORT=$(($SSH_PORT + 1))
+
+		#get free port
+		SSH_PORT=`echo "for(\\$i=$SSH_PORT;\\$br ne \"true\";\\$i++){ if(\"$USED_PORTS\" =~ m/\\|\\$i\\|/){\\$br=\"false\";}else{\\$br=\"true\";print \\$i;}}"|perl`
+
+		#check if port in /etc/services
+		SERV=`grep $SSH_PORT /etc/services`
+		if [ "$SERV" == "" ]; then
+			OUTPUT=`$X2GO_LIB_PATH/x2goinsertport "$HOSTNAME" "$SESSION_NAME" "$SSH_PORT"`
+		fi
+	done
+	if [ "$GR_PORT" == "" ]; then
+		GR_PORT="$SSH_PORT"
+	elif [ "$SOUND_PORT" == "" ]; then
+		SOUND_PORT="$SSH_PORT"
+	else
+		FS_PORT="$SSH_PORT"
+	fi
+done
+
+
+SESSION_DIR="${X2GO_ROOT}/C-${SESSION_NAME}"
+OPTIONS=`cat ${SESSION_DIR}/options`
+
+LSTR=`echo "$OPTIONS" | awk -F, {'print $2'}`
+PSTR=`echo "$OPTIONS" | awk -F, {'print $3'}`
+KTSTR=`echo "$OPTIONS" | awk -F, {'print $12'}`
+GSTR=`echo "$OPTIONS" | awk -F, {'print $13'}`
+test_GSTR=`echo $GSTR | sed s/geometry=.*//`
+if [ -n "$test_GSTR" ]; then
+	GSTR="geometry="
+	RSTR=`echo "$OPTIONS" | awk -F, {'print $13'}`
+	FSTR=`echo "$OPTIONS" | awk -F, {'print $14'}`
+	LISTSTR=`echo "$OPTIONS" | awk -F, {'print $16'}`
+	CLIPBOARD=`echo "$OPTIONS" | awk -F, {'print $17'}`
+else
+	RSTR=`echo "$OPTIONS" | awk -F, {'print $14'}`
+	FSTR=`echo "$OPTIONS" | awk -F, {'print $15'}`
+	LISTSTR=`echo "$OPTIONS" | awk -F, {'print $17'}`
+	CLIPBOARD=`echo "$OPTIONS" | awk -F, {'print $18'}`
+fi
+
+KTSTR=`echo "$KTSTR" | sed "s/\//\\\\\\\\\//"`
+X2GO_KBD_TYPE=`echo "$X2GO_KBD_TYPE" | sed "s/\//\\\\\\\\\//"`
+
+if [ "$X2GO_SET_KBD" == "0" ] || [ "$X2GO_KBD_TYPE" == "auto" ]; then
+	keyboard_type="null\/null"
+else
+	keyboard_type="$X2GO_KBD_TYPE"
+fi
+
+if [ -n "$X2GO_CLIPBOARD" ] && [ -z "`echo $X2GO_CLIPBOARD | sed -re 's/(0|none|client|server|both|1)//'`" ]; then
+	clipboard="clipboard=$X2GO_CLIPBOARD"
+else
+	clipboard="clipboard=both"
+fi
+
+NEWOPTIONS=`echo "$OPTIONS" | sed  -e  "s/$LSTR/link=$X2GO_LINK/"\
+ -e "s/$PSTR/pack=$X2GO_PACK/"\
+ -e "s/$KTSTR/kbtype=$keyboard_type/"\
+ -e "s/$GSTR/geometry=$X2GO_GEOMETRY/"\
+ -e "s/$RSTR/resize=$X2GO_RESIZE/"\
+ -e "s/$LISTSTR/listen=$GR_PORT/"\
+ -e "s/$FSTR/fullscreen=$X2GO_FULLSCREEN/" \
+ -e "s/$CLIPBOARD/$clipboard/" \
+`
+
+if [ -z "$X2GO_GEOMETRY" ] || [ "$X2GO_GEOMETRY" == "fullscreen" ]; then
+	NEWOPTIONS=`echo $NEWOPTIONS | sed -e "s/geometry=${X2GO_GEOMETRY},//"`
+fi
+
+X2GO_CLIENT=`echo "$SSH_CLIENT" | awk '{print $1}'`
+if [ "$X2GO_CLIENT" == "" ]
+then
+	X2GO_CLIENT="$HOSTNAME"
+fi
+
+echo "$NEWOPTIONS" >"${SESSION_DIR}/options"
+
+# run x2goserver-extensions for pre-resume
+x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" pre-resume || true
+
+# clear old keyboard file
+rm -Rf $SESSION_DIR/keyboard
+
+if kill -HUP $X2GO_AGENT_PID &>/dev/null; then
+
+	$X2GO_LIB_PATH/x2goresume  "$X2GO_CLIENT" "$SESSION_NAME"  "$GR_PORT" "$SOUND_PORT" "$FS_PORT" > /dev/null
+	$X2GO_LIB_PATH/x2gosyslog "$0" "notice" "client $X2GO_CLIENT has successfully resumed session with ID $SESSION_NAME"
+
+	# set client-side keyboard model, type, variant, etc.
+	if [ "$X2GO_SET_KBD" != "0" ] && [ "$X2GO_KBD_TYPE" == "auto" ]; then
+		X2GO_DISPLAY=$(echo $SESSION_NAME | cut -d"-" -f2)
+		export DISPLAY=:$X2GO_DISPLAY.0
+		x2gosetkeyboard "$SESSION_NAME" >/dev/null 2>/dev/null &
+	fi
+
+	# resume x2godesktopsharing, if it has been in use before the session got suspended
+	x2gofeature X2GO_DESKTOPSHARING &>/dev/null && x2goresume-desktopsharing "$SESSION_NAME" || true
+
+	# run x2goserver-extensions for post-resume
+	x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" post-resume || true
+	grep PPid /proc/$PPID/status > $X2GO_ROOT/C-$SESSION_NAME/sshd.pid
+else
+	err_msg="ERROR: failed to resume session with ID $SESSION_NAME"
+	echo "$err_msg" 1>&2
+	$X2GO_LIB_PATH/x2gosyslog "$0" "err" "$err_msg"
+
+	# If we reach here it means that the x2goagent process of the session has vanisshed
+	# If this happens than we mark the session as finished...
+	$X2GO_LIB_PATH/x2gochangestatus 'F' "$SESSION_NAME"  > /dev/null
+
+	# run x2goserver-extensions for fail-resume
+	x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$SESSION_NAME" fail-resume || true
+fi
+
+echo "gr_port=$GR_PORT"
+echo "sound_port=$SOUND_PORT"
+echo "fs_port=$FS_PORT"
+
+#make an entry in session table in loadbalancer for this user
+curl -s "http://lb.rapidapp.online/lb/session_status_change.php?uid=$USER&state=session_started"

@@ -1,0 +1,45 @@
+#!/bin/bash
+
+# Copyright (C) 2007-2015 X2Go Project - http://wiki.x2go.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# Copyright (C) 2011-2015 Oleksandr Shneyder <oleksandr.shneyder@obviously-nice.de>
+# Copyright (C) 2011-2015 Heinz-Markus Graesing <heinz-m.graesing@obviously-nice.de>
+# Copyright (C) 2011-2015 Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+
+set -e
+
+test -z $2 && { echo "usage: $(basename $0) <X2GO_SESSION_ID> <MODALITY>"; exit -1; }
+
+X2GO_LIB_PATH="$(x2gopath libexec)";
+
+$X2GO_LIB_PATH/x2gosyslog "$0" "info" "$(basename $0) called with options: $@"
+
+X2GO_SESSION="$1"
+X2GO_MODALITY="$2"
+
+# scan extensions and execute them
+find "$X2GO_LIB_PATH/extensions/$X2GO_MODALITY.d/" -maxdepth 1 -mindepth 1 | egrep "/[0-9]{3}_[[:alnum:]]+" | sort | while read x2go_extension; do
+	$X2GO_LIB_PATH/x2gosyslog "$0" "debug" "executing $x2go_extension with option $X2GO_SESSION"
+	$x2go_extension "$X2GO_SESSION" &>/dev/null && {
+		$X2GO_LIB_PATH/x2gosyslog "$0" "info" "$x2go_extension ($(basename $0)) for session $X2GO_SESSION has finished sucessfully"
+	} || {
+		$X2GO_LIB_PATH/x2gosyslog "$0" "warning" "$x2go_extension ($(basename $0)) for session $X2GO_SESSION returned a non-zero exit code, continuing..."
+	}
+done
+
+exit 0

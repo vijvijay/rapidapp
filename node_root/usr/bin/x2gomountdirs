@@ -1,0 +1,415 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2007-2015 X2Go Project - http://wiki.x2go.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# Copyright (C) 2007-2015 Oleksandr Shneyder <oleksandr.shneyder@obviously-nice.de>
+# Copyright (C) 2007-2015 Heinz-Markus Graesing <heinz-m.graesing@obviously-nice.de>
+
+use strict;
+use Sys::Syslog qw( :standard :macros );
+use File::BaseDir qw( xdg_config_home );
+use File::Which;
+
+use lib `x2gopath lib`;
+use x2godbwrapper;
+use x2gologlevel;
+
+openlog($0,'cons,pid','user');
+setlogmask( LOG_UPTO(x2gologlevel()) );
+
+
+syslog('info', "x2gomountdirs has been called with options: @ARGV");
+
+my $msg;
+if (! which ("sshfs") ) {
+	$msg = "the sshfs command is not installed on this X2Go Server, cannot share client-side folders";
+	syslog('warning', "WARNING: $msg");
+	print "$msg\n";
+	# closing syslog
+	closelog;
+	exit 0;
+}
+
+sub source_environment {
+    my $name = shift;
+
+    open my $fh, "<", $name
+        or return -1;
+
+    while (<$fh>) {
+        chomp;
+        my $line = $_;
+        if ( $line =~ m/^#.*/ )
+        {
+            next;
+        }
+        my ($k, $v) = split /=/, $line, 2;
+        $v =~ s/^(['"])(.*)\1/$2/; #' fix highlighter
+        $v =~ s/\$([a-zA-Z]\w*)/$ENV{$1}/g;
+        $v =~ s/`(.*?)`/`$1`/ge; #dangerous
+        $ENV{$k} = $v;
+    }
+}
+
+my $tmp_dir = '/tmp';
+
+my $type=shift;
+my $session=shift;
+my $user=shift;
+my $key=shift;
+my @dl;
+my $i=0;
+@dl[$i]=shift;
+while(@dl[$i])
+{
+	$i++;
+	@dl[$i]=shift;
+}
+my $dirlist=join(" ",@dl);
+chop($dirlist);
+my $reverse=0;
+my $port="22";
+print "dirs:$dirlist\n";
+if ($dirlist =~ m/__REVERSESSH_PORT__/)
+{
+	@dl=split("__REVERSESSH_PORT__","$dirlist");
+	$dirlist=@dl[0];
+	$port=@dl[1];
+	$reverse=1;
+}
+
+if ($dirlist =~ m/__SSH_PORT__/)
+{
+	@dl=split("__SSH_PORT__","$dirlist");
+	$dirlist=@dl[0];
+	$port=@dl[1];
+}
+
+print "ssh port:$port\n";
+my $host;
+if($reverse == 0)
+{
+	$host=(split(" ",$ENV{'SSH_CLIENT'}))[0];
+}
+else
+{
+	$host='127.0.0.1';
+}
+print "Host:$host\n";
+print "User:$user\n";
+
+open (F,"<$key");
+my @lines=<F>;
+close(F);
+
+my $lines=join("",@lines);
+my $dsa_key=(split("----BEGIN RSA IDENTITY----",$lines))[0];
+my $rsa_identity=(split("----BEGIN RSA IDENTITY----",$lines))[1];
+
+open (F,">$key");
+print F $dsa_key;
+close(F);
+
+open (F,">$key.ident");
+print F "\[$host\]:$port $rsa_identity";
+close(F);
+
+chmod(0600,"$key");
+chmod(0600,"$key.ident");
+
+my $mdir="$tmp_dir/.x2go-$ENV{'USER'}/media";
+my $ldir="$ENV{'HOME'}/media";
+my $sessiondir="$ENV{'HOME'}/.x2go/C-$session";
+my $spooldir_lnk="$sessiondir/spool";
+my $spooldir="$tmp_dir/.x2go-$ENV{'USER'}/spool";
+my $mimeboxdir_lnk="$sessiondir/mimebox";
+my $mimeboxdir="$tmp_dir/.x2go-$ENV{'USER'}/mimebox";
+
+source_environment(xdg_config_home() . "/user-dirs.dirs");
+
+if (! -e $mdir)
+{
+	mkdir($mdir);
+}
+chmod(0700,$mdir);
+
+if (! -e "$mdir/disk")
+{
+	mkdir("$mdir/disk");
+}
+chmod(0700,"$mdir/disk");
+
+if (! -e "$mdir/cd")
+{
+	mkdir("$mdir/cd");
+}
+chmod(0700,"$mdir/cd");
+
+if (! -e "$mdir/rm")
+{
+	mkdir("$mdir/rm");
+}
+chmod(0700,"$mdir/rm");
+
+my $plasmstamp=$mdir."/".$session.".plasmoid";
+
+if (! -e $spooldir)
+{
+	mkdir($spooldir);
+}
+chmod(0700,$spooldir);
+
+$spooldir="$spooldir/C-$session";
+if (! -e $spooldir)
+{
+	mkdir($spooldir);
+}
+chmod(0700,$spooldir);
+
+if (! -e $mimeboxdir)
+{
+	mkdir($mimeboxdir);
+}
+chmod(0700,$mimeboxdir);
+
+$mimeboxdir="$mimeboxdir/C-$session";
+if (! -e $mimeboxdir)
+{
+	mkdir($mimeboxdir);
+}
+chmod(0700,$mimeboxdir);
+
+if ( -d $ldir)
+{
+	rmdir($ldir);
+}
+
+if ( ! -l $ldir)
+{
+	system ("ln -s $mdir $ldir");
+}
+
+if ( -d $spooldir_lnk)
+{
+	rmdir($spooldir_lnk);
+}
+
+if ( ! -l $spooldir_lnk)
+{
+	system ("ln -s $spooldir $spooldir_lnk");
+}
+
+if ( -d $mimeboxdir_lnk)
+{
+	rmdir($mimeboxdir_lnk);
+}
+
+if ( ! -l $mimeboxdir_lnk)
+{
+	system ("ln -s $mimeboxdir $mimeboxdir_lnk");
+}
+
+my $uname=$ENV{'USER'};
+
+my @dirs=split(':',$dirlist);
+for (my $i=0;$i<@dirs;$i++)
+{
+	my $printspool=0;
+	my $mimeboxspool=0;
+	my $mntpath;
+	my $this_mdir = $mdir;
+	if(@dirs[$i]=~m/__PRINT_SPOOL_/)
+	{
+		@dirs[$i]=~s/__PRINT_SPOOL_//;
+		$printspool=1;
+		$mntpath=$spooldir;
+		syslog('debug', "mounting $spooldir, mount point type is print spool directory");
+	}
+	elsif(@dirs[$i]=~m/__MIMEBOX_SPOOL_/)
+	{
+		@dirs[$i]=~s/__MIMEBOX_SPOOL_//;
+		$mimeboxspool=1;
+		$mntpath=$mimeboxdir;
+		syslog('debug', "mounting $mimeboxdir, mount point type is MIME box directory");
+	}
+	else
+	{
+		my $p=@dirs[$i];
+		if ($type ne "dir")
+		{
+			$p=~s/\/ramdrive\/mnt\///;
+			if ($p =~ m/CDROM/)
+			{
+				$this_mdir=$this_mdir."/cd";
+			}
+			else
+			{
+				$this_mdir=$this_mdir."/rm";
+			}
+		}
+		else
+		{
+			$this_mdir=$this_mdir."/disk";
+		}
+		$p=~s/\//_/g;
+		$p=~s/ /_/g;
+		$p=~s/~_cygdrive_//;
+		$p=~s/~_windrive_//;
+		$p=~s/~_uncpath_//;
+		$p=~s/~//g;
+		mkdir("$this_mdir/$p");
+		$mntpath="$this_mdir/$p";
+	}
+
+	if (db_insertmount( $session, $mntpath, $host))
+	{
+
+		my $Config = new Config::Simple(syntax=>'ini');
+		$Config->read('/etc/x2go/x2goserver.conf' );
+		my $umask=$Config->param("security.umask");
+		my $umaskstr="";
+
+		if ($umask ne "")
+		{
+			$umaskstr="umask=$umask";
+		} else {
+			$umaskstr="default_permissions";
+		}
+		my $code_conv=$ENV{'X2GO_ICONV'};
+
+		if ($code_conv ne "")
+		{
+			$code_conv="-o $code_conv";
+		}
+		if ( -f "$key" )
+		{
+			syslog('debug', "SSH key file has arrived: $key");
+		}
+		if ( -f "$key.ident" )
+		{
+			syslog('debug', "SSH host key has arrived: $key.ident");
+		}
+		$msg = "timeout 30 sshfs $code_conv -o idmap=user,uid=`id -u`,gid=`id -g`,$umaskstr,ServerAliveInterval=300,Cipher=blowfish,IdentityFile=$key,UserKnownHostsFile=$key.ident \"$user\"\@$host:\"@dirs[$i]\" \"$mntpath\" -p $port";
+		syslog('debug', "executing: $msg");
+		print "inserted, $msg\n";
+
+		# FIXME: this system call should be converted to a multi-argument system call while pertaining the redirect of stderr to the mounts.log file
+		if (system("timeout 30 sshfs $code_conv -o idmap=user,uid=`id -u`,gid=`id -g`,$umaskstr,ServerAliveInterval=300,Cipher=blowfish,IdentityFile=$key,UserKnownHostsFile=$key.ident \"$user\"\@$host:\"@dirs[$i]\" \"$mntpath\" -p $port 1>>$sessiondir/sshfs-mounts.log 2>&1")==0)
+		{
+			print "mount @dirs[$i] ok\n";
+			syslog('notice', "successfully mounted $user\@$host:$port@dirs[$i] to $mntpath");
+			# check if kde4 plasmoid running
+			my $useplasmoid=0;
+			if ( -e $plasmstamp )
+			{
+				open(STMP,"<$plasmstamp");
+				my $stamp=<STMP>;
+				close (STMP);
+				if (abs($stamp-time())<15)
+				{
+					$useplasmoid=1;
+				}
+			}
+			if (! $printspool && ! $mimeboxspool && ! $useplasmoid )
+			{
+
+				my $fname;
+				if ( $ENV{'XDG_DESKTOP_DIR'} )
+				{
+					$fname="$ENV{'XDG_DESKTOP_DIR'}";
+				} else {
+					$fname="$ENV{'HOME'}/Desktop";
+				}
+				my $current_desktop = "NONE";
+				if (($session =~ m/_stDGNOME_dp/) && system("x2gofeature X2GO_GNOMEBINDINGS >/dev/null") == 0)
+				{
+					$current_desktop="-gnome";
+				}
+				elsif (($session =~ m/_stDMATE_dp/) && system("x2gofeature X2GO_MATEBINDINGS >/dev/null") == 0)
+				{
+					$current_desktop="-mate";
+				}
+				elsif (($session =~ m/_stDLXDE_dp/) && system("x2gofeature X2GO_LXDEBINDINGS >/dev/null") == 0)
+				{
+					$current_desktop="-lxde";
+				}
+				elsif (($session =~ m/_stD.*_dp/) && system("x2gofeature X2GO_FMBINDINGS >/dev/null") == 0)
+				{
+					$current_desktop="";
+				}
+
+				my $p=@dirs[$i];
+				$p=~s/\/cygdrive\///;
+				$p=~s/\/windrive\///;
+				$p=~s/\/uncpath\///;
+				$p=~s/ /_/g;
+				$p=~s/\//_/g;
+				$fname="$fname/$p";
+				if ("$current_desktop" ne "NONE")
+				{
+					if ($type eq "dir")
+					{
+						$fname="$fname\ (sshfs-disk$current_desktop)";
+						syslog('info', "creating desktop icon for ,,@dirs[$i]'' at ,,$fname'', media type is: client-side folder on harddrive");
+					}
+					else
+					{
+						if ($fname =~ m/CDROM/)
+						{
+							$fname="$fname\ (sshfs-cdrom$current_desktop)";
+							syslog('info', "creating desktop icon for ,,@dirs[$i]'' at ,,$fname'', media type is: optical disc");
+						}
+						else
+						{
+							$fname="$fname\ (sshfs-removable$current_desktop)";
+							syslog('info', "creating desktop icon for ,,@dirs[$i]'' at ,,$fname'', media type is: removable device");
+						}
+						$fname=~s/_ramdrive_mnt_//;
+					}
+					print "fname: $fname\n";
+					open(F,">$fname");
+					print F "$mntpath\n$session\n\n\0";
+					close(F);
+				}
+			}
+		}
+		else
+		{
+			$msg = "mounting of @dirs[$i] failed";
+			print STDERR "$msg\n";
+			syslog('warning', "WARNING: $msg");
+			db_deletemount( $session, $mntpath);
+			# it maybe possible that the sshfs mount is already registered with the
+			# kernel, but dysfunctional. Attempting removal...
+			system("fusermount", "-u", "$mntpath");
+			rmdir($mntpath);
+		}
+	}
+	else
+	{
+		$msg = "insertion of @dirs[$i] failed (already mounted?), not mounting";
+		syslog('warning', "WARNING: $msg");
+		print STDERR "$msg\n";
+	}
+}
+
+unlink($key);
+unlink("$key.ident");
+
+# closing syslog 
+closelog;

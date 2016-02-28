@@ -1,0 +1,330 @@
+#!/bin/bash
+
+DISPLAY=":$1"
+X2GO_AGENT_PID="$2"
+X2GO_SESSION="$3"
+cmd="$5"
+sndsys="$6"
+X2GO_SESS_TYPE="$7"
+
+X2GO_LIB_PATH="$(x2gopath libexec)";
+
+"$X2GO_LIB_PATH/x2gosyslog" "$0" "info" "$(basename $0) called with options: $@"
+
+# newer SSH daemons don't set $SSH_CLIENT anymore...
+if [ -z "$SSH_CLIENT" ] && [ -n "$SSH_CONNECTION" ]; then
+	set -- $SSH_CONNECTION
+	SSH_CLIENT="$1 $2 $4"
+	export SSH_CLIENT
+fi
+
+export DISPLAY
+export XAUTHORITY=${XAUTHORITY:-"$HOME/.Xauthority"}
+export X2GO_AGENT_PID
+export X2GO_SESSION
+cmd=`echo $cmd |sed 's/X2GO_SPACE_CHAR/ /g'`
+args=''
+
+X2GO_ROOT="${HOME}/.x2go"
+MESSAGE_FILE="$X2GO_ROOT/C-$X2GO_SESSION/cmdoutput"
+echo "exec $cmd" >> "$MESSAGE_FILE"
+
+NX_XINERAMA_CONF="$X2GO_ROOT/C-$X2GO_SESSION/xinerama.conf"
+export NX_XINERAMA_CONF
+
+# make Kerberos's ticket cache known inside the X2Go session
+test -n $KRB5CCNAME && export KRB5CCNAME
+
+# disable rastering in >= KDE4.8 and Qt4.8
+export QT_GRAPHICSSYSTEM="native"
+
+IMEXIT="false"
+
+# symlink to SSH_AUTH_SOCKET (ssh agent forwarding) so that we
+# can survive session suspension / resumption...
+X2GOSSH_AUTH_SOCK="$X2GO_ROOT/C-$X2GO_SESSION/ssh-agent.PID"
+if [ -S "$SSH_AUTH_SOCK" ]; then
+	ln -sf "$SSH_AUTH_SOCK" "$X2GOSSH_AUTH_SOCK"
+fi
+export SSH_AUTH_SOCK="$X2GOSSH_AUTH_SOCK"
+
+
+NX_XINERAMA_LIBS="$(x2gopath xinerama)"
+NX_LIBS="$(x2gopath nx-x11)"
+test -n "$LD_LIBRARY_PATH" && \
+  LD_LIBRARY_PATH="$NX_XINERAMA_LIBS:$NX_LIBS:$LD_LIBRARY_PATH" || \
+  LD_LIBRARY_PATH="$NX_XINERAMA_LIBS:$NX_LIBS"
+"$X2GO_LIB_PATH/x2gosyslog" "$0" "debug" "exporting LD_LIBRARY_PATH=$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH
+
+if [ "$sndsys" == "esd" ]; then
+	export ESPEAKER="localhost:$4"
+elif [ "$sndsys" == "arts" ]; then
+	export ARTS_SERVER="localhost:$4"
+fi
+
+# detect Ubuntu version via /etc/lsb-release (not supported by Debian)
+if [ -e "/etc/lsb-release" ]; then
+	source /etc/lsb-release
+fi
+
+# let x2goruncommand choose what command to use for a given desktop shell name (GNOME, UNITY, KDE, XFCE4, LXDE, TRINITY, MATE, OPENBOX, ICEWM)
+
+# NOTES on GNOME startup behaviour in different distributions
+# ===========================================================
+
+# Debian and every other non-Ubuntu distro launchs GNOME3 (in accelerated mode) when calling gnome-session
+
+# Ubuntu launches Unity (in accelerated mode) when calling gnome-session.
+# To make the GNOME variants start up properly on Ubuntu, we have to make the following differentiations
+
+# Ubuntu 10.10 and earlier (maverick):
+#		 GNOME -> gnome-session
+#		 (would start GNOME2)
+# Ubuntu 11.04 (natty):
+#		 GNOME -> gnome-session --session=2d-gnome
+#		 UNITY -> gnome-session --session=2d-ubuntu
+#		 (GNOME3 based desktop shells)
+# Ubuntu 11.10 (oneiric) & 12.04 (precise):
+#		 GNOME -> gnome-session --session=gnome-fallback
+#		 UNITY -> gnome-session --session=ubuntu-2d
+#		 (GNOME3 based desktop shells)
+# Ubuntu 12.10 (quantal):
+#		 GNOME -> gnome-session --session=gnome-fallback
+#		 UNITY -> gnome-session --session=ubuntu
+#		 (GNOME3 based desktop shells)
+# Ubuntu 13.10 (raring) and later:
+#		 GNOME -> gnome-session --session=gnome-flashback
+#		 UNITY -> gnome-session --session=ubuntu
+#		 (GNOME3 based desktop shells)
+#		 Additionally, $GTK_MODULES must include "unity-gtk-module".
+#		 $GTK_MODULES does not need tha value for any other distro
+#                or any earlier release of Ubuntu.
+#
+#		 The logic for launching GNOME should be generic enough
+#                to work with every other distro.
+#
+#		 Also, it appears that some Linux GNOME2 distros need DESKTOP_SESSION="gnome"
+#                while others do not.
+
+if [ "$cmd" == "GNOME" ] || [ "$cmd" == "gnome-session" ]; then
+	cmd="/usr/bin/gnome-session"
+	if [ "$DISTRIB_ID" == "Ubuntu" ] && [ "$(echo "$DISTRIB_RELEASE >= 13.10" | bc)" == "1" ]; then
+		export DESKTOP_SESSION="gnome-flashback"
+		if [ -z "$GTK_MODULES" ] ; then
+			export GTK_MODULES="unity-gtk-module"
+		else
+			export GTK_MODULES="$GTK_MODULES:unity-gtk-module"
+		fi
+		args=" --session=$DESKTOP_SESSION"
+        elif [ -e /usr/share/gnome-session/sessions/gnome-flashback.session ]; then
+                export DESKTOP_SESSION="gnome-flashback"
+                args=" --session=$DESKTOP_SESSION"
+        elif [ -e /usr/share/gnome-session/sessions/gnome-fallback.session ]; then
+                export DESKTOP_SESSION="gnome-fallback"
+                args=" --session=$DESKTOP_SESSION"
+        elif [ -e /usr/share/gnome-session/sessions/2d-gnome.session ]; then
+                export DESKTOP_SESSION="2d-gnome"
+                args=" --session=$DESKTOP_SESSION"
+        elif [ "$DISTRIB_ID" == "Ubuntu" ] && [ "$(echo "$DISTRIB_RELEASE <= 10.10" | bc)" == "1" ]; then
+                export DESKTOP_SESSION="gnome"
+	elif cat /etc/debian_version | egrep "^(squeeze|6\.).*" >/dev/null; then
+                export DESKTOP_SESSION="gnome"
+        fi
+
+elif ([ "$cmd" == "UNITY" ] || [ "$cmd" == "unity" ]); then
+	cmd="/usr/bin/gnome-session"
+	if [ "$DISTRIB_ID" == "Ubuntu" ] && [ "$(echo "$DISTRIB_RELEASE >= 12.10" | bc)" == "1" ]; then
+		export DESKTOP_SESSION="ubuntu"
+		args=" --session=$DESKTOP_SESSION"
+	elif [ "$DISTRIB_ID" == "Ubuntu" ] && [ "$(echo "$DISTRIB_RELEASE == 11.10" | bc)" == "1" -o "$(echo "$DISTRIB_RELEASE == 12.04" | bc)" == "1" ]; then
+		export DESKTOP_SESSION="ubuntu-2d"
+		args=" --session=$DESKTOP_SESSION"
+	elif [ "$DISTRIB_ID" == "Ubuntu" ] && [ "$(echo "$DISTRIB_RELEASE == 11.04" | bc)" == "1" ]; then
+		export DESKTOP_SESSION="2d-ubuntu"
+		args=" --session=$DESKTOP_SESSION"
+	fi
+	# on earlier Ubuntu versions or with non-Ubuntu Distros the ,,UNITY'' command in X2Go will launch the GNOME2 desktop shell
+
+elif ([ "$cmd" == "CINNAMON" ] || [ "$cmd" == "cinnamon" ]); then
+	# Cinnamon 2.0 and newer
+	# The cmd is a script that calls the "cinnamon-session" binary.
+	if [ -e /usr/bin/cinnamon-session-cinnamon2d ]; then
+		cmd="/usr/bin/cinnamon-session-cinnamon2d"
+	# Cinnamon 1.6 & 1.8
+	# The cmd is a script that calls the "gnome-session" binary.
+	elif [ -e /usr/bin/gnome-session-cinnamon2d ]; then
+		cmd="/usr/bin/gnome-session-cinnamon2d"
+	# Cinnamon 1.4
+	# The cmd is a script that calls the "gnome-session" binary.
+	elif [ -e /usr/bin/gnome-session-cinnamon ]; then
+		cmd="/usr/bin/gnome-session-cinnamon"
+	# Fallback to the old behavior.
+	else
+		cmd="/usr/bin/gnome-session"
+		export DESKTOP_SESSION="cinnamon2d"
+		args=" --session=$DESKTOP_SESSION"
+	fi
+
+elif [ "$cmd" == "MATE" ]; then
+	cmd="/usr/bin/mate-session"
+elif [ "$cmd" == "KDE" ]; then
+	cmd="/usr/bin/startkde"
+elif [ "$cmd" == "XFCE4" ] || [ "$cmd" == "XFCE" ]; then
+	cmd="/usr/bin/xfce4-session"
+elif [ "$cmd" == "LXDE" ]; then
+	cmd="/usr/bin/startlxde"
+elif [ "$cmd" == "TRINITY" ]; then
+	cmd="/usr/bin/starttrinity"
+elif [ "$cmd" == "OPENBOX" ]; then
+	cmd="/usr/bin/openbox-session"
+elif [ "$cmd" == "ICEWM" ]; then
+	cmd="/usr/bin/icewm-session"
+fi
+
+if [ "$cmd" == "WWWBROWSER" ]; then
+	if [ -e "/usr/bin/firefox.real" ]; then
+		cmd="/usr/bin/firefox.real"
+	elif  [ -e "/usr/bin/iceweasel" ]; then
+		cmd="/usr/bin/iceweasel"
+	elif  [ -e "/usr/bin/firefox" ]; then
+		cmd="/usr/bin/firefox"
+	elif  [ -e "/usr/bin/abrowser" ]; then
+		cmd="/usr/bin/abrowser"
+	elif  [ -e "/usr/bin/konqueror" ]; then
+		cmd="/usr/bin/konqueror"
+	elif  [ -e "/usr/bin/galeon" ]; then
+		cmd="/usr/bin/galeon"
+	elif  [ -e "/usr/bin/chromium-browser" ]; then
+		cmd="/usr/bin/chromium-browser"
+	fi
+fi
+
+if [ "$cmd" == "MAILCLIENT" ]; then
+	if [ -e "/usr/bin/thunderbird" ]; then
+		cmd="/usr/bin/thunderbird"
+	elif  [ -e "/usr/bin/icedove" ]; then
+		cmd="/usr/bin/icedove"
+	elif  [ -e "/usr/bin/kmail" ]; then
+		cmd="/usr/bin/kmail"
+	elif  [ -e "/usr/bin/evolution" ]; then
+		cmd="/usr/bin/evolution"
+	fi
+fi
+
+if [ "$cmd" == "OFFICE" ]; then
+	if [ -e "/usr/bin/loffice" ]; then
+		cmd="/usr/bin/loffice"
+	elif [ -e "/usr/bin/ooffice" ]; then
+		cmd="/usr/bin/ooffice"
+	fi
+fi
+
+if [ "$cmd" == "TERMINAL" ]; then
+	if [ -e "/usr/bin/konsole" ]; then
+		cmd="/usr/bin/konsole"
+	elif  [ -e "/usr/bin/mate-terminal" ]; then
+		cmd="/usr/bin/mate-terminal"
+	elif  [ -e "/usr/bin/gnome-terminal" ]; then
+		cmd="/usr/bin/gnome-terminal"
+	elif  [ -e "/usr/bin/lxterminal" ]; then
+		cmd="/usr/bin/lxterminal"
+	elif  [ -e "/usr/bin/rxvt" ]; then
+		cmd="/usr/bin/rxvt"
+	elif  [ -e "/usr/bin/xterm" ]; then
+		cmd="/usr/bin/xterm"
+	fi
+fi
+
+WCMD=`echo $cmd | cut -d " " -f 1`
+EXEC=`type -P $WCMD`
+EXEC_WRAPPER=""
+
+BNAME=`basename "$EXEC"`
+if [ "$BNAME" == "rdesktop" ]
+then
+	if type padsp >/dev/null; then
+		EXEC_WRAPPER="padsp"
+		args=" -r sound:local"
+	fi
+	if [ -d "$HOME/media" ]; then
+		args+=" -r disk:X2GoMedia=$HOME/media"
+	fi
+fi
+
+if [ "$X2GO_SESS_TYPE" == "P" ]
+then
+	IMEXIT="true"
+	EXEC="/bin/true"
+	X2GO_SESS_TYPE="R"
+fi
+
+# run x2goserver-extensions for pre-runcommand
+x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$X2GO_SESSION" pre-runcommand || true
+
+sucessful_run=false
+if [ "$EXEC" != "" ] && [ -x "$EXEC" ]; then
+	"$X2GO_LIB_PATH/x2gosyslog" "$0" "debug" "running command $EXEC"
+
+	x2gosetkeyboard >/dev/null 2>/dev/null &
+
+	if x2gofeature X2GO_XSESSION &>/dev/null && [ "x$X2GO_SESS_TYPE" = "xD" ]; then
+		STARTUP="$cmd$args"
+		"$X2GO_LIB_PATH/x2gosyslog" "$0" "notice" "launching session with Xsession-x2go mechanism, using STARTUP=\"$STARTUP\""
+		XSESSION_EXEC="$cmd" STARTUP="/usr/bin/env LD_LIBRARY_PATH=${LD_LIBRARY_PATH} ${STARTUP}" /etc/x2go/Xsession
+	else
+		"$X2GO_LIB_PATH/x2gosyslog" "$0" "debug" "executing command \"$cmd$args\"..."
+
+		# This is gonna be a nasty trick now...
+		# Most applications run in foreground (fine!), but some fork to background (urgghh... e.g. konsole, iceweasel, etc.).
+		# By capturing their STDOUT, we force the process to remain in (sort of) foreground until the process has finished.
+		# This works fabulously with all applications that don't cleanly close their file descriptors (which is probably
+		# 99% of all applications out there...).
+
+		STDOUT=`$EXEC_WRAPPER $cmd$args`
+
+	fi
+
+	if [  "$X2GO_SESS_TYPE" == "R" ] && [ "$IMEXIT" == "true" ]; then
+
+		# applications that managed to quit immediately, we catch here by waiting as long as x2goagent exists
+
+		"$X2GO_LIB_PATH/x2gosyslog" "$0" "debug" "waiting for x2goagent (PID: $X2GO_AGENT_PID) to finish"
+		while [ -d "/proc/$X2GO_AGENT_PID" ]; do
+			sleep 1
+		done
+		"$X2GO_LIB_PATH/x2gosyslog" "$0" "debug" "x2goagent (PID: $X2GO_AGENT_PID) has finished"
+	else
+		"$X2GO_LIB_PATH/x2gosyslog" "$0" "debug" "command $EXEC has finished"
+	fi
+
+	# if we reach here the possibility of a successful command execution is rather high
+	successful_run=true
+
+	# run x2goserver-extensions for post-runcommand
+	x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$X2GO_SESSION" post-runcommand || true
+
+else
+	"$X2GO_LIB_PATH/x2gosyslog" "$0" "err" "ERROR: command $EXEC failed to execute"
+	echo "X2GORUNCOMMAND ERR NOEXEC:$cmd" > "$MESSAGE_FILE"
+
+	# run x2goserver-extensions for fail-runcommand
+	x2gofeature X2GO_RUN_EXTENSIONS &>/dev/null && x2goserver-run-extensions "$X2GO_SESSION" fail-runcommand || true
+
+fi
+
+# stop x2godesktopsharing process gracefully...
+x2gofeature X2GO_DESKTOPSHARING >/dev/null && x2goterminate-desktopsharing "$X2GO_SESSION" || true
+
+kill -TERM  "$X2GO_AGENT_PID" >/dev/null 2>/dev/null
+"$X2GO_LIB_PATH/x2gochangestatus" 'F' "$X2GO_SESSION"  > /dev/null
+export HOSTNAME
+x2goumount-session "$X2GO_SESSION"
+
+# run logout scripts
+test -r /etc/x2go/x2go_logout && . /etc/x2go/x2go_logout
+
+# clean up session dir if not in debug mode and if session has been successful
+if [ "$($X2GO_LIB_PATH/x2gologlevel)" != "7" ] && [ "x$successful_run" = "xtrue" ]; then
+	(sleep 10; rm -f "${HOME}/.x2go/C-${X2GO_SESSION}"; rm -Rf "/tmp/.x2go-${USER}/C-${X2GO_SESSION}"; rmdir --ignore-fail-on-non-empty "/tmp/.x2go-${USER}"; )&
+fi

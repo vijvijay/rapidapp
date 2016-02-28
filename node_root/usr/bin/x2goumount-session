@@ -1,0 +1,272 @@
+#!/usr/bin/perl
+
+# Copyright (C) 2007-2015 X2Go Project - http://wiki.x2go.org
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation; either version 2 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+#
+# Copyright (C) 2007-2015 Oleksandr Shneyder <oleksandr.shneyder@obviously-nice.de>
+# Copyright (C) 2007-2015 Heinz-Markus Graesing <heinz-m.graesing@obviously-nice.de>
+
+use strict;
+use Sys::Hostname;
+use Sys::Syslog qw( :standard :macros );
+use File::BaseDir qw( xdg_config_home );
+use File::Basename;
+
+use lib `x2gopath lib`;
+use x2godbwrapper; 
+use x2gologlevel;
+
+openlog($0,'cons,pid','user');
+setlogmask( LOG_UPTO(x2gologlevel()) );
+
+
+syslog('info', "x2goumount-session has been called with options: @ARGV");
+
+# this function is a code duplication from x2gomountdirs and it will go away with
+# X2Go Server 4.1.0.0 (as the code has been moved into X2Go::Utils already in Vcs).
+sub source_environment {
+	my $name = shift;
+
+	open my $fh, "<", $name
+	or return -1;
+
+	while (<$fh>) {
+		chomp;
+		my $line = $_;
+		if ( $line =~ m/^#.*/ )
+		{
+			next;
+		}
+		my ($k, $v) = split /=/, $line, 2;
+		$v =~ s/^(['"])(.*)\1/$2/; #' fix highlighter
+		$v =~ s/\$([a-zA-Z]\w*)/$ENV{$1}/g;
+		$v =~ s/`(.*?)`/`$1`/ge; #dangerous
+		$ENV{$k} = $v;
+	}
+}
+
+my $tmp_dir = '/tmp';
+
+my $session=shift || $ENV{'X2GO_SESSION'} or die "no valid session name that we can use";
+my $only_path=shift;
+my $uname="$ENV{'USER'}";
+my $serv=hostname;
+
+my $mdir="$tmp_dir/.x2go-$ENV{'USER'}/media";
+my $spooldir="$tmp_dir/.x2go-$ENV{'USER'}/spool";
+my $mimeboxdir="$tmp_dir/.x2go-$ENV{'USER'}/mimebox";
+
+source_environment(xdg_config_home() . "/user-dirs.dirs");
+
+if (($only_path) && (! ($only_path=~m/\/tmp\/.x2go-$uname\/media\/.*/ )))
+{
+	$only_path=~s/\/ramdrive\/mnt\///;
+
+	# rewrite local unix path
+	$only_path=~ s/\//_/g;
+
+	# rewrite local Windows path
+	$only_path=~ s/^([a-zA-Z]:)/_cygdrive_\1/;
+	$only_path=~ s/://;
+	$only_path=~ s/\\/_/g;
+	$only_path=~ s/ /_/g;
+	$only_path=~ s/\\040/_/g;
+
+	### FIXME: handle CDROM and Removable Media mounts here, as well!!!
+
+	$only_path="$tmp_dir/.x2go-$ENV{'USER'}/media/disk/$only_path";
+	#                                             ^^^^
+	syslog('debug',"x2goumount-session unmounting $only_path only");
+}
+
+
+my $display=db_getdisplay($session);
+
+my @outp=db_getmounts($session);
+my $i;
+
+
+open (F,"</etc/mtab") or die "Can't open /etc/mtab for reading";
+my @mounts=<F>;
+close(F);
+
+my $use_zenity=0;
+
+if (($ENV{'GNOME_DESKTOP_SESSION_ID'} ne "") || ($ENV{'MATE_DESKTOP_SESSION_ID'} ne ""))
+{
+	$use_zenity=1;
+}
+
+
+for ($i=0;$i<@outp;$i++)
+{
+	@outp[$i]=~s/ //g;
+	chomp(@outp[$i]);
+	chomp(@outp[$i]);
+	chomp(@outp[$i]);
+	my @line=split('\|',"@outp[$i]");
+	my $path="@line[0]:@line[1]";
+	if ($only_path)
+	{
+		if (@line[1] ne $only_path)
+		{
+			# this is for Python X2Go, the base of Windows mounted shares starts with _windrive or _uncpath, not _cygdrive
+			my $only_path_windrive=$only_path;
+			my $only_path_uncpath=$only_path;
+			$only_path_windrive=~ s/_cygdrive_/_windrive_/;
+			$only_path_uncpath=~ s/_cygdrive_/_uncpath_/;
+
+			if ((@line[1] ne $only_path_windrive) && (@line[1] ne $only_path_uncpath))
+			{
+				syslog('debug', "skipping non-requested path @line[1]");
+				goto cont;
+			}
+			if (@line[1] eq $only_path_windrive)
+			{
+				$only_path = $only_path_windrive;
+			}
+			if (@line[1] eq $only_path_uncpath)
+			{
+				$only_path = $only_path_uncpath;
+			}
+		}
+	}
+	my $j;
+	my $found=0;
+	my $remote;
+	for ($j;$j<@mounts;$j++)
+	{
+		if (@mounts[$j]=~m/sshfs/ && @mounts[$j]=~m/@line[0]/ && @mounts[$j]=~m/@line[1]/ )
+		{
+			$found=1;
+			syslog('debug', "found mounted share @mounts[$j]");
+			$remote=(split(" ",@mounts[$j]))[0];
+			goto break;
+		}
+	}
+break:
+	if ($found)
+	{
+		chdir($tmp_dir);
+		if (system("fusermount", "-u", "@line[1]") == 0)
+		{
+			syslog('notice', "successfully unmounted \"@line[1]\"");
+		}
+		else
+		{
+			$ENV{'DISPLAY'}=":$display";
+			syslog('err', "ERROR: failed to unmount \"@line[1]\"");
+			if ($use_zenity == 0)
+			{
+				system("type -p kdialog 1>/dev/null && kdialog --error \"ERROR (X2Go): Failed to unmount @line[1]\"&");
+			}
+			else
+			{
+				system("type -p zenity 1>/dev/null && zenity --error --text \"ERROR (X2Go): Failed to unmount @line[1]\"&");
+			}
+		}
+	}
+
+	if (!$found) {
+		syslog('info', "SSHFS share already unmounted, taking care of further clean-up (".basename(@line[1]).")");
+		$remote = basename(@line[1]);
+	} else {
+		$remote=~s/\/cygdrive\///;
+		$remote=~s/\/windrive\///;
+		$remote=~s/\/uncpath\///;
+		$remote=~s/\//_/g;
+		$remote=~s/ /_/g;
+		$remote=~s/\\040/_/g;
+		$remote=(split(":","$remote"))[1];
+	}
+	my $desktop_dir;
+	if ( $ENV{'XDG_DESKTOP_DIR'} )
+	{
+		$desktop_dir="$ENV{'XDG_DESKTOP_DIR'}";
+	} else {
+		$desktop_dir="$ENV{'HOME'}/Desktop";
+	}
+
+	my $current_desktop = 'NONE';
+	if (($session =~ m/_stDGNOME_dp/) && system("x2gofeature X2GO_GNOMEBINDINGS >/dev/null") == 0)
+	{
+		$current_desktop="-gnome";
+	}
+	elsif (($session =~ m/_stDMATE_dp/) && system("x2gofeature X2GO_MATEBINDINGS >/dev/null") == 0)
+	{
+		$current_desktop="-mate";
+	}
+	elsif (($session =~ m/_stDLXDE_dp/) && system("x2gofeature X2GO_LXDEBINDINGS >/dev/null") == 0)
+	{
+		$current_desktop="-lxde";
+	}
+	elsif (($session =~ m/_st.*_dp/) && system("x2gofeature X2GO_FMBINDINGS >/dev/null") == 0)
+	{
+		$current_desktop="";
+	}
+
+	if ("$current_desktop" ne "NONE")
+	{
+		my $desktop_file;
+		if ( -f "$desktop_dir/$remote\ (sshfs-disk$current_desktop)")
+		{
+			$desktop_file = "$remote\ (sshfs-disk$current_desktop)";
+		}
+		$remote=~s/%2framdrive%2fmnt%2f//;
+		if ( -f "$desktop_dir/$remote\ (sshfs-removable$current_desktop)")
+		{
+			$desktop_file = "$remote\ (sshfs-removable$current_desktop)";
+		}
+		if ( -f "$desktop_dir/$remote\ (sshfs-cdrom/$current_desktop)")
+		{
+			$desktop_file = "$remote\ (sshfs-cdrom$current_desktop)";
+		}
+
+		if ( -f "$desktop_dir/$desktop_file" ) {
+			syslog('info', "Attempting removal of desktop file ,,$desktop_dir/$desktop_file''");
+			open (DF,"<$desktop_dir/$desktop_file") or die "Can't open $desktop_file for reading";
+			my @desktop_file_content=<DF>;
+			close(DF);
+
+			if ( @desktop_file_content[1] =~ m/$session/ ) {
+				syslog('info', "removing desktop icon ,,$desktop_dir/$desktop_file''");
+				unlink("$desktop_dir/$desktop_file");
+			}
+		}
+
+	}
+	db_deletemount ($session, @line[1]);
+	rmdir (@line[1]);
+cont:
+}
+
+# try to eliminate parent directory of mountpoints
+rmdir ("$mdir/disk");
+rmdir ("$mdir/cd");
+rmdir ("$mdir/rm");
+rmdir ("$mdir");
+if (( ! -d "$mdir" ) && ( -l "$ENV{'HOME'}/media" ))
+{
+	system("rm -f $ENV{'HOME'}/media");
+}
+rmdir ("$spooldir/C-$session");
+rmdir ("$spooldir");
+rmdir ("$mimeboxdir/C-$session");
+rmdir ("$mimeboxdir");
+
+# closing syslog 
+closelog;
