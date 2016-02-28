@@ -1,0 +1,32 @@
+#!/usr/bin/make -f
+
+PYVERSIONS := $(shell pyversions -sv)
+
+%:
+	dh  $@
+
+override_dh_auto_clean: $(PYVERSIONS:%=clean-%-stamp)
+	dh_auto_clean
+
+clean-%-stamp:
+	rm -rf build/test-$*
+
+override_dh_installchangelogs:
+	dh_installchangelogs HISTORY
+
+override_dh_strip:
+	dh_strip --dbg-package=python-setproctitle-dbg
+
+override_dh_auto_test: $(PYVERSIONS:%=test-%-stamp)
+test-%-stamp:	
+ifeq (,$(findstring nocheck,$(DEB_BUILD_OPTIONS)))
+	rm -rf build/test-$*
+	mkdir build/test-$*
+	python$* setup.py install_lib -d build/test-$*
+ifeq (,$(findstring kfreebsd,$(shell dpkg-architecture -qDEB_BUILD_ARCH_OS)))
+	PYTHONPATH=build/test-$* python$* /usr/bin/nosetests -v tests
+endif
+	touch test-python-$*-stamp
+endif
+
+.PHONY: override_dh_auto_clean override_dh_installchangelogs override_dh_strip override_dh_auto_test

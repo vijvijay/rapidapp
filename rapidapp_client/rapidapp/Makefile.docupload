@@ -1,0 +1,18 @@
+#!/usr/bin/make -f
+# Makefile.docupload file - for pyhoca-gui
+# Copyright 2010-2014 by Mike Gabriel <mike.gabriel@das-netzwerkteam.de>, GPLv3 applies to this file
+
+VERSION=`head -n1 debian/changelog | sed 's,.*(\(.*\)).*,\1,' | cut -d"-" -f1`
+DOC_HOST=code.x2go.org
+DOC_PATH=/srv/sites/x2go.org/packages/doc/pyhoca-gui/man/
+DOC_USER=x2go-admin
+
+doc: docbuild docupload
+
+docbuild:
+	make -f Makefile.man2html build_man2html
+
+docupload:
+	
+	ssh -l${DOC_USER} ${DOC_HOST} "{ mkdir -p ${DOC_PATH}; rm -Rfv ${DOC_PATH}/*; }"
+	scp -r .build_man2html/html/* ${DOC_USER}@${DOC_HOST}:${DOC_PATH}/

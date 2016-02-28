@@ -1,0 +1,47 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Wed, 15 Dec 2010 18:47:00 +0100
+Source: python-setproctitle
+Binary: python-setproctitle python-setproctitle-dbg
+Architecture: source amd64
+Version: 1.0.1-2
+Distribution: lucid
+Urgency: low
+Maintainer: Örjan Persson <orange@fobie.net>
+Changed-By: Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+Description: 
+ python-setproctitle - A setproctitle implementation for Python
+ python-setproctitle-dbg - A setproctitle implementation for Python
+Changes: 
+ python-setproctitle (1.0.1-2) lucid; urgency=low
+ .
+   * Backport for Ubuntu 10.04 (lucid)
+Checksums-Sha1: 
+ e288498d794fa87551cb5c3c9fa0dbe7c80b36d9 1549 python-setproctitle_1.0.1-2.dsc
+ fd6541d17ceb0f50945d2c33defaf9fb0e21c92f 3099 python-setproctitle_1.0.1-2.debian.tar.gz
+ f35b0ce00bfc2c66e97c486c082968df44a56488 10136 python-setproctitle_1.0.1-2_amd64.deb
+ 7a5e31462f3e31da735510d9a5dac0d553981dc9 12376 python-setproctitle-dbg_1.0.1-2_amd64.deb
+Checksums-Sha256: 
+ 40b92723e40208bb155574d71f989bdb5ead44c14b2c2eb9cca703e07783f06c 1549 python-setproctitle_1.0.1-2.dsc
+ f0504f81840e2abc089cf21603aa6eac0cdb8fb28529622064e58b6dc62953b7 3099 python-setproctitle_1.0.1-2.debian.tar.gz
+ fa0bcb4b8614e0db9445f588e013f2d26722123d59b264c63fb8d205b3cd68ef 10136 python-setproctitle_1.0.1-2_amd64.deb
+ 2d4b45b334729d14b5bc56eb7a2853cfe7f654ecaa6023fbb938586a6f6cac3e 12376 python-setproctitle-dbg_1.0.1-2_amd64.deb
+Files: 
+ be32925d2704714e99bc17fe446e8300 1549 python extra python-setproctitle_1.0.1-2.dsc
+ fb361cbc1094c988a0163202135add08 3099 python extra python-setproctitle_1.0.1-2.debian.tar.gz
+ 6219594ef2e5638cc715eb1428496b93 10136 python extra python-setproctitle_1.0.1-2_amd64.deb
+ 795aacdcfe7b815cc8cec4220e3d8c0c 12376 debug extra python-setproctitle-dbg_1.0.1-2_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJNwdtdAAoJEIlP3EWN3QKARNEIAIntX/ocSc7Z3kxVJ5QuWsXm
+HA0TDcBAiogcZFEepD2EcSU4mgSZKkwMZbZTXZQtEHmdyVO5rmHsPgA073rOOSLs
+QalH9ZmwOXrI8PANO+yh8UXjOAs8HWuFndjX0OsClXi/UK3ptAQDQ76uAjG7+TvI
+UgtwahGH/0JzVFyiNBp7geJ2RNo5ynmZ/axg6q8Z+yFNyV/Et9dGHov+Vbmks65/
+evPo8gFt3Eq1UEJRVnnKNE415fL7nDTyxkQET0UtxIWGUXLJNQ5fLXVUHrh1Ar6e
+KhA7R3zh1CNgRdvA/UQuVHUQL+loBCeSm2IwRo0HEelc2rtfqjLU95OFMUulAYI=
+=wNt0
+-----END PGP SIGNATURE-----

@@ -1,0 +1,52 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Mon, 16 May 2011 19:55:03 +0200
+Source: python-gevent
+Binary: python-gevent-dbg python-gevent-doc python-gevent
+Architecture: source amd64 all
+Version: 0.13.0-5.1~squeeze1
+Distribution: unstable
+Urgency: low
+Maintainer: Örjan Persson <orange@fobie.net>
+Changed-By: X2go Git Administrator <git-admin@x2go.org>
+Description: 
+ python-gevent - gevent is a coroutine-based Python networking library
+ python-gevent-dbg - gevent is a coroutine-based Python networking library - debugging
+ python-gevent-doc - gevent is a coroutine-based Python networking library - documenta
+Changes: 
+ python-gevent (0.13.0-5.1~squeeze1) unstable; urgency=low
+ .
+   * Non-maintainer upload.
+   * build for Debian squeeze (python2.5 + python2.6)
+Checksums-Sha1: 
+ 22693a905812384e3e4a55205eb00b9da4eda213 1352 python-gevent_0.13.0-5.1~squeeze1.dsc
+ d6ff7bf5629b933b80d0025c46f74f7570614115 268611 python-gevent_0.13.0-5.1~squeeze1.tar.gz
+ 4ab13eeae4ffb7bd2d0aeebdaae498367c02481f 199340 python-gevent-dbg_0.13.0-5.1~squeeze1_amd64.deb
+ 2f8efad21b3c665312adc8370f9b1cfe28a20994 126664 python-gevent-doc_0.13.0-5.1~squeeze1_all.deb
+ 6ec970ef0f4683826caba408fd66afd3639d0014 215178 python-gevent_0.13.0-5.1~squeeze1_amd64.deb
+Checksums-Sha256: 
+ 600a7a7478a25a7cf7443b3a8ce02a5a1528279423fcf923d08cccce7138e1a2 1352 python-gevent_0.13.0-5.1~squeeze1.dsc
+ 4a4a59e40b6f5a5565c0a65113be9fe75b648aaaf5df8601856eb45ca7af8952 268611 python-gevent_0.13.0-5.1~squeeze1.tar.gz
+ dbac6b624e77f6cd738dfc5ac22f720dc3e63322643b75aa4d86b89b645a1085 199340 python-gevent-dbg_0.13.0-5.1~squeeze1_amd64.deb
+ 100435fdd7bcaff7b0ab9d379b6f7137faf8f0e1bd230e2aed9ac7e370c7dc9d 126664 python-gevent-doc_0.13.0-5.1~squeeze1_all.deb
+ 5a270297de8eeb8edcba426dd1b422dfd261a9a8f67d16de7277b0db49c0cf5d 215178 python-gevent_0.13.0-5.1~squeeze1_amd64.deb
+Files: 
+ 0ee0fd02eed7505504f2d90e073f7941 1352 python extra python-gevent_0.13.0-5.1~squeeze1.dsc
+ 72acff46ed393d8a0e606db4a88cbf05 268611 python extra python-gevent_0.13.0-5.1~squeeze1.tar.gz
+ bffc47ecd72e09161b8d67e64af5bdce 199340 debug extra python-gevent-dbg_0.13.0-5.1~squeeze1_amd64.deb
+ 79bde7c2e1ad1ee230bdc3d953968e67 126664 doc optional python-gevent-doc_0.13.0-5.1~squeeze1_all.deb
+ ba4e7f2ec20f057982ebd419e7545fcf 215178 python extra python-gevent_0.13.0-5.1~squeeze1_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJN0XtDAAoJEPSnZ4ycawsrgTwIALdPDWyKBFoCHX+rfR2MI0e3
+YnKSBFxcHFjqOLOg/dSFg8nbxMODBtEmarWHXpF+iAPnZfJsljRKhqDMvBAjeHvS
+TW3XM/UUI+aoCmdX3kZk/R/hRyjCqAYf6hwCWNCtrTwQu+XqXgSsWWnfz3g1pyFi
+HR+sJFDXUr1VvqFD7E7iXk5VN0Fvq/9rMH5RmL+Sc9eLlq8va8hO0t9r887UrePU
+kfWXlrlQMrRSFQaqVCON2i5Hw++g7aOI0P4u/ReGFgTEPvJAgGnzkyctWpqfLlYE
+yziNZhQhLXYRvmVFnGlSNcdISgZav05F1N95+EhnqOPFgKxBOSWZE/E+6ckD7pk=
+=Zr/F
+-----END PGP SIGNATURE-----

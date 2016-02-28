@@ -1,0 +1,153 @@
+ dpkg-buildpackage -rfakeroot -D -us -uc
+dpkg-buildpackage: setze CFLAGS auf Standardwert: -g -O2
+dpkg-buildpackage: setze CPPFLAGS auf Standardwert: 
+dpkg-buildpackage: setze LDFLAGS auf Standardwert: -Wl,-Bsymbolic-functions
+dpkg-buildpackage: setze FFLAGS auf Standardwert: -g -O2
+dpkg-buildpackage: setze CXXFLAGS auf Standardwert: -g -O2
+dpkg-buildpackage: Quellpaket python-setproctitle
+dpkg-buildpackage: Quellversion 1.0.1-2
+dpkg-buildpackage: Quellen geändert durch Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+dpkg-buildpackage: Host-Architektur amd64
+ fakeroot debian/rules clean
+dh  clean
+   dh_testdir
+   debian/rules override_dh_auto_clean
+make[1]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1'
+rm -rf build/test-2.6
+dh_auto_clean
+running clean
+removing 'build/temp.linux-x86_64-2.6' (and everything under it)
+removing 'build/lib.linux-x86_64-2.6' (and everything under it)
+'build/bdist.linux-x86_64' does not exist -- can't clean it
+'build/scripts-2.6' does not exist -- can't clean it
+removing 'build'
+make[1]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1'
+   dh_clean
+ dpkg-source -b python-setproctitle-1.0.1
+dpkg-source: Information: verwende Quellformat »3.0 (quilt)«
+dpkg-source: Information: baue python-setproctitle unter Benutzung des existierenden ./python-setproctitle_1.0.1.orig.tar.gz
+dpkg-source: Information: baue python-setproctitle in python-setproctitle_1.0.1-2.debian.tar.gz
+dpkg-source: Information: baue python-setproctitle in python-setproctitle_1.0.1-2.dsc
+ debian/rules build
+dh  build
+   dh_testdir
+   dh_auto_configure
+   dh_auto_build
+running build
+running build_ext
+building 'setproctitle' extension
+creating build
+creating build/temp.linux-x86_64-2.6
+creating build/temp.linux-x86_64-2.6/src
+gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -g -O2 -fPIC -DHAVE_SYS_PRCTL_H=1 -DSPT_VERSION=1.0.1 -I/usr/include/python2.6 -c src/setproctitle.c -o build/temp.linux-x86_64-2.6/src/setproctitle.o
+gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -g -O2 -fPIC -DHAVE_SYS_PRCTL_H=1 -DSPT_VERSION=1.0.1 -I/usr/include/python2.6 -c src/spt_status.c -o build/temp.linux-x86_64-2.6/src/spt_status.o
+gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -g -O2 -fPIC -DHAVE_SYS_PRCTL_H=1 -DSPT_VERSION=1.0.1 -I/usr/include/python2.6 -c src/strlcpy.c -o build/temp.linux-x86_64-2.6/src/strlcpy.o
+creating build/lib.linux-x86_64-2.6
+gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -g -O2 build/temp.linux-x86_64-2.6/src/setproctitle.o build/temp.linux-x86_64-2.6/src/spt_status.o build/temp.linux-x86_64-2.6/src/strlcpy.o -o build/lib.linux-x86_64-2.6/setproctitle.so
+   debian/rules override_dh_auto_test
+make[1]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1'
+rm -rf build/test-2.6
+mkdir build/test-2.6
+python2.6 setup.py install_lib -d build/test-2.6
+running install_lib
+running build_ext
+copying build/lib.linux-x86_64-2.6/setproctitle.so -> build/test-2.6
+PYTHONPATH=build/test-2.6 python2.6 /usr/bin/nosetests -v tests
+Check that clobbering environ didn't break env. ... ok
+getproctitle() can read the process title back. ... ok
+getproctitle() returns a sensible value at initial call. ... ok
+Test that the module works with 'python -m'. ... ok
+Check that prctl is called on supported platforms. ... ok
+Test the script execution method. ... ok
+setproctitle() can set the process title, duh. ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.271s
+
+OK
+touch test-python-2.6-stamp
+make[1]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1'
+ fakeroot debian/rules binary
+dh  binary
+   dh_testroot
+   dh_prep
+   dh_installdirs
+   dh_auto_install
+running install
+running build
+running build_ext
+running install_lib
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1/debian/tmp
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1/debian/tmp/usr
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1/debian/tmp/usr/lib
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1/debian/tmp/usr/lib/python2.6
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1/debian/tmp/usr/lib/python2.6/dist-packages
+copying build/lib.linux-x86_64-2.6/setproctitle.so -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1/debian/tmp/usr/lib/python2.6/dist-packages
+running install_egg_info
+Writing /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1/debian/tmp/usr/lib/python2.6/dist-packages/setproctitle-1.0.1.egg-info
+   dh_install
+   dh_installdocs
+   debian/rules override_dh_installchangelogs
+make[1]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1'
+dh_installchangelogs HISTORY
+make[1]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1'
+   dh_installexamples
+   dh_installman
+   dh_installcatalogs
+   dh_installcron
+   dh_installdebconf
+   dh_installemacsen
+   dh_installifupdown
+   dh_installinfo
+   dh_pysupport
+   dh_installinit
+   dh_installmenu
+   dh_installmime
+   dh_installmodules
+   dh_installlogcheck
+   dh_installlogrotate
+   dh_installpam
+   dh_installppp
+   dh_installudev
+   dh_installwm
+   dh_installxfonts
+   dh_bugfiles
+   dh_lintian
+   dh_gconf
+   dh_icons
+   dh_perl
+   dh_usrlocal
+   dh_link
+   dh_compress
+   dh_fixperms
+   debian/rules override_dh_strip
+make[1]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1'
+dh_strip --dbg-package=python-setproctitle-dbg
+make[1]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-setproctitle/1.0.1/python-setproctitle-1.0.1'
+   dh_makeshlibs
+   dh_shlibdeps
+dpkg-shlibdeps: Warnung: Abhängigkeit von libpthread.so.0 könnte vermieden werden, falls »debian/python-setproctitle/usr/lib/pyshared/python2.6/setproctitle.so« nicht unnötigerweise dagegen gelinkt wäre (es verwendet keines seiner Symbole).
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: Warnung: unbenutzte Substitutionsvariable ${python:Versions}
+dpkg-gencontrol: Warnung: unbenutzte Substitutionsvariable ${python:Provides}
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: Baue Paket »python-setproctitle« in »../python-setproctitle_1.0.1-2_amd64.deb«.
+dpkg-deb: Baue Paket »python-setproctitle-dbg« in »../python-setproctitle-dbg_1.0.1-2_amd64.deb«.
+ dpkg-genchanges  >../python-setproctitle_1.0.1-2_amd64.changes
+dpkg-genchanges: füge Originalquellen beim Hochladen nicht hinzu
+dpkg-buildpackage: Binär und Diff hochzuladen (Originalquellen NICHT enthalten)
+Now running lintian...
+W: python-setproctitle source: out-of-date-standards-version 3.8.4 (current is 3.9.1)
+W: python-setproctitle: copyright-refers-to-deprecated-bsd-license-file
+W: python-setproctitle-dbg: copyright-refers-to-deprecated-bsd-license-file
+Finished running lintian.
+Now signing changes and any dsc files...
+ signfile python-setproctitle_1.0.1-2.dsc Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+gpg: GPG-Agent ist in dieser Sitzung nicht vorhanden
+
+ signfile python-setproctitle_1.0.1-2_amd64.changes Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+gpg: GPG-Agent ist in dieser Sitzung nicht vorhanden
+
+Successfully signed dsc and changes files

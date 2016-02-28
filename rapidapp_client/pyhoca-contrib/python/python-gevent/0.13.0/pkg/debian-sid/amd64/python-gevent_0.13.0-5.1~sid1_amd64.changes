@@ -1,0 +1,52 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Mon, 16 May 2011 19:55:03 +0200
+Source: python-gevent
+Binary: python-gevent-dbg python-gevent-doc python-gevent
+Architecture: source amd64 all
+Version: 0.13.0-5.1~sid1
+Distribution: unstable
+Urgency: low
+Maintainer: Örjan Persson <orange@fobie.net>
+Changed-By: X2go Git Administrator <git-admin@x2go.org>
+Description: 
+ python-gevent - gevent is a coroutine-based Python networking library
+ python-gevent-dbg - gevent is a coroutine-based Python networking library - debugging
+ python-gevent-doc - gevent is a coroutine-based Python networking library - documenta
+Changes: 
+ python-gevent (0.13.0-5.1~sid1) unstable; urgency=low
+ .
+   * Non-maintainer upload.
+   * build for Debian sid (python2.6 + python2.7)
+Checksums-Sha1: 
+ 467969be16fcbb8563b5a9c39ad68781212931bb 1336 python-gevent_0.13.0-5.1~sid1.dsc
+ 64a382c352204ead6ed96c728768479ce9733a9a 268645 python-gevent_0.13.0-5.1~sid1.tar.gz
+ cba409c97957c173e3b4a91ff845db93232be3ff 236628 python-gevent-dbg_0.13.0-5.1~sid1_amd64.deb
+ d1ac080979f88a4cf1c7771c9f4d3f6865ccf07b 132790 python-gevent-doc_0.13.0-5.1~sid1_all.deb
+ 2dd7440138a88646e7b8f35a905533402bdea43f 210528 python-gevent_0.13.0-5.1~sid1_amd64.deb
+Checksums-Sha256: 
+ dde47dd061e7b6438843de5c7d88ca1168a9e10f5a065a0dd98a669e338ca976 1336 python-gevent_0.13.0-5.1~sid1.dsc
+ e9e85669b675d70753669bb4d87432c58e456a1a7272204b33dd8a70a8850257 268645 python-gevent_0.13.0-5.1~sid1.tar.gz
+ b3151c813f12e23e2126d9364fa9c8e7bc425e5ae156f235b3549aa5930abca5 236628 python-gevent-dbg_0.13.0-5.1~sid1_amd64.deb
+ 84990559831ad3f6463a2973df8a5b7e5ff047e102882d46f0393798652a6236 132790 python-gevent-doc_0.13.0-5.1~sid1_all.deb
+ bdb0a465d5b4a28a5318ed50271528316d8a26e46be816707679a1666efe21bc 210528 python-gevent_0.13.0-5.1~sid1_amd64.deb
+Files: 
+ e1078fb44eb3f0b176f615256c09dbcf 1336 python extra python-gevent_0.13.0-5.1~sid1.dsc
+ 2c91ea0f36d7dd396b89c42fb4320040 268645 python extra python-gevent_0.13.0-5.1~sid1.tar.gz
+ 764e23ce9bf3dba3c0277afc664e92b2 236628 debug extra python-gevent-dbg_0.13.0-5.1~sid1_amd64.deb
+ b45a746d05153b9eadfbce331d28f340 132790 doc optional python-gevent-doc_0.13.0-5.1~sid1_all.deb
+ 3d4e365c46bd3b4deb5c023e933325de 210528 python extra python-gevent_0.13.0-5.1~sid1_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJN0X0RAAoJEPSnZ4ycawsrNGoIAMIp4fKRjagktnQKjitgAWNO
+xc0dup3yxNQsSyLo/S+lzFHR9sVCJpMNtzUbMVH2ySzAgvRyBAdiK9KXU3QZCJnR
+IaUZIb6jJa+i3hBeFu+6Vl395GyuoDI7cHfd+lnts2Czc/DWZ70ED9KiUZS77Aa3
+6VtdGIQA1oNM4WPb7ME/LVq1jY02kUsuqQpaJpPg04meu4r9wwvhHMt83WogS/bv
+yFKlAhNts8gOG1TIALGS+MSFOiwxuC9VLjGRHogiA2Fz/s6CGVIgb7hcgotk/Gii
+j/ZL8TTk93xut3sdYQsIDClfIhBx2rFEAEChHEN0ZGECeLcbqx3rA7bvikWEHVw=
+=3+G9
+-----END PGP SIGNATURE-----

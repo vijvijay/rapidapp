@@ -1,0 +1,50 @@
+dpkg-buildpackage: export CFLAGS from dpkg-buildflags (origin: vendor): -g -O2
+dpkg-buildpackage: export CPPFLAGS from dpkg-buildflags (origin: vendor): 
+dpkg-buildpackage: export CXXFLAGS from dpkg-buildflags (origin: vendor): -g -O2
+dpkg-buildpackage: export FFLAGS from dpkg-buildflags (origin: vendor): -g -O2
+dpkg-buildpackage: export LDFLAGS from dpkg-buildflags (origin: vendor): 
+dpkg-buildpackage: source package python-greenlet
+dpkg-buildpackage: source version 0.3.1-2
+dpkg-buildpackage: source changed by Mike Gabriel <m.gabriel@das-netzwerkteam.de>
+ dpkg-source --before-build python-greenlet-0.3.1
+ fakeroot debian/rules clean
+dh  clean
+   dh_testdir
+   dh_auto_clean
+Traceback (most recent call last):
+  File "setup.py", line 2, in <module>
+    from setuptools import Extension
+  File "/usr/lib/python2.5/site-packages/setuptools/__init__.py", line 2, in <module>
+    from setuptools.extension import Extension, Library
+  File "/usr/lib/python2.5/site-packages/setuptools/extension.py", line 2, in <module>
+    from setuptools.dist import _get_unpatched
+  File "/usr/lib/python2.5/site-packages/setuptools/dist.py", line 6, in <module>
+    from setuptools.command.install import install
+  File "/usr/lib/python2.5/site-packages/setuptools/command/__init__.py", line 8, in <module>
+    from setuptools.command import install_scripts
+  File "/usr/lib/python2.5/site-packages/setuptools/command/install_scripts.py", line 3, in <module>
+    from pkg_resources import Distribution, PathMetadata, ensure_directory
+  File "/usr/lib/python2.5/site-packages/pkg_resources.py", line 2691, in <module>
+    add_activation_listener(lambda dist: dist.activate())
+  File "/usr/lib/python2.5/site-packages/pkg_resources.py", line 668, in subscribe
+    callback(dist)
+  File "/usr/lib/python2.5/site-packages/pkg_resources.py", line 2691, in <lambda>
+    add_activation_listener(lambda dist: dist.activate())
+  File "/usr/lib/python2.5/site-packages/pkg_resources.py", line 2192, in activate
+    self.insert_on(path)
+  File "/usr/lib/python2.5/site-packages/pkg_resources.py", line 2299, in insert_on
+    self.check_version_conflict()
+  File "/usr/lib/python2.5/site-packages/pkg_resources.py", line 2336, in check_version_conflict
+    nsp = dict.fromkeys(self._get_metadata('namespace_packages.txt'))
+  File "/usr/lib/python2.5/site-packages/pkg_resources.py", line 2185, in _get_metadata
+    if self.has_metadata(name):
+  File "/usr/lib/python2.5/site-packages/pkg_resources.py", line 1160, in has_metadata
+    return self.egg_info and self._has(self._fn(self.egg_info,name))
+  File "/usr/lib/python2.5/site-packages/pkg_resources.py", line 1269, in _has
+    return os.path.exists(path)
+  File "/usr/lib/python2.5/posixpath.py", line 171, in exists
+    st = os.stat(path)
+KeyboardInterrupt
+dh_auto_clean: python2.5 setup.py clean -a returned exit code 1
+make: *** [clean] Error 1
+dpkg-buildpackage: error: fakeroot debian/rules clean gave error exit status 130

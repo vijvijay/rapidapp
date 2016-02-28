@@ -1,0 +1,22 @@
+python-setproctitle (1.0.1-2) lucid; urgency=low
+
+  * Backport for Ubuntu 10.04 (lucid)
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 15 Dec 2010 18:47:00 +0100
+
+python-setproctitle (1.0.1-1) unstable; urgency=low
+
+  * New upstream version.
+  * Added missing dependency for python, thanks to Sven Joachim for reporting
+    this (Closes: #584078).
+  * Fixed problem when building package more than once, thanks to Jakub Wilk
+    for reporting this (Closes: #583887).
+  * Disabled tests for kfreebsd until setproctitle is fixed in libbsd.
+
+ -- Örjan Persson <orange@fobie.net>  Mon, 31 May 2010 20:58:30 +0200
+
+python-setproctitle (1.0-1) unstable; urgency=low
+
+  * Initial release (Closes: #583506).
+
+ -- Örjan Persson <orange@fobie.net>  Thu, 27 May 2010 20:39:52 +0200

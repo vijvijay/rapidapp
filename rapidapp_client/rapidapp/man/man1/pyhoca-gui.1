@@ -1,0 +1,267 @@
+'\" -*- coding: utf-8 -*-
+.if \n(.g .ds T< \\FC
+.if \n(.g .ds T> \\F[\n[.fam]]
+.de URL
+\\$2 \(la\\$1\(ra\\$3
+..
+.if \n(.g .mso www.tmac
+.TH pyhoca-gui 1 "Oct 2014" "Version 0.5.0.1" "X2Go Application"
+.SH NAME
+pyhoca-gui \- graphical X2Go client applet written in Python
+.SH SYNOPSIS
+'nh
+.fi
+.ad l
+\fBpyhoca-gui\fR \kx
+.if (\nx>(\n(.l/2)) .nr x (\n(.l/5)
+'in \n(.iu+\nxu
+[
+\fIoptions\fR
+]
+'in \n(.iu-\nxu
+.ad b
+'hy
+.SH DESCRIPTION
+\fBpyhoca-gui\fR is a cross-platform (Windows, MacOS X, Linux) graphical X2Go client applet that
+docks to your desktop's system tray.
+.PP
+From your desktop's system tray you can start/resume/share pre-configured X2Go sessions. You can manage the
+pre-configured session profiles in the X2Go profile manager and also configure the basic setup of
+\fBpyhoca-gui\fR.
+.PP
+\fBpyhoca-gui\fR uses the same set of config files (\fBsettings\fR, \fBprinting\fR and \fBsessions\fR in ~/.x2goclient) as the original 
+X2Go Client application (by Heinz-M. Graesing and Oleksandr Schneyder) does.
+.PP
+On Windows systems \fBpyhoca-gui\fR uses the same set of Windows registry keys and values as the original X2Go Client application.
+.PP
+See the included README and TODO for further information on \fBpyhoca-gui\fR.
+.SH COMMON OPTIONS
+\fBpyhoca-gui\fR accepts the following common options:
+.TP
+\*(T<\fB\-h, \-\-help\fR\*(T>
+Display a help with all available command line options and exit.
+.TP
+\*(T<\fB\-V, \-\-version\fR\*(T>
+Output version information and exit.
+.TP
+\*(T<\fB\-d, \-\-quiet\fR\*(T>
+No output to stdout at all! Use this option on Windows!!!
+.TP
+\*(T<\fB\-d, \-\-debug\fR\*(T>
+Enable debugging output.
+.TP
+\*(T<\fB\-\-libdebug\fR\*(T>
+Enable debugging code of the unterlying Python X2Go module.
+.TP
+\*(T<\fB\-\-libdebug-sftpxfer\fR\*(T>
+Enable debugging code of Python X2Go's sFTP server code (very verbose, and it may even reveal promiscuous data).
+.SH SESSION RELATED OPTIONS
+.TP
+\*(T<\fB\-P, \-\-session-profile\fR\*(T>
+The name of the session profile to be used to make the connection. You can actually pass a komma-separated list of
+session profile names to this option.
+.TP
+\*(T<\fB\-\-remember-username\fR\*(T>
+For profiles with interactive authentication, remember the last-used username.
+.TP
+\*(T<\fB\-\-non-interactive\fR\*(T>
+Run in non-interactive mode. This option requires the \fB\-\-session-profile\fR option. It also sets the following options to true automagically:
+
+        \fB\-\-restricted-trayicon\fR
+        \fB\-\-single_session_profile\fR
+        \fB\-\-start-on-connect\fR
+        \fB\-\-resume-all-on-connect\fR
+        \fB\-\-exit-on-disconnect\fR
+        \fB\-\-disconnect-on-suspend\fR
+        \fB\-\-disconnect-on-terminate\fR
+.TP
+\*(T<\fB\-\-auto-connect\fR\*(T>
+Connect sessions via SSH public key authentication on application startup, if possible.
+.TP
+\*(T<\fB\-\-show-profile-metatypes\fR\*(T>
+Show descriptive meta information on session profiles in menus (NOTE: this makes menus appear a bit more sluggish, use it mostly for debugging).
+.TP
+\*(T<\fB\-\-single-session-profile\fR\*(T>
+Disable support of handling multiple session profiles. Use together with the \fB\-\-session-profile\fR cmdline parameter.
+.TP
+\*(T<\fB\-\-tray-icon\fR \fI<your-logo>\fR\*(T>
+Define an alternative system tray icon file (PNG files only, leave out file extension here, size 22x22 on Linux, 16x16 on Windows).
+.TP
+\*(T<\fB\-\-tray-icon-connecting\fR \fI<your-logo-while-connecting>\fR\*(T>
+Define an alternative system tray icon file while connecting to a server (PNG files only, leave out file extension here, size 22x22 on Linux, 16x16 on Windows).
+.TP
+\*(T<\fB\-\-restricted-trayicon\fR\*(T>
+Restrict functionality of \fBpyhoca-gui\fR's main session manager icon that is shown in the notification area / system tray. This 
+switch limits the icon 's functionality to a right-click menu that allows one to raise the ,,About'' window and exit the application. On
+left-click only a minimal session menu is shown.
+.TP
+\*(T<\fB\-\-add-to-known-hosts\fR\*(T>
+Automatically add host key fingerprint to .ssh/known_hosts in case of "authenticity of server can't be established" (without user interaction).
+
+Handle this option with care: Using it lessens the security/integrity of your SSH client setup.
+.TP
+\*(T<\fB\-\-start-on-connect\fR\*(T>
+DEPRECATED: Start a session directly after authentication (only if no suspended sessions are available). This switch is now fully controlled from within
+the session profiles. This option itself remains here for compatibility with older versions of \fBPyHoca-GUI\fR.
+.TP
+\*(T<\fB\-\-exit-on-disconnect\fR\*(T>
+Exit \fBpyhoca-gui\fR cleanly once a session has been disconnected.
+.TP
+\*(T<\fB\-\-resume-on-connect, \-\-resume-newest-on-connect\fR\*(T>
+DEPRECATED: After authentication directly auto-resume the newest available running/suspended session. This switch is now fully controlled from within
+the session profiles, resuming the newest session is the hard-coded default. However, you can influence the resuming behaviour with the next two command line options. This option itself remains here
+for compatibility with older versions of \fBPyHoca-GUI\fR.
+.TP
+\*(T<\fB\-\-resume-oldest-on-connect\fR\*(T>
+After authentication directly auto-resume the oldest available running/suspended session.
+.TP
+\*(T<\fB\-\-resume-all-on-connect\fR\*(T>
+After authentication directly auto-resume all available running/suspended session.
+.TP
+\*(T<\fB\-\-disconnect-on-suspend\fR\*(T>
+Disconnect from a server if a session on that server has been suspended.
+.TP
+\*(T<\fB\-\-disconnect-on-terminate\fR\*(T>
+Disconnect from a server if a session on that server has been terminated.
+.TP
+\*(T<\fB\-\-display <hostname>:<screennumber>\fR\*(T>
+Set the DISPLAY environment variable to <hostname>:<screennumber>.
+
+.SH BROKERAGE OPTIONS
+In case you want to retrieve X2Go session profiles from an X2Go Session Broker use the following options:
+.TP
+\*(T<\fB\-\-broker\-url=<URL>\fR\*(T>
+Specify the <URL> of the X2Go Session Broker. \fBpyhoca\-gui\fR can access http:// and ssh:// style URLs.
+
+Syntax of <URL> for HTTP brokerage:
+
+http(s)://<user>:<password>@<hostname>:<port>/path/to/broker 
+
+Syntax of <URL> for  SSH brokerage:
+
+ssh://<user>:<password>@<hostname>:<port>/usr/bin/x2gobroker (or any executable that
+provides the broker via SSH).
+
+As a special <URL> you can type "HTTP" or "SSH" and then the application will provide a login window with
+a pre-formatted / schematic URL.
+.TP
+\*(T<\fB\-\-broker\-password <password>\fR\*(T>
+Session broker password for retrieving session profiles from the X2Go Session Broker.
+The cleartext password that has been specified at the command line will be masqueraded in
+the systems process list (Linux, MacOS). On Windows systems the usage of the \-\-broker-password option is
+forbidden.
+.TP
+\*(T<\fB\-\-broker\-name <broker\-name>\fR\*(T>
+Provide a human readable name for the session broker. This name overrides the default broker name ("X2Go Session Broker")
+in the application's menus and notification bubbles.
+.TP
+\*(T<\fB\-\-broker\-cacertfile CACERT_FILE\fR\*(T>
+For https:// brokers with SSL certificates that have been signed against a self-signed root-CA, use this
+command line option to point to the self-signed root-CA certificate file.
+.TP
+\*(T<\fB\-\-broker\-autoconnect\fR\*(T>
+If this command line option is given the session broker authentication dialog will appear on application startup.
+
+.SH BRANDING OPTIONS
+The \fBpyhoca-gui\fR provides some feature that allow to easily brand its appearance. Here some options
+for tweaking the \fBpyhoca-gui\fR appearance and behaviour.
+.TP
+\*(T<\fB\-\-splash-image\fR \fI<your-splash-image>\fR\*(T>
+Define an alternative splash image that gets shown on application startup (PNG files only, full path or filename as found in <share>/img).
+.TP
+\*(T<\fB\-\-about-image\fR \fI<your-about-window-image>\fR\*(T>
+Define an alternative image for the application's ,,About'' window (PNG files only, full path or filename as found in <share>/img).
+.
+For those who distribute a customized version of this application:
+As PyHoca-GUI and its backend Python X2Go are licensed under AGPL, the ,,About'' window is a good place for placing the download location
+of your modified version of the source code.
+.TP
+\*(T<\fB\-\-disable-splash\fR\*(T>
+Do not show the application's splash screen.
+.TP
+\*(T<\fB\-\-disable-options\fR\*(T>
+Grey-out the ,,Options'' menu item and thus disable the client configuration window.
+.TP
+\*(T<\fB\-\-disable-printingprefs\fR\*(T>
+Grey-out the ,,Printing Preferences'' menu item and thus disable the client's printing preferences window.
+.TP
+\*(T<\fB\-\-disable-profilemanager\fR\*(T>
+Grey-out the profile manager menu items and thus disable all profile management functionalities.
+.TP
+\*(T<\fB\-\-disable-notifications\fR\*(T>
+Disable all applet notifications.
+.TP
+\*(T<\fB\-\-logon\-window\-position\fR \fI<x-pos>x<y-pos>\fR\*(T>
+Give a custom position for the logon window, use negative values to position relative to right/bottom border.
+.TP
+\*(T<\fB\-\-published-applications-no-submenus\fR \fI<number>\fR\*(T>
+The number of published applications that will be rendered without submenus.
+.PP
+.SH BACKEND OPTIONS
+\fBpyhoca-gui\fR supports transparent use of different data backends. For configuration three backends are common:
+FILE, GCONF (Linux only) and WINREG (Windows only). The default backend currently is the FILE backend 
+on all platforms.
+.PP
+For client-server communication the only yet implemented backend is the STDOUT backend (as X2Go server commands
+print their execution results to /dev/stdout. (But other communication backends might be possible in the future...).
+.PP
+In the same way we are focusing on a successor of the current NX3 agent/proxy tool. A change in the proxy backend
+will also be implemented as a backend.
+.TP
+\*(T<\fB\-\-backend-controlsession <CONTROLSESSION_BACKEND>\fR\*(T>
+Force usage of a certain CONTROLSESSION_BACKEND (do not use this unless you know exactly what you are doing).
+.TP
+\*(T<\fB\-\-backend-terminalsession <TERMINALSESSION_BACKEND>\fR\*(T>
+Force usage of a certain TERMINALSESSION_BACKEND (do not use this unless you know exactly what you are doing).
+.TP
+\*(T<\fB\-\-backend-serversessioninfo <SERVERSESSIONINFO_BACKEND>\fR\*(T>
+Force usage of a certain SERVERSESSIONINFO_BACKEND (do not use this unless you know exactly what you are doing).
+.TP
+\*(T<\fB\-\-backend-serversessionlist <SERVERSESSIONLIST_BACKEND>\fR\*(T>
+Force usage of a certain SERVERSESSIONLIST_BACKEND (do not use this unless you know exactly what you are doing).
+.TP
+\*(T<\fB\-\-backend-proxy <PROXY_BACKEND>\fR\*(T>
+Force usage of a certain PROXY_BACKEND (do not use this unless you know exactly what you are doing).
+.TP
+\*(T<\fB\-\-backend-sessionprofiles <SESSIONPROFILES_BACKEND>\fR\*(T>
+Use given backend for accessing session profiles, available backends on Linux: FILES, GCONF; on Windows: FILES, WINREG.
+.TP
+\*(T<\fB\-\-backend-clientsettings <CLIENTSETTINGS_BACKEND>\fR\*(T>
+Use given backend for accessing the client settings configuration, available backends on Linux: FILES, GCONF; on Windows: FILES, WINREG.
+.TP
+\*(T<\fB\-\-backend-clientprinting <CLIENTPRINTING_BACKEND>\fR\*(T>
+Use given backend for accessing the client printing configuration, available backends on Linux: FILES, GCONF; on Windows: FILES, WINREG.
+.SH PORTABLE OPTIONS
+.TP
+\*(T<\fB\-\-client-rootdir <CLIENT_ROOTDIR>\fR\*(T>
+Define an alternative location where to find plain text config files (default: <HOME>/.x2goclient).
+This option will set ,,--backend-profiles FILE'', ,,--backend-clientsettings FILE'' and ,,--backend-clientprinting FILE''
+.TP
+\*(T<\fB\-\-sessions-rootdir <SESSIONS_ROOTDIR>\fR\*(T>
+Define an alternative location for session runtime files (default: <HOME>/.x2go).
+.TP
+\*(T<\fB\-\-ssh-rootdir <SSH_ROOTDIR>\fR\*(T>
+Define an alternative location for user SSH files (default: <HOME>/.ssh).
+.SH WINDOWS OPTIONS
+There are some options that are only available on Windows:
+.TP
+\*(T<\fB\-\-start-xserver\fR\*(T>
+Start an  XServer (if available) before starting \fBpyhoca-gui\fR. The application will detect the best 
+suitable XServer automatically, if more than one XServer is installed on your system (currently known:
+Xming, Cygwin-X).
+.TP
+\*(T<\fB\-\-preferred-xserver <XSERVER_NAME>\fR\*(T>
+Start either of the currently supported XServers: Xming, Cygwin-X and VcXsrv -- make sure your preferred XServer is installed
+on your system (default and recommended is VcXsrv).
+.TP
+\*(T<\fB\-\-start-pulseaudio\fR\*(T>
+Start the PulseAudio server before starting \fBpyhoca-gui\fR. This option is needed to get X2Go audio working. However, it is
+not enabled by default.
+.TP
+\*(T<\fB\-\-lang [en|de|nl|es]\fR\*(T>
+Select the GUI language.
+.SH "SEE ALSO"
+\fB/usr/share/doc/pyhoca-gui\fR
+.SH AUTHOR
+This manual has been written for the X2Go project by
+Mike Gabriel <mike.gabriel@das-netzwerkteam.de>.

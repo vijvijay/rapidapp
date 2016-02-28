@@ -1,0 +1,10 @@
+Document: python-x2go
+Title: Python X2Go Client API
+Author: Mike Gabriel
+Abstract: This document describes how to use the Python X2Go Client API
+ in Python applications.
+Section: Programming/Python
+
+Format: HTML
+Index: /usr/share/doc/python-x2go-doc/html/index.html
+Files: /usr/share/doc/python-x2go-doc/html/*

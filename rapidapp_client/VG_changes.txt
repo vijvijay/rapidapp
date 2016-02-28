@@ -1,0 +1,10 @@
+changes:
+1. copied and overwrote _semaphore.py and deleted _semaphore.pyd
+2. copied working gevent/core.pyd from net
+3. cp -r pyhoca-gui\build\mo pyhoca-gui\
+4. copying c:\python27\lib\site-packages\win32\win32gui.pyd to c:\pf(x86)\pyhoca-gui\
+5. add 'win32gui' to includes list of build_with_bbfreeze section of setup.py
+
+for output of binary, type "%appdata%" in file explorer address bar and go into pyhoca-gui\ dir
+
+to build run from command prompt> python setup.py build_exe 

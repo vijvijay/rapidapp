@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+# Makefile.docupload file - for python-x2go
+# Copyright 2010-2014 by Mike Gabriel <mike.gabriel@das-netzwerkteam.de>, GPLv3+ applies to this file
+
+VERSION=`head -n1 debian/changelog | sed 's,.*(\(.*\)).*,\1,' | cut -d"-" -f1`
+DOC_HOST=code.x2go.org
+DOC_PATH=/srv/sites/x2go.org/code/doc/python-x2go
+DOC_USER=x2go-admin
+
+doc: docbuild docupload
+
+docbuild:
+	mkdir -p .epydoc/html
+	mkdir -p .epydoc/pdf
+	mkdir -p .epydoc/pdf.tmp
+	rm -Rf .epydoc/html/*
+	epydoc --debug -n "Python X2Go" -u http://www.x2go.org -v --html --no-private -o .epydoc/html x2go/
+	#epydoc --debug --pdf --no-private -o .epydoc/pdf.tmp x2go/
+	#mv .epydoc/pdf.tmp/api.pdf .epydoc/pdf/Python-X2Go_API.pdf
+	#rm -Rf .epydoc/pdf.tmp
+
+
+docupload:
+	ssh -l${DOC_USER} ${DOC_HOST} rm -Rfv ${DOC_PATH}/*
+	scp -r .epydoc/html/* ${DOC_USER}@${DOC_HOST}:${DOC_PATH}/
+
+

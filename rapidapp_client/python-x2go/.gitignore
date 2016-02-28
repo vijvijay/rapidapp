@@ -1,0 +1,11 @@
+*.pyc
+.pc/
+build/
+debian/files
+debian/patches/
+debian/python-x2go.debhelper.log
+debian/python-x2go.postinst.debhelper
+debian/python-x2go.prerm.debhelper
+debian/python-x2go.substvars
+debian/python-x2go/
+x2go.egg-info/

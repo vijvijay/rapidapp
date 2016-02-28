@@ -1,0 +1,2127 @@
+# PyHoca-GUI / i18n.
+# Copyright (C) 2010-2014 Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+#                         Dick Kniep <dick.kniep@lindix.nl>
+# This file is distributed under the same license as the PyHoca-GUI package.
+#
+# Contributing TRANSLATORS:
+# 2013, xxx yyy <mail@address>
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PyHoca-GUI VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-20 12:52+0200\n"
+"PO-Revision-Date: 2014-08-19 17:00+0200\n"
+"Last-Translator: Martti Pitkanen <martti@aplcomp.fi>\n"
+"Language-Team: fi <x2go-i18n@lists.berlios.de>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Language: fi_FI\n"
+"X-Source-Language: C\n"
+
+#: ../pyhoca/wxgui/brokerlogon.py:54
+#, fuzzy
+msgid "Logon"
+msgstr "Kirjaudu sisään"
+
+#: ../pyhoca/wxgui/brokerlogon.py:57
+msgid "Broker URL"
+msgstr ""
+
+#: ../pyhoca/wxgui/brokerlogon.py:60 ../pyhoca/wxgui/logon.py:87
+#: ../pyhoca/wxgui/logon.py:99
+msgid "Username"
+msgstr ""
+
+#: ../pyhoca/wxgui/brokerlogon.py:63 ../pyhoca/wxgui/logon.py:89
+#: ../pyhoca/wxgui/logon.py:101
+msgid "Password"
+msgstr ""
+
+#: ../pyhoca/wxgui/brokerlogon.py:84 ../pyhoca/wxgui/logon.py:92
+msgid "Authenticate"
+msgstr ""
+
+#: ../pyhoca/wxgui/brokerlogon.py:86 ../pyhoca/wxgui/logon.py:124
+#: ../pyhoca/wxgui/passphrase.py:93 ../pyhoca/wxgui/profilemanager.py:393
+#: ../pyhoca/wxgui/listdesktops.py:83 ../pyhoca/wxgui/messages.py:133
+#: ../pyhoca/wxgui/printingprefs.py:148 ../pyhoca/wxgui/sessiontitle.py:71
+msgid "Cancel"
+msgstr ""
+
+#: ../pyhoca/wxgui/brokerlogon.py:165
+#, python-format
+msgid "%s - success"
+msgstr ""
+
+#: ../pyhoca/wxgui/brokerlogon.py:165
+msgid ""
+"Authentication to session broker has been\n"
+"successful."
+msgstr ""
+
+#: ../pyhoca/wxgui/brokerlogon.py:167
+#, python-format
+msgid "%s - failure"
+msgstr ""
+
+#: ../pyhoca/wxgui/brokerlogon.py:167
+msgid "Authentication to session broker failed."
+msgstr ""
+
+#: ../pyhoca/wxgui/brokerlogon.py:171
+#, python-format
+msgid "%s: Connection refused error"
+msgstr ""
+
+#: ../pyhoca/wxgui/brokerlogon.py:171
+#, python-format
+msgid "Connection to %s failed. Retry?"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:81
+#, python-format
+msgid "%s (via %s)"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:104
+msgid "Start SSH tunnel"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:112
+msgid "Session login"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:113
+msgid "SSH proxy server login"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:296 ../pyhoca/wxgui/logon.py:349
+#: ../pyhoca/wxgui/passphrase.py:216 ../pyhoca/wxgui/passphrase.py:223
+#: ../pyhoca/wxgui/passphrase.py:230 ../pyhoca/wxgui/passphrase.py:237
+#: ../pyhoca/wxgui/frontend.py:638
+#, python-format
+msgid "%s - connect failure"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:297 ../pyhoca/wxgui/frontend.py:638
+msgid "User is not allowed to start X2Go sessions!"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:302 ../pyhoca/wxgui/passphrase.py:198
+#: ../pyhoca/wxgui/frontend.py:645
+#, python-format
+msgid "%s - connect"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:303 ../pyhoca/wxgui/passphrase.py:199
+msgid "Authentication has been successful."
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:345 ../pyhoca/wxgui/logon.py:445
+msgid "SSH tunnel started"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:350 ../pyhoca/wxgui/passphrase.py:231
+msgid "Authentication failed!"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:358
+#, python-format
+msgid "%s - SSH proxy"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:359 ../pyhoca/wxgui/passphrase.py:238
+msgid "Authentication to the SSH proxy server failed!"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:386 ../pyhoca/wxgui/passphrase.py:244
+#: ../pyhoca/wxgui/frontend.py:750
+#, python-format
+msgid "%s - socket error"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:393 ../pyhoca/wxgui/passphrase.py:251
+#: ../pyhoca/wxgui/frontend.py:729 ../pyhoca/wxgui/frontend.py:736
+#, python-format
+msgid "%s - host key error"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:394 ../pyhoca/wxgui/passphrase.py:252
+#: ../pyhoca/wxgui/frontend.py:729
+msgid ""
+"The remote server's host key is invalid or has not been accepted by the user"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:401 ../pyhoca/wxgui/passphrase.py:259
+#: ../pyhoca/wxgui/frontend.py:764
+#, python-format
+msgid "%s - missing home directory"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:402 ../pyhoca/wxgui/passphrase.py:260
+#: ../pyhoca/wxgui/frontend.py:764
+msgid "The remote user's home directory does not exist."
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:409 ../pyhoca/wxgui/passphrase.py:282
+#, python-format
+msgid "%s - key error"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:417 ../pyhoca/wxgui/passphrase.py:290
+#: ../pyhoca/wxgui/frontend.py:771
+#, python-format
+msgid "%s - auth error"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:449 ../pyhoca/wxgui/passphrase.py:278
+#: ../pyhoca/wxgui/passphrase.py:309 ../pyhoca/wxgui/frontend.py:699
+msgid ""
+"Host key verification failed. The X2Go server may have been compromised.\n"
+"\n"
+"It is also possible that the host key has just been changed.\n"
+"\n"
+"However, for security reasons the connection will not be established!!!"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:454 ../pyhoca/wxgui/passphrase.py:314
+#: ../pyhoca/wxgui/frontend.py:707 ../pyhoca/wxgui/frontend.py:727
+#, python-format
+msgid "%s - SSH error"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:464 ../pyhoca/wxgui/passphrase.py:322
+#, python-format
+msgid "%s - unknown error"
+msgstr ""
+
+#: ../pyhoca/wxgui/logon.py:465 ../pyhoca/wxgui/passphrase.py:323
+msgid "An unknown error occured during authentication!"
+msgstr ""
+
+#: ../pyhoca/wxgui/passphrase.py:69
+#, python-format
+msgid "%s (SSH proxy)"
+msgstr ""
+
+#: ../pyhoca/wxgui/passphrase.py:71
+#, python-format
+msgid "%s (X2Go Server)"
+msgstr ""
+
+#: ../pyhoca/wxgui/passphrase.py:81
+#, python-format
+msgid "Unlock SSH private key (%s)..."
+msgstr ""
+
+#: ../pyhoca/wxgui/passphrase.py:83
+msgid "Unlock auto-discovered SSH private key..."
+msgstr ""
+
+#: ../pyhoca/wxgui/passphrase.py:85
+msgid "Passphrase"
+msgstr ""
+
+#: ../pyhoca/wxgui/passphrase.py:88
+msgid "Unlock SSH key"
+msgstr ""
+
+#: ../pyhoca/wxgui/passphrase.py:217
+msgid "SSH key file (for X2Go server) could not be unlocked!"
+msgstr ""
+
+#: ../pyhoca/wxgui/passphrase.py:224
+msgid "SSH key file (for SSH proxy) could not be unlocked!"
+msgstr ""
+
+#: ../pyhoca/wxgui/taskbar.py:111
+#, python-format
+msgid ""
+"%s\n"
+"Connecting you to ,,%s''"
+msgstr ""
+
+#: ../pyhoca/wxgui/taskbar.py:115
+#, python-format
+msgid ""
+"%s\n"
+"Currently connecting you to remote X2Go server ,,%s''"
+msgstr ""
+
+#: ../pyhoca/wxgui/taskbar.py:125
+#, python-format
+msgid ""
+"%s\n"
+"Connecting you to X2Go..."
+msgstr ""
+
+#: ../pyhoca/wxgui/taskbar.py:129
+#, python-format
+msgid ""
+"%s\n"
+"Client for connecting you to a remote X2Go server"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:81
+msgid "Cinnamon Desktop (CINNAMON)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:82
+msgid "GNOME Desktop (GNOME)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:83
+msgid "MATE Desktop (MATE)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:84
+msgid "K Desktop Environment (KDE)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:85
+msgid "Lightweight X Desktop (LXDE)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:86
+msgid "Trinity X Desktop (KDE3-like)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:87
+msgid "Unity X Desktop Shell (UNITY)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:88
+msgid "XFCE Desktop (XFCE)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:89
+msgid "Published Applications"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:90
+msgid "Single Application"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:91
+msgid "Share desktop session (SHADOW)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:92
+msgid "XDMCP Query"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:93
+msgid "Windows Terminal Server (X2Go-proxied RDP)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:94
+msgid "Windows Terminal Server (Direct RDP)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:95 ../pyhoca/wxgui/profilemanager.py:263
+msgid "Custom command"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:100 ../pyhoca/wxgui/menus_taskbar.py:413
+msgid "Internet Browser"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:101 ../pyhoca/wxgui/menus_taskbar.py:414
+msgid "Email Client"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:102 ../pyhoca/wxgui/menus_taskbar.py:415
+msgid "Office"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:103 ../pyhoca/wxgui/menus_taskbar.py:416
+msgid "Terminal"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:106
+msgid "between client and server"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:107
+msgid "from server to client only"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:108
+msgid "from client to server only"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:109
+msgid "not at all"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:127
+msgid "Open file with system's default application"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:128
+msgid "Open application chooser dialog"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:129
+msgid "Save incoming file as ..."
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:157
+msgid "settings derived from "
+msgstr ""
+
+#. boxes for all tabs
+#: ../pyhoca/wxgui/profilemanager.py:205
+msgid "Session Title"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:206
+msgid "Session Window"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:207
+msgid "Session Startup"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:208
+msgid "Server"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:209
+msgid "Proxy"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:210
+msgid "Connection Link Speed"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:211
+msgid "Compression"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:212
+msgid "Display"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:213
+msgid "Clipboard"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:214
+msgid "Keyboard"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:215
+msgid "Sound"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:216
+msgid "Printing"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:217
+msgid "Folder Exports"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:218
+msgid "File Import"
+msgstr ""
+
+#. ##
+#. ## widgets for the PROFILE tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:223
+msgid "Name"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:230
+msgid "Set session window title"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:231
+msgid "Use a default session window title"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:232
+msgid "Custom session window title"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:251
+msgid "Window Icon"
+msgstr ""
+
+#. ##
+#. ## widgets for the SESSION tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:257
+msgid "Start session automatically after login"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:258
+#, python-format
+msgid "Login automatically after %s has started (needs --auto-connect)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:259
+msgid "Type"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:261
+msgid "Application"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:265
+msgid "XDMCP server"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:267
+msgid "RDP server"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:269
+msgid "RDP options"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:271
+msgid "Integrate remote application(s) into local desktop (rootless mode)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:272
+msgid "Menu of published applications"
+msgstr ""
+
+#. ##
+#. ## widgets for the CONNECTION tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:279 ../pyhoca/wxgui/profilemanager.py:293
+msgid "User"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:281 ../pyhoca/wxgui/profilemanager.py:300
+msgid "Host"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:283 ../pyhoca/wxgui/profilemanager.py:302
+msgid "Port"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:285
+msgid "Key"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:288
+msgid "Discover SSH keys or use SSH agent for X2Go authentication"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:290
+msgid "Enable forwarding of SSH authentication agent connections"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:291
+msgid "Store SSH host keys under (unique) X2Go session profile ID"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:292
+msgid "Server behind SSH proxy"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:295
+msgid "Use same username for X2Go and proxy host"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:296
+msgid "Use same authentication for X2Go and proxy host"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:297
+msgid "Key file"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:304
+msgid "Discover SSH keys or use SSH agent for proxy authentication"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:307
+msgid "Modem"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:308
+msgid "ISDN"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:309
+msgid "ADSL"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:310
+msgid "WAN"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:311
+msgid "LAN"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:313
+msgid "Method"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:315
+msgid "Image quality"
+msgstr ""
+
+#. ##
+#. ## wigdets for the IO tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:321
+msgid "Fullscreen"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:322
+msgid "Maximized"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:323
+msgid "Custom Size"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:328
+msgid "Set display DPI"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:330
+msgid "Allow copy'n'paste"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:332
+msgid "Do not set (use server-side tools to configure the keyboard)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:333
+msgid ""
+"Automatically detect and use client-side keyboard configuration inside the "
+"session"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:334
+msgid "Use custom keyboard settings as provided below"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:335
+msgid "Keyboard model"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:337
+msgid "Layout"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:339
+msgid "Layout variant"
+msgstr ""
+
+#. ##
+#. ## wigdets for the MEDIA tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:344
+msgid "Enable sound support"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:345
+msgid "Pulse Audio"
+msgstr ""
+
+#. Arts daemon is not supported by PyHoca-GUI / Python X2Go as it is outdated.
+#. However, config files can contain an Arts configuration, so we will honour this
+#: ../pyhoca/wxgui/profilemanager.py:349
+msgid "Arts (not supported)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:352
+msgid "esd"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:353
+msgid "Use default sound port"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:354
+msgid "Custom sound port"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:357
+msgid "Client Side printing"
+msgstr ""
+
+#. ##
+#. ## wigdets for the SHARING tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:363
+msgid "Use local folder sharing"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:364
+msgid "Store share list at end of session"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:365
+msgid "Path"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:368 ../pyhoca/wxgui/profilemanager.py:387
+msgid "Add"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:370
+msgid "Local Path"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:371
+msgid "Connect Method"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:372
+msgid "Delete"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:374
+msgid "Convert between client and server encodings"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:375
+msgid "Client encoding"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:377
+msgid "Server encoding"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:380
+msgid "Use file MIME box for local file import"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:381
+msgid "Extensions"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:383
+msgid "Action"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:388
+msgid "Defaults"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:390
+msgid "Save"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:391
+msgid "Reset"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:392 ../pyhoca/wxgui/printingprefs.py:144
+msgid "Apply"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:453
+#: ../pyhoca/wxgui/profilemanager.py:1184
+#: ../pyhoca/wxgui/profilemanager.py:2364
+msgid "automatically"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:455
+#: ../pyhoca/wxgui/profilemanager.py:1186
+msgid "manually"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:464
+#, python-format
+msgid "%s Profile Manager - new profile"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:467
+#, python-format
+msgid "%s Profile Manager - %s (connected)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:469
+#, python-format
+msgid "%s Profile Manager - %s (connected, immutable)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:472
+#, python-format
+msgid "%s Profile Manager - %s"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:474
+#, python-format
+msgid "%s Profile Manager - %s (immutable)"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:851
+msgid "Profile"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:852
+msgid "Session"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:853
+msgid "Connection"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:854
+msgid "Link Quality"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:855
+msgid "Input/Output"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:856
+msgid "Media"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:857
+msgid "Sharing"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:1044
+msgid "<xkbtype>"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:1045
+msgid "<xkblayout>"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:1046
+msgid "<xkbvariant>"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:1504
+msgid "Icon Files (*.png)|*.png|All files (*.*)|*"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:1507
+msgid "Choose an icon for this session profile"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:1956
+msgid "All files (*.*)|*"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:1958
+#: ../pyhoca/wxgui/profilemanager.py:1982
+msgid "Choose a public SSH key"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:2316
+msgid "Choose a folder to share within a session"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:2444
+#: ../pyhoca/wxgui/profilemanager.py:2447
+#: ../pyhoca/wxgui/profilemanager.py:2450 ../pyhoca/wxgui/menus_taskbar.py:122
+msgid "Profile Manager"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:2444
+msgid "Profile name is missing, profile unusable!!!"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:2447
+#: ../pyhoca/wxgui/profilemanager.py:2450
+#, python-format
+msgid "Profile name %s already exists!!!"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:2478
+#, python-format
+msgid "%s - profile added"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:2479
+msgid "A new session profile has been added."
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:2483
+#, python-format
+msgid "%s - modified"
+msgstr ""
+
+#: ../pyhoca/wxgui/profilemanager.py:2484
+msgid "Changes to profile have been saved."
+msgstr ""
+
+#: ../pyhoca/wxgui/listdesktops.py:66
+#, python-format
+msgid "Share Desktop Session - %s"
+msgstr ""
+
+#: ../pyhoca/wxgui/listdesktops.py:68
+msgid "Select one of the available desktop sessions on this server"
+msgstr ""
+
+#: ../pyhoca/wxgui/listdesktops.py:74
+msgid "View session only"
+msgstr ""
+
+#: ../pyhoca/wxgui/listdesktops.py:75
+msgid "Gain full access"
+msgstr ""
+
+#: ../pyhoca/wxgui/listdesktops.py:79
+msgid "Share Desktop"
+msgstr ""
+
+#: ../pyhoca/wxgui/listdesktops.py:82
+msgid "Refresh list"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:65
+msgid "Edit Profile"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:67
+msgid "View Profile"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:75
+msgid "Use as Template for New Profile"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:79
+msgid "Export Profile"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:83
+msgid "Delete Profile"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:109 ../pyhoca/wxgui/menus_taskbar.py:110
+#, python-format
+msgid "About %s (%s)..."
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:139
+msgid "Manage Session Profile"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:148
+msgid "Disconnect from session broker"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:153
+msgid "Printing Preferences"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:161
+msgid "Client Options"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:169 ../pyhoca/wxgui/menus_taskbar.py:849
+#: ../pyhoca/wxgui/menus_taskbar.py:1070
+msgid "E&xit"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:241
+msgid "Window title"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:247 ../pyhoca/wxgui/menus_taskbar.py:649
+msgid "Resume Session"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:249
+msgid "Resume Session (not possible)"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:260
+msgid "Transfer Session"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:262
+msgid "Transfer Session (not possible)"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:267 ../pyhoca/wxgui/menus_taskbar.py:640
+msgid "Suspend Session (and disconnect/exit)"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:269 ../pyhoca/wxgui/menus_taskbar.py:642
+msgid "Suspend Session (and disconnect)"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:271 ../pyhoca/wxgui/menus_taskbar.py:644
+msgid "Suspend Session"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:277 ../pyhoca/wxgui/menus_taskbar.py:653
+#, fuzzy
+msgid "Terminate Session (and disconnect/exit)"
+msgstr "Lopeta instunto ( ja katkaisu yhteys/exit)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:279 ../pyhoca/wxgui/menus_taskbar.py:655
+#, fuzzy
+msgid "Terminate Session (and disconnect)"
+msgstr "Lopeta istunto (ja katkaise yhteys)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:281 ../pyhoca/wxgui/menus_taskbar.py:657
+#, fuzzy
+msgid "Terminate Session"
+msgstr "Lopeta istunto"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:284
+#, fuzzy
+msgid "End Desktop Sharing (and disconnect/exit)"
+msgstr "Lopeta työpöydän jako (ja katkaise yhteys/exit)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:286
+#, fuzzy
+msgid "End Desktop Sharing (and disconnect)"
+msgstr "Lopeta työpäydän jako (ja katkaise yhteys)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:288
+#, fuzzy
+msgid "End Desktop Sharing"
+msgstr "Lopeta työpöydän jako"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:292 ../pyhoca/wxgui/menus_taskbar.py:637
+#, fuzzy
+msgid "Refresh menu tree"
+msgstr "Päivitä valikko"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:301
+#, fuzzy
+msgid "Rename Session Window"
+msgstr "Vaida istunnon nimi"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:302
+#, fuzzy
+msgid "Show Session Window"
+msgstr "Näytä istunnon ikkuna"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:344
+#, fuzzy
+msgid "&Share custom local folder"
+msgstr "&Jaa oma paikallishakemisto"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:356
+#, fuzzy
+msgid "Share:"
+msgstr "Jaa:"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:366
+#, fuzzy
+msgid "Unshare:"
+msgstr "Lopeta jako:"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:374
+#, fuzzy
+msgid "Unshare &all local folders"
+msgstr "Lopeta &kaikkien paikalliskansioiden jako"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:380
+#, fuzzy
+msgid "Restore shares in next session"
+msgstr "Palauta kansiojaot seuraavassa istunnossa"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:461
+#, fuzzy
+msgid "Multimedia"
+msgstr "Multimedia"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:462
+#, fuzzy
+msgid "Development"
+msgstr "Ohjelmakehitys"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:463
+#, fuzzy
+msgid "Education"
+msgstr "Koulutus"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:464
+msgid "Games"
+msgstr ""
+
+#: ../pyhoca/wxgui/menus_taskbar.py:465
+#, fuzzy
+msgid "Graphics"
+msgstr "Grafiikka"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:466
+#, fuzzy
+msgid "Internet"
+msgstr "Internet"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:467
+#, fuzzy
+msgid "Office Applications"
+msgstr "Hyötysovellukset"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:468
+#, fuzzy
+msgid "System"
+msgstr "Järjestelmä"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:469
+#, fuzzy
+msgid "Utilities"
+msgstr "Apuohjelmat"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:470
+#, fuzzy
+msgid "Other Applications"
+msgstr "Muut sovellukset"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:545 ../pyhoca/wxgui/menus_taskbar.py:1035
+#, fuzzy
+msgid "Connect to"
+msgstr "Yhdistä"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:550 ../pyhoca/wxgui/menus_taskbar.py:565
+#, fuzzy, python-format
+msgid "Connect %s"
+msgstr "Yhdistä %s"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:559
+#, fuzzy
+msgid "Currently connecting..."
+msgstr "Yhdistää..."
+
+#: ../pyhoca/wxgui/menus_taskbar.py:574
+#, fuzzy
+msgid "Start &new Desktop Session"
+msgstr "&Aloita uusi työpöydän jako"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:578 ../pyhoca/wxgui/menus_taskbar.py:678
+#, fuzzy
+msgid "Start Desktop Sharing Session"
+msgstr "Käynnistä uusi työpöydän jako"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:584 ../pyhoca/wxgui/menus_taskbar.py:728
+#, fuzzy
+msgid "Retrieving Application Menu..."
+msgstr "Hakee sovelluksen valikkoa..."
+
+#: ../pyhoca/wxgui/menus_taskbar.py:588 ../pyhoca/wxgui/menus_taskbar.py:731
+#, fuzzy
+msgid "Retrieve Application Menu"
+msgstr "Hae sovelluksen valikko"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:591
+#, fuzzy
+msgid "Start &new RDP Session"
+msgstr "Aloista &uusi RDP -istunto"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:594
+#, fuzzy
+msgid "Start &new Session"
+msgstr "Aloita uusi &istunto"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:674
+#, fuzzy
+msgid "Launch Single Application"
+msgstr "Käynnistä yksi sovellus"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:715
+#, fuzzy
+msgid "Manage Application Menu"
+msgstr "Hallinnoi sovellusvalikkoa"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:770
+#, fuzzy
+msgid "Running"
+msgstr "Suorittaa"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:772
+#, fuzzy
+msgid "Suspended"
+msgstr "&Pysäytetty"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:791
+#, fuzzy
+msgid "&Clean all sessions"
+msgstr "&Poista kaikki istunnot"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:798
+#, fuzzy
+msgid "Customize &profile"
+msgstr "Muokkaa profiilia"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:800
+#, fuzzy
+msgid "View &profile"
+msgstr "Katso profiilia"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:815
+#, fuzzy
+msgid "Shared &folders"
+msgstr "Jaetut &hakemistot"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:827
+#, fuzzy
+msgid "Server Information"
+msgstr "Palvelimen tiedot"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:834
+#, fuzzy
+msgid "&Disconnect from Server"
+msgstr "&Katkaise palvelinyhteys"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:841
+#, fuzzy
+msgid "Suspend Session and E&xit application"
+msgstr "Pysäytä istunto ja &lopeta sovellus"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:845
+#, fuzzy
+msgid "Disconnect and E&xit application"
+msgstr "Katkaise yhteys ja lopeta &sovellus"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:899
+#, fuzzy
+msgid "Add Profile"
+msgstr "Lisää profiili"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:976
+#, fuzzy
+msgid "Session broker is not connected"
+msgstr "Istuntojen välitystoiminto ei ole käynnissä"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:978
+#, fuzzy
+msgid "No session profiles defined"
+msgstr "Istunnon profiilea ei ole määritelty"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:989
+#, fuzzy
+msgid "Export all Profiles"
+msgstr "Siirrä kaikki profiilit"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:991
+#, fuzzy
+msgid "Export Profile Group"
+msgstr "Siirrä profiiliryhmä"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:997
+#, fuzzy
+msgid "Import Session Profiles"
+msgstr "Hae istuntoprofiilit"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:1040
+#, fuzzy
+msgid "Connect Server"
+msgstr "Yhdistä palvelin"
+
+#: ../pyhoca/wxgui/about.py:78 ../pyhoca/wxgui/about.py:80
+#, fuzzy, python-format
+msgid "About %s ..."
+msgstr "Tietoja %s..."
+
+#: ../pyhoca/wxgui/frontend.py:489
+#, fuzzy
+msgid "Suspending sessions and exiting application..."
+msgstr "Pysäyttää istuntoja ja lopettaa sovelluksen..."
+
+#: ../pyhoca/wxgui/frontend.py:492
+#, fuzzy, python-format
+msgid "Disconnecting %s and exiting application..."
+msgstr "Katkaisee yhteyden %s ja lopettaa sovellusta..."
+
+#: ../pyhoca/wxgui/frontend.py:494
+#, fuzzy
+msgid "Exiting application..."
+msgstr "Lopettaa sovellusta..."
+
+#: ../pyhoca/wxgui/frontend.py:594
+#, fuzzy, python-format
+msgid "%s - server warning"
+msgstr "%s - palvelimelta varoitus"
+
+#: ../pyhoca/wxgui/frontend.py:594
+#, fuzzy
+msgid "The X2Go Server does not publish an application menu."
+msgstr "X2Go -palvelin ei luovuta sovelluksen valikkoa."
+
+#: ../pyhoca/wxgui/frontend.py:645
+#, fuzzy
+msgid "SSH key authentication has been successful."
+msgstr "Sisäänkirjautuminen SSH -avaimella onnistui"
+
+#: ../pyhoca/wxgui/frontend.py:719
+#, fuzzy
+msgid ""
+"Host key verification failed. The SSH proxy server may have been "
+"compromised.\n"
+"\n"
+"It is also possible that the host key has just been changed.\n"
+"\n"
+"However, for security reasons the connection will not be established!!!"
+msgstr ""
+"Palvelimen avaimen tarkistus epäonnisui. SSH -välityspalvelin on ehkä "
+"murrettu.\n"
+"\n"
+"On myös mahdollista että palveimen avain on äskettäin vaihdettu.\n"
+"\n"
+"Kuitenkin, varmuuden vuoksi yhteyttä ei avattu!!!"
+
+#: ../pyhoca/wxgui/frontend.py:736
+#, fuzzy
+msgid ""
+"The SSH proxy's host key is invalid or has not been accepted by the user"
+msgstr ""
+"SSH -välityspalvelimen avain on virheellien tai käyttäjä ei ole sitä "
+"hyväksynyt"
+
+#: ../pyhoca/wxgui/frontend.py:757
+#, fuzzy, python-format
+msgid "%s - EOF error"
+msgstr "%s - EOF -virhe"
+
+#: ../pyhoca/wxgui/frontend.py:757
+#, fuzzy
+msgid "Authentication protocol communication incomplete! Try again..."
+msgstr "Kirjautumistoiminto jäi puutteeliseksi! Yritä uudelleen..."
+
+#: ../pyhoca/wxgui/frontend.py:778
+#, fuzzy
+msgid "An unknown error occurred during authentication!"
+msgstr "Sisäänkirjautumisessa tapahtui tunnistamaton virhe!"
+
+#: ../pyhoca/wxgui/frontend.py:807
+#, fuzzy, python-format
+msgid "%s: DirectRDP not supported yet"
+msgstr "%s: DirectRDP -protocolla ei ole vielä käytössä"
+
+#: ../pyhoca/wxgui/frontend.py:808
+#, fuzzy, python-format
+msgid ""
+"We apologize for the inconvenience...\n"
+"\n"
+"Session profiles of type ,,DirectRDP'' are not\n"
+"supported by %s (%s), yet!!\n"
+"\n"
+"DirectRDP support will be available in %s (>= 1.0.0.0)."
+msgstr ""
+"Pahoittelemme...\n"
+"\n"
+"Istunnot tyyppiä ,,DirectRDP'' eivät ole\n"
+"vielä käytössä järjestelmässä  %s (%s)!!\n"
+"\n"
+"DirectRDP -tuki tulee järjestelmään %s (>= 1.0.0.0)."
+
+#: ../pyhoca/wxgui/frontend.py:823
+#, fuzzy
+msgid "Unknown session profile, configure before using it..."
+msgstr "Tuntematon istuntoprofiile, määritä se ennen käyttöä..."
+
+#: ../pyhoca/wxgui/frontend.py:884
+#, fuzzy, python-format
+msgid "Desktop Sharing with %s not supported by server"
+msgstr "Työpöydän jako järjestelmässä %s ei ole käytössä"
+
+#: ../pyhoca/wxgui/frontend.py:885
+#, fuzzy, python-format
+msgid ""
+"We apologize for the inconvenience...\n"
+"\n"
+"Session profiles of type ,,SHADOW'' are not\n"
+"supported by X2Go Server (v%s)!!!\n"
+"\n"
+"Desktop Sharing with %s requires\n"
+"X2Go Server 4.1.0.0 and above."
+msgstr ""
+"Pahoittelemme...\n"
+"\n"
+"Istuntototyyppi ,,SHADOW'' ei ole\n"
+"käytössä X2Go palvelimessa (v%s)!!!\n"
+"\n"
+"Työpöydän jako järjestelmässä %s vaatii version\n"
+"X2Go Server 4.1.0.0 tai uudemman."
+
+#: ../pyhoca/wxgui/frontend.py:943 ../pyhoca/wxgui/frontend.py:1730
+#, fuzzy, python-format
+msgid "%s - session warning"
+msgstr "%s - istuntovaroitus"
+
+#: ../pyhoca/wxgui/frontend.py:943
+#, fuzzy, python-format
+msgid "Execution of command ,,%s'' failed."
+msgstr "Komennon ,,%s'' suoritus epäonnistui"
+
+#: ../pyhoca/wxgui/frontend.py:1084
+#, fuzzy
+msgid "Cleaning X2Go sessions..."
+msgstr "Poistaa X2Go -istunnot..."
+
+#: ../pyhoca/wxgui/frontend.py:1132
+#, fuzzy, python-format
+msgid "%s - disconnect"
+msgstr "%s - yhteyden katkaisu"
+
+#: ../pyhoca/wxgui/frontend.py:1132
+#, fuzzy
+msgid "X2Go Profile is now disconnected."
+msgstr "X2Go -profiilin yhteys on katkaistu."
+
+#: ../pyhoca/wxgui/frontend.py:1153
+#, fuzzy
+msgid "New Session Profile"
+msgstr "Uusi istuntoprofiili"
+
+#: ../pyhoca/wxgui/frontend.py:1208
+#, fuzzy, python-format
+msgid "Really Delete Session Profile ,,%s''?"
+msgstr "Haluatko todella poistaa profiilin ,,%s''?"
+
+#: ../pyhoca/wxgui/frontend.py:1213
+#, fuzzy, python-format
+msgid "%s - profile deleted"
+msgstr "profiile %s poistettu"
+
+#: ../pyhoca/wxgui/frontend.py:1213
+#, fuzzy
+msgid "The session profile has been deleted."
+msgstr "Istuntoprofiili poistettu."
+
+#: ../pyhoca/wxgui/frontend.py:1225
+#, fuzzy
+msgid "import session profile(s)"
+msgstr "hae istuntoprofiili(t)"
+
+#: ../pyhoca/wxgui/frontend.py:1237
+#, fuzzy, python-format
+msgid "%s: Import of session profile(s) failed"
+msgstr "%s: Istuntoprofiilin haku epäonnistui"
+
+#: ../pyhoca/wxgui/frontend.py:1238
+#, fuzzy, python-format
+msgid ""
+"The selected session profile(s) could not be imported from \n"
+"file »%s«.\n"
+"\n"
+"Are you sure the session profiles file has the correct format?"
+msgstr ""
+"Valittuja istuntoprofiileja ei voitu noutaa tiedostosta\n"
+"tiedostosta »%s«.\n"
+"\n"
+"Oletko varma että istuntoprofiilit ovat oikeaa rakennetta?"
+
+#: ../pyhoca/wxgui/frontend.py:1266
+#, fuzzy, python-format
+msgid "%s: Write failure after import"
+msgstr "%s: Tallennussvirhe noudon jälkeen"
+
+#: ../pyhoca/wxgui/frontend.py:1267
+#, fuzzy
+msgid ""
+"The session profiles configuration could not be written to file after "
+"import\n"
+"\n"
+"Check for common problems (disk full, insufficient access, etc.)."
+msgstr ""
+"Istuntoprofiileja ei voitu tallentaa tiedostoon noudon jälkeen\n"
+"\n"
+"Tarkistä yĺeisimmät virheet (levy täysi, puuttuva kirjotusoikeuss, jne.)."
+
+#: ../pyhoca/wxgui/frontend.py:1272
+#, fuzzy
+msgid "None of the session profiles could be imported..."
+msgstr "Yhtäkään istuntoprofiilia ei voitu noutaa..."
+
+#: ../pyhoca/wxgui/frontend.py:1275 ../pyhoca/wxgui/frontend.py:1285
+#, fuzzy, python-format
+msgid "For details, start %s from the command line and retry the import."
+msgstr ""
+"Saat tarkemmat tiedot käynnistämällä %s komentorivillä ja koeta noutaa "
+"uudelleen."
+
+#: ../pyhoca/wxgui/frontend.py:1279
+#, fuzzy
+msgid "Only these session profiles could be imported..."
+msgstr "Vain nämä istuntoprofiilit voitiin noutaa..."
+
+#: ../pyhoca/wxgui/frontend.py:1282
+#, fuzzy
+msgid "Whereas these session profiles failed to import..."
+msgstr "Toisaalta näiden istuntoprofiilien nouto epäonnistui..."
+
+#: ../pyhoca/wxgui/frontend.py:1288
+#, fuzzy
+msgid "New session profiles have been imported..."
+msgstr "Uudet istuntoprofiilit noudettu..."
+
+#: ../pyhoca/wxgui/frontend.py:1293
+#, fuzzy
+msgid "New session profile has been imported..."
+msgstr "Uusi istuntoprofiili noudettu..."
+
+#: ../pyhoca/wxgui/frontend.py:1322
+#, fuzzy, python-format
+msgid "%s - export session profiles"
+msgstr "%s - lähetä istuntoprofiilit"
+
+#: ../pyhoca/wxgui/frontend.py:1327
+#, fuzzy, python-format
+msgid "%s - export session profile"
+msgstr "%s - lähetä istuntoprofiili"
+
+#: ../pyhoca/wxgui/frontend.py:1339
+#, fuzzy, python-format
+msgid "%s: Export file already exists"
+msgstr "%s: Vienti -tiedosto on jo olemassa"
+
+#: ../pyhoca/wxgui/frontend.py:1340
+#, fuzzy, python-format
+msgid ""
+"The file »%s« already exists in this folder.\n"
+"\n"
+"Do you want to replace it?"
+msgstr ""
+"Tiedosto »%s« on jo kansiossa.\n"
+"\n"
+"Haluatko korvata sen?"
+
+#: ../pyhoca/wxgui/frontend.py:1361
+#, fuzzy, python-format
+msgid "%s - profiles exported"
+msgstr "%s: - profilit lähetetty"
+
+#: ../pyhoca/wxgui/frontend.py:1361
+#, fuzzy, python-format
+msgid "Successfully exported session profile group »%s« to file »%s«."
+msgstr "Istuntoprofiilien ryhmä »%s« lähetetty tiedostoon »%s«."
+
+#: ../pyhoca/wxgui/frontend.py:1363
+#, fuzzy, python-format
+msgid "%s - profile exported"
+msgstr "%s - profiile lähetetty"
+
+#: ../pyhoca/wxgui/frontend.py:1363
+#, fuzzy, python-format
+msgid "Successfully exported single session profile »%s« to file »%s«."
+msgstr "Istuntoprofiili »%s« lähetetty tiedostoon »%s«."
+
+#: ../pyhoca/wxgui/frontend.py:1367
+#, fuzzy, python-format
+msgid "%s: Exporting session profile(s) failed"
+msgstr "%s: Istuntoprofiilien lähetys epäonnistui"
+
+#: ../pyhoca/wxgui/frontend.py:1368
+#, fuzzy, python-format
+msgid ""
+"The selected session profile(s) could not be exported to the \n"
+"file »%s«.\n"
+"\n"
+"Check for common problems (disk full, insufficient access, etc.)."
+msgstr ""
+"Valittuja istuntoprofiileja ei voitu lähettää \n"
+"tiedostoon »%s«.\n"
+"\n"
+"Tarkista yleisimmät syyt (levy täysi, ei kirjoitusoikeutta, jne.)."
+
+#: ../pyhoca/wxgui/frontend.py:1387
+#, fuzzy, python-format
+msgid "%s - share local folder with sessions of this profile"
+msgstr "%s - jaa paikallinen hakemisto tämän profiilin mukaisilla istunnoilla"
+
+#: ../pyhoca/wxgui/frontend.py:1553
+#, fuzzy, python-format
+msgid ""
+"The authenticity of host [%s]:%s can't be established.\n"
+"%s key fingerprint is ,,%s''.\n"
+"\n"
+"Are you sure you want to continue connecting?"
+msgstr ""
+"Palvelimen [%s]:%s luotettavuutta ei voida varmistaa.\n"
+"%s avaimen tiiviste on ,,%s''.\n"
+"\n"
+"Oletko varma että haluat jatkaa yhteyden avaamista?"
+
+#: ../pyhoca/wxgui/frontend.py:1561
+#, fuzzy, python-format
+msgid "%s: Confirm Host Authorization"
+msgstr "%s: Vahvista palvelimen oikeudet"
+
+#: ../pyhoca/wxgui/frontend.py:1607
+#, fuzzy, python-format
+msgid "%s - channel error"
+msgstr "%s: virhe siirtokanavassa"
+
+#: ../pyhoca/wxgui/frontend.py:1607
+#, fuzzy, python-format
+msgid ""
+"Lost connection to server %s unexpectedly!\n"
+"\n"
+"Try to re-authenticate to the server..."
+msgstr ""
+"Yhteys palvelimeen %s katkesi odottamatta!\n"
+"\n"
+"Yritä kirjautua palvelimeen uudelleen..."
+
+#: ../pyhoca/wxgui/frontend.py:1625
+#, fuzzy, python-format
+msgid "%s - SFTP client error"
+msgstr "%s: - SFTP -asiakasohjelman virhe"
+
+# Tarkista kaiutus
+#: ../pyhoca/wxgui/frontend.py:1625
+#, fuzzy
+msgid ""
+"New X2Go session will lack SFTP client support.\n"
+"Check your server setup.\n"
+"\n"
+"Avoid echoing ~/.*shrc files on server!!!\n"
+"\n"
+"Not starting new session..."
+msgstr ""
+"Avatussa X2Go istunnossa ei ole käytössä SFTP -tukea.\n"
+"Tarkista palvelimesi asetukset.\n"
+"\n"
+"Vältä kaiuttamasta ~/.*shrc -tiedostoja palvelimessa!!!\n"
+"\n"
+"Uusi istunto ei avaudu..."
+
+#: ../pyhoca/wxgui/frontend.py:1642 ../pyhoca/wxgui/frontend.py:1655
+#: ../pyhoca/wxgui/frontend.py:1711 ../pyhoca/wxgui/frontend.py:1713
+#: ../pyhoca/wxgui/frontend.py:1756
+#, fuzzy, python-format
+msgid "%s - session failure"
+msgstr "%s - istunta epäonnistui"
+
+#: ../pyhoca/wxgui/frontend.py:1642
+#, fuzzy
+msgid "The session startup failed."
+msgstr "Istunnon avaus epäonnistui."
+
+#: ../pyhoca/wxgui/frontend.py:1655
+#, fuzzy
+msgid "The session initialization failed."
+msgstr "Istunnon aloitus epäonnistui."
+
+#: ../pyhoca/wxgui/frontend.py:1668
+#, fuzzy, python-format
+msgid "%s - desktop sharing failure"
+msgstr "%s - työpöydän jako epäonnistui"
+
+#: ../pyhoca/wxgui/frontend.py:1668
+#, fuzzy
+msgid ""
+"Desktop sharing was denied by the other user or\n"
+"both of you have insufficient privileges to share one another's desktop."
+msgstr ""
+"Palvelin esti työpöydän jaon tai\n"
+"tai teiltä molemmilta puuttuu työpöydän jako-oikeus."
+
+#: ../pyhoca/wxgui/frontend.py:1681
+#, fuzzy, python-format
+msgid "%s - timeout"
+msgstr "%s - aikakatkaistu"
+
+#: ../pyhoca/wxgui/frontend.py:1681
+#, fuzzy
+msgid ""
+"The server took long to provide a list of sharable desktops.\n"
+"This can happen from time to time, please try again"
+msgstr ""
+"Palvelin listasi hitaasti jaettavista työpöydistä.\n"
+"Tämä voi tapahtua satunnaisesti, yritä uudelleen"
+
+#: ../pyhoca/wxgui/frontend.py:1693
+#, fuzzy, python-format
+msgid "%s - desktop sharing failed"
+msgstr "%s - työpöydän jako epäonnistui"
+
+#: ../pyhoca/wxgui/frontend.py:1693
+#, fuzzy, python-format
+msgid "The desktop %s is not available for sharing (anymore)."
+msgstr "Työpöytää %s ei voida jakaa (enää)."
+
+#: ../pyhoca/wxgui/frontend.py:1711
+#, fuzzy, python-format
+msgid "The command ,,%s'' is not available on X2Go server."
+msgstr "Komento ,,%s'' ei ole käytössä X2Go -palvelimessa."
+
+#: ../pyhoca/wxgui/frontend.py:1713
+#, fuzzy, python-format
+msgid ""
+"The command ,,%s'' is not available on X2Go server\n"
+"%s."
+msgstr ""
+"Komento ,,%s'' ei ole käytössä X2Go -palvelimessa\n"
+"%s."
+
+#: ../pyhoca/wxgui/frontend.py:1730
+#, fuzzy, python-format
+msgid ""
+"Reverse TCP port forwarding request for session %s to server port %s has "
+"been denied."
+msgstr ""
+"TCP -portin edelleenohjaus istunnolle %s palvelimen porttiin %s on kielletty."
+
+#: ../pyhoca/wxgui/frontend.py:1756
+#, fuzzy, python-format
+msgid ""
+"Forwarding tunnel request to [%s]:%s for session %s was denied by remote "
+"X2Go/SSH server. Subsystem %sstartup failed."
+msgstr ""
+"Edelleenohjauspyyntö palvelimeen [%s]:%s istuntoa %s varten kielletty X2Go/"
+"SSH palvelimessa. Palvelun % käynnitus epäonnistui."
+
+#: ../pyhoca/wxgui/frontend.py:1775
+#, fuzzy, python-format
+msgid "%s - audio warning"
+msgstr "%s - äänivaroitus"
+
+#: ../pyhoca/wxgui/frontend.py:1775
+#, fuzzy
+msgid ""
+"The X2Go PulseAudio system is not available within Remote Desktop sessions."
+msgstr ""
+"X3Go PulseAudia -järjestelmä ei ole käytössä Remote Desktop -istunnoissa."
+
+#: ../pyhoca/wxgui/frontend.py:1782 ../pyhoca/wxgui/frontend.py:1789
+#, fuzzy, python-format
+msgid "%s - audio error"
+msgstr "%s - äänivirhe"
+
+#: ../pyhoca/wxgui/frontend.py:1782
+#, fuzzy
+msgid "The X2Go PulseAudio system could not be started."
+msgstr "X2Go PulseAudio -palvelu ei käynnistynyt"
+
+#: ../pyhoca/wxgui/frontend.py:1789
+#, fuzzy
+msgid "The X2Go PulseAudio system has died unexpectedly."
+msgstr "X2G PulseAudia -palvelu sammui odottamatta"
+
+#: ../pyhoca/wxgui/frontend.py:1801
+#, fuzzy, python-format
+msgid "%s - audio problem"
+msgstr "%s - audio-ongelma"
+
+#: ../pyhoca/wxgui/frontend.py:1801
+#, fuzzy, python-format
+msgid ""
+"The audio connection could not be set up for this session.\n"
+"%s"
+msgstr ""
+"Audio -yhteyttä ei saatu toimimaan tässä istunnossa.\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1813
+#, fuzzy, python-format
+msgid "%s - client-side printing not available"
+msgstr "%s - tulostus ei ole käytössä päätelaitteessa"
+
+#: ../pyhoca/wxgui/frontend.py:1813
+#, fuzzy, python-format
+msgid ""
+"The server denies client-side printing from within this session.\n"
+"%s"
+msgstr ""
+"Palvelin estää tulostuksen päätelaitteessa tässä istunnossa.\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1825
+#, fuzzy, python-format
+msgid "%s - MIME box not available"
+msgstr "%s - MIME postilaatikko ei ole käytettävissä"
+
+#: ../pyhoca/wxgui/frontend.py:1825
+#, fuzzy, python-format
+msgid ""
+"The server does not support the X2Go MIME box.\n"
+"%s"
+msgstr ""
+"Palvelin ei tue X2Go MIME -postilaatikon käyttöä.\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1837
+#, fuzzy, python-format
+msgid "%s - client-side folders not sharable"
+msgstr "%s - päätelaitteen hakemistot eivät ole jaettavissa"
+
+#: ../pyhoca/wxgui/frontend.py:1837
+#, fuzzy, python-format
+msgid ""
+"The server denies client-side folder sharing with this session.\n"
+"%s"
+msgstr ""
+"Palvelin estää päätelaitteen hakemistojen jakamisen tässä istunnossa.\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1849
+#, fuzzy, python-format
+msgid "%s - client resources not sharable"
+msgstr "%s  päätelaitteen resurssit eivät ole jaettavissa"
+
+#: ../pyhoca/wxgui/frontend.py:1849
+#, fuzzy, python-format
+msgid ""
+"Client-side folders and printers cannot be shared with this session.\n"
+"%s"
+msgstr ""
+"Päätelaitteen hakemistot ja tulostimet eivät ole jaettavissa tässä "
+"istunnossa.\n"
+"%"
+
+#: ../pyhoca/wxgui/frontend.py:1868 ../pyhoca/wxgui/frontend.py:1870
+#, fuzzy, python-format
+msgid "%s - print error"
+msgstr "%s - tulostinvirhe"
+
+#: ../pyhoca/wxgui/frontend.py:1868
+#, fuzzy, python-format
+msgid ""
+"%s\n"
+"...caused on printer %s by session\n"
+"%s"
+msgstr ""
+"%s\n"
+"...aiheutti tulostimessa %s istunnosta\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1870
+#, fuzzy, python-format
+msgid ""
+"%s\n"
+"...caused by session\n"
+"%s"
+msgstr ""
+"%s\n"
+"...aiheutui istunnosta\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1885 ../pyhoca/wxgui/frontend.py:1900
+#, fuzzy, python-format
+msgid "%s - start"
+msgstr "%s - käynnistys"
+
+#: ../pyhoca/wxgui/frontend.py:1885
+#, fuzzy, python-format
+msgid ""
+"New X2Go session starting up...\n"
+"%s"
+msgstr ""
+"Uusi X2Go -istunto käynnistyy...\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1900
+#, fuzzy, python-format
+msgid ""
+"Another client started X2Go session\n"
+"%s"
+msgstr ""
+"Toinen päätelaite käynnisti X2Go -istunnon\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1915 ../pyhoca/wxgui/frontend.py:1930
+#, fuzzy, python-format
+msgid "%s - resume"
+msgstr "%s - uudelleenkäynnistys"
+
+#: ../pyhoca/wxgui/frontend.py:1915
+#, fuzzy, python-format
+msgid ""
+"Resuming X2Go session...\n"
+"%s"
+msgstr ""
+"X2Go -istunto käynnistyy uudelleen...\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1930
+#, fuzzy, python-format
+msgid ""
+"Another client resumed X2Go session\n"
+"%s"
+msgstr ""
+"Toinen päätelaite aloitti uudelleen X2Go -istunnon\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1945
+#, fuzzy, python-format
+msgid "%s - running"
+msgstr "%s - käynnissä"
+
+#: ../pyhoca/wxgui/frontend.py:1945
+#, fuzzy, python-format
+msgid ""
+"Found already running session\n"
+"%s"
+msgstr ""
+"Löytyi käynnissä oleva istunto\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1965
+#, fuzzy, python-format
+msgid "%s - suspend"
+msgstr "%s - pysäytetty"
+
+#: ../pyhoca/wxgui/frontend.py:1965
+#, fuzzy, python-format
+msgid ""
+"X2Go Session has been suspended\n"
+"%s"
+msgstr ""
+"X2Go -Istunto pysäytetty\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1992
+#, fuzzy, python-format
+msgid "%s - terminate"
+msgstr "%s - lopetus"
+
+#: ../pyhoca/wxgui/frontend.py:1992
+#, fuzzy, python-format
+msgid ""
+"X2Go Session has terminated\n"
+"%s"
+msgstr ""
+"X2Go -Istunto on lopetettu\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:2016 ../pyhoca/wxgui/frontend.py:2022
+#, fuzzy, python-format
+msgid "%s: connection failure"
+msgstr "%s: yhteysvirhe"
+
+#: ../pyhoca/wxgui/frontend.py:2017
+#, fuzzy, python-format
+msgid ""
+"While initializing a session for profile '%s' the connection\n"
+"to %s has failed.\n"
+"\n"
+"It is possible to attempt session initialization anyway. Do you\n"
+"want to continue?"
+msgstr ""
+"Kun istunnon yhteyttää avattiin profiilille  '%s' yhteys\n"
+"palvelimeen %s epäonnistui.\n"
+"\n"
+"Voit kuitenkin yrittäää uudelleen. Haluatko\n"
+"jatkaa?"
+
+#: ../pyhoca/wxgui/frontend.py:2023
+#, fuzzy, python-format
+msgid ""
+"While connecting to profile '%s' the connection\n"
+"to %s has failed.\n"
+"\n"
+"It is possible to attempt session initialization anyway. Do you\n"
+"want to continue?"
+msgstr ""
+"Kun yhteyttä luotiin profiililla '%s' yhteys\n"
+"palvelimeen %s epäonnistui.\n"
+"\n"
+"Voit kuitenkin yrittää istunnon avausta. Haluatko\n"
+"jatkaa?"
+
+#: ../pyhoca/wxgui/messages.py:70
+#, fuzzy, python-format
+msgid ""
+"Are you really sure you want to\n"
+"delete the session profile ,,%s''?"
+msgstr ""
+"Haluatko varmasti\n"
+"poistaa profiilin ,,%s''?"
+
+#: ../pyhoca/wxgui/messages.py:71
+#, fuzzy, python-brace-format
+msgid ""
+"{appname} is already running for user ,,{username}''!\n"
+"\n"
+"Only one instance of {appname} can be started per\n"
+"user. The {appname} icon can be found in your desktop's\n"
+"notification area/systray."
+msgstr ""
+"{appname} on jo käynnistetty käyttäjälle ,,{username}''!\n"
+"\n"
+"Vain yksi istunto sovelluksesta {appname} voidaan käynnistää yhtä\n"
+"käyttäjää kohti. Kuvake sovellukselle {appname} löytyy työpäydän\n"
+"ilmoitukset laatikosta/palkista."
+
+#: ../pyhoca/wxgui/messages.py:109
+#, fuzzy
+msgid "Yes"
+msgstr "Kyllä"
+
+#: ../pyhoca/wxgui/messages.py:110
+#, fuzzy
+msgid "No"
+msgstr "Ei"
+
+#: ../pyhoca/wxgui/messages.py:127 ../pyhoca/wxgui/printingprefs.py:143
+#, fuzzy
+msgid "Ok"
+msgstr "Ok"
+
+#: ../pyhoca/wxgui/printingprefs.py:67
+#, fuzzy, python-format
+msgid "%s - Printing Preferences"
+msgstr "%s - Tulostuksen määritykset"
+
+#: ../pyhoca/wxgui/printingprefs.py:69
+#, fuzzy, python-format
+msgid "%s - Incoming Print Job from  %s (%s)"
+msgstr "%s - Tulestettavaa tulossa tehtävästä  %s (%s)"
+
+#: ../pyhoca/wxgui/printingprefs.py:74
+#, fuzzy
+msgid "Open this dialog window"
+msgstr "Avaa tämä keskusteluikkuna"
+
+#: ../pyhoca/wxgui/printingprefs.py:75
+#, fuzzy
+msgid "Open with PDF viewer"
+msgstr "Avaa PDF -katseluohjelmalla"
+
+#: ../pyhoca/wxgui/printingprefs.py:76
+#, fuzzy
+msgid "Save to a local folder"
+msgstr "Tallenna johonkin kansioon"
+
+#: ../pyhoca/wxgui/printingprefs.py:77
+#, fuzzy
+msgid "Print to a local printer"
+msgstr "Tulosta päätelaitteen kirjoittimella"
+
+#: ../pyhoca/wxgui/printingprefs.py:78
+#, fuzzy
+msgid "Run custom print command"
+msgstr "Suorita erikseen määritelty tulostukomento"
+
+#: ../pyhoca/wxgui/printingprefs.py:81
+#, fuzzy
+msgid "<Select a print action here>"
+msgstr "<Valitse tulostutoiminto tästä>"
+
+#: ../pyhoca/wxgui/printingprefs.py:115
+#, fuzzy
+msgid "Print action"
+msgstr "Tulostustoiminto"
+
+#: ../pyhoca/wxgui/printingprefs.py:117
+#, fuzzy
+msgid "Default action for incoming print jobs"
+msgstr "Oletusohjaus saaduille tulostustehtäville"
+
+#. widgets for print action PDFVIEW
+#: ../pyhoca/wxgui/printingprefs.py:121
+#, fuzzy
+msgid "PDF viewer command"
+msgstr "PDF-katseluohjelman komento"
+
+#. widgets for print action PDFSAVE
+#: ../pyhoca/wxgui/printingprefs.py:128
+#, fuzzy
+msgid "Save PDFs to folder"
+msgstr "Talleta PDF-tiedostot kansioon"
+
+#. widgets for print action PRINT
+#: ../pyhoca/wxgui/printingprefs.py:135
+#, fuzzy
+msgid "Use this printer"
+msgstr "Käytä tätä tulostinta"
+
+#. widgets for print action PRINTCMD
+#: ../pyhoca/wxgui/printingprefs.py:139
+#, fuzzy
+msgid "Custom print command"
+msgstr "Erikseen määritelty tulostinkomento"
+
+#: ../pyhoca/wxgui/printingprefs.py:146
+#, fuzzy
+msgid "Print"
+msgstr "Tulosta"
+
+#: ../pyhoca/wxgui/printingprefs.py:250
+#, fuzzy
+msgid "- no printers installed -"
+msgstr "- tulostinta ei ole asennettu -"
+
+#: ../pyhoca/wxgui/printingprefs.py:255
+#, fuzzy
+msgid "- print system is not available -"
+msgstr "- tulotinjärjestelmä ei ole saatavilla -"
+
+#: ../pyhoca/wxgui/printingprefs.py:409
+#, fuzzy
+msgid "Choose PDF viewer application"
+msgstr "Valitse PDF-tiedoston katseluohjelma"
+
+#: ../pyhoca/wxgui/printingprefs.py:432
+#, fuzzy
+msgid "Choose PDF saving location"
+msgstr "Valitse PDF-tiedoston talletushakemisto"
+
+#: ../pyhoca/wxgui/sessiontitle.py:65
+#, fuzzy, python-format
+msgid "Session Title - %s"
+msgstr "Istunnon otsikko - %s"
+
+#: ../pyhoca/wxgui/sessiontitle.py:67
+#, fuzzy
+msgid "Change session title to"
+msgstr "Vaiha istunnon otsikko"
+
+#: ../pyhoca/wxgui/sessiontitle.py:69
+#, fuzzy
+msgid "OK"
+msgstr "OK"
+
+#: ../pyhoca/wxgui/serverinfo.py:61
+#, fuzzy, python-format
+msgid "Server Information - %s"
+msgstr "Palvelimen tiedot . %s"
+
+#: ../pyhoca/wxgui/serverinfo.py:63
+#, fuzzy, python-format
+msgid ""
+"Session Profile: %s\n"
+"\n"
+"List of X2Go Server components, add-ons and their versions..."
+msgstr ""
+"Istunnon profiili: %s\n"
+"\n"
+"Luettelo X2Go palvelimen komponenteista, lisäykset ja niiden versionumerot..."
+
+#: ../pyhoca/wxgui/serverinfo.py:68
+#, fuzzy
+msgid "Refresh"
+msgstr "Päivitä tiedot"
+
+#: ../pyhoca/wxgui/serverinfo.py:69
+#, fuzzy
+msgid "Close"
+msgstr "Sulje"
+
+#: ../pyhoca/wxgui/serverinfo.py:138
+#, fuzzy
+msgid "X2Go Server"
+msgstr "X2Go -palvelin"
+
+#: ../pyhoca/wxgui/serverinfo.py:139
+#, fuzzy
+msgid "Server Core"
+msgstr "Palvelimen perusjärjestelmä"
+
+#: ../pyhoca/wxgui/serverinfo.py:147
+#, fuzzy
+msgid "Server Extensions"
+msgstr "Palvelimen laajennukset"
+
+#: ../pyhoca/wxgui/serverinfo.py:153
+#, fuzzy
+msgid "X2Go Server Add-ons"
+msgstr "X2Go -palvelimen lisäykset"
+
+#: ../pyhoca/wxgui/serverinfo.py:157
+#, fuzzy
+msgid "X2Go Server Features"
+msgstr "X2Go -palvelimen ominaisuudet"

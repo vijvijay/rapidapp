@@ -1,0 +1,60 @@
+Author: Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+Date: 2010-12-31 
+
+The PulseAudio binary files for Windows in this folder have been
+obtained from:
+http://www.cendio.com/pulseaudio/
+
+Attached you find quoted the above web page in plain text...
+
+<quote>
+Windows Binaries for PulseAudio
+===============================
+
+PulseAudio is an advanced Open Source sound server, designed
+to be a replacement for the old EsounD daemon. It is a highly 
+modular and well designed piece of software that outperforms 
+its competition on more or less every count.
+
+
+Pulseaudio Used in ThinLinc - a Terminal Server Solution for Linux
+==================================================================
+
+Cendio has contributed a lot of resources to the PulseAudio
+project as part of our terminal server product
+ThinLinc.
+
+ThinLinc has many use cases. It can be used both to publish Linux 
+desktops and serve as a frontend to Windows Terminal Servers. It is 
+also very good in environments where there is a need to mix Linux and 
+Windows.
+
+    * Read more about ThinLinc (http://www.cendio.com/products/thinlinc/)
+    * Read more about the features of ThinLinc 
+      (http://www.cendio.com/products/thinlinc/features/)
+
+
+Binaries for Windows
+====================
+
+As an extra bonus, we have also made available pre-built
+binaries for the Microsoft Windows platform, as we know these
+are difficult to construct for many.
+
+Note that this package is not intended for use with Cendio
+ThinLinc as it already contains a special version of PulseAudio.
+
+    * pulseaudio-0.9.6-1.win32.zip (911 KiB)
+
+Unzip in a folder of your choice and run the commands from a
+command line window (no graphical tools exist as of yet).
+
+See the PulseAudio homepage for more information on how to use the 
+commands (http://pulseaudio.org).
+
+Source:
+
+    *             pulseaudio-0.9.6.tar.gz (1.0 MiB)
+    *             libsamplerate-0.1.3pre4.tar.gz (696 KiB)
+    *             libsndfile-1.0.13pre4.tar.gz (841 KiB)
+</quote>

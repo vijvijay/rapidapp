@@ -1,0 +1,43 @@
+pyhoca-gui /usr/bin/
+desktop/* /usr/share/applications/
+pixmaps/*.svg /usr/share/pixmaps/
+img/*.png /usr/share/pyhoca/img/
+
+icons/PyHoca/16x16/applications-*.png /usr/share/icons/PyHoca/16x16/
+icons/PyHoca/16x16/pyhoca*.png /usr/share/icons/PyHoca/16x16/
+icons/PyHoca/16x16/PyHoca-GUI_*.png /usr/share/icons/PyHoca/16x16/
+icons/PyHoca/16x16/x2go*.png /usr/share/icons/PyHoca/16x16/
+icons/PyHoca/16x16/question.png /usr/share/icons/PyHoca/16x16/
+icons/PyHoca/22x22/applications-*.png /usr/share/icons/PyHoca/22x22/
+icons/PyHoca/22x22/pyhoca*.png /usr/share/icons/PyHoca/22x22/
+icons/PyHoca/22x22/PyHoca-GUI_*.png /usr/share/icons/PyHoca/22x22/
+icons/PyHoca/22x22/x2go*.png /usr/share/icons/PyHoca/22x22/
+icons/PyHoca/22x22/question.png /usr/share/icons/PyHoca/22x22/
+icons/PyHoca/32x32/pyhoca*.png /usr/share/icons/PyHoca/32x32/
+icons/PyHoca/32x32/PyHoca-GUI_*.png /usr/share/icons/PyHoca/32x32/
+icons/PyHoca/32x32/x2go*.png /usr/share/icons/PyHoca/32x32/
+icons/PyHoca/32x32/question.png /usr/share/icons/PyHoca/32x32/
+icons/PyHoca/32x32/broom-cleanup.png /usr/share/icons/PyHoca/32x32/
+icons/PyHoca/48x48/pyhoca*.png /usr/share/icons/PyHoca/48x48/
+icons/PyHoca/48x48/PyHoca-GUI_*.png /usr/share/icons/PyHoca/48x48/
+icons/PyHoca/48x48/x2go*.png /usr/share/icons/PyHoca/48x48/
+icons/PyHoca/48x48/question.png /usr/share/icons/PyHoca/48x48/
+icons/PyHoca/64x64/pyhoca*.png /usr/share/icons/PyHoca/64x64/
+icons/PyHoca/64x64/PyHoca-GUI_*.png /usr/share/icons/PyHoca/64x64/
+icons/PyHoca/64x64/x2go*.png /usr/share/icons/PyHoca/64x64/
+icons/PyHoca/64x64/question.png /usr/share/icons/PyHoca/64x64/
+icons/PyHoca/128x128/pyhoca*.png /usr/share/icons/PyHoca/128x128/
+icons/PyHoca/128x128/PyHoca-GUI_*.png /usr/share/icons/PyHoca/128x128/
+icons/PyHoca/128x128/x2go*.png /usr/share/icons/PyHoca/128x128/
+icons/PyHoca/128x128/question.png /usr/share/icons/PyHoca/128x128/
+icons/PyHoca/scalable/pyhoca*.svg /usr/share/icons/PyHoca/scalable/
+icons/PyHoca/scalable/PyHoca-GUI_*.svg /usr/share/icons/PyHoca/scalable/
+icons/PyHoca/scalable/x2go*.svg /usr/share/icons/PyHoca/scalable/
+icons/PyHoca/scalable/question.svg /usr/share/icons/PyHoca/scalable/
+icons/PyHoca/scalable/broom-cleanup.svg /usr/share/icons/PyHoca/scalable/
+
+# these 64x64 icons are missing in gnome-colors-common
+icons/PyHoca/64x64/dialog-apply.png /usr/share/icons/PyHoca/64x64/
+icons/PyHoca/64x64/dialog-error.png /usr/share/icons/PyHoca/64x64/
+icons/PyHoca/64x64/dialog-question.png /usr/share/icons/PyHoca/64x64/
+icons/PyHoca/64x64/dialog-warning.png /usr/share/icons/PyHoca/64x64/

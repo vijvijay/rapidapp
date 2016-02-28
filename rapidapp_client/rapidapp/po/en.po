@@ -1,0 +1,2142 @@
+# PyHoca-GUI / i18n.
+# Copyright (C) 2010-2014 Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+#                         Dick Kniep <dick.kniep@lindix.nl>
+# This file is distributed under the same license as the PyHoca-GUI package.
+# Mike Gabriel <mike.gabriel@das-netzwerkteam.de>, 2011.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PyHoca-GUI VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2014-10-20 12:52+0200\n"
+"PO-Revision-Date: 2014-06-29 14:26+0100\n"
+"Last-Translator: Mike Gabriel <mike.gabriel@das-netzwerkteam.de>\n"
+"Language-Team: X2Go i18n <x2go-i18n@lists.berlios.de>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Poedit-Language: English\n"
+"X-Poedit-Country: UNITED STATES\n"
+"X-Poedit-SourceCharset: utf-8\n"
+
+#: ../pyhoca/wxgui/brokerlogon.py:54
+msgid "Logon"
+msgstr "Logon"
+
+#: ../pyhoca/wxgui/brokerlogon.py:57
+msgid "Broker URL"
+msgstr "Broker URL"
+
+#: ../pyhoca/wxgui/brokerlogon.py:60 ../pyhoca/wxgui/logon.py:87
+#: ../pyhoca/wxgui/logon.py:99
+msgid "Username"
+msgstr "Username"
+
+#: ../pyhoca/wxgui/brokerlogon.py:63 ../pyhoca/wxgui/logon.py:89
+#: ../pyhoca/wxgui/logon.py:101
+msgid "Password"
+msgstr "Password"
+
+#: ../pyhoca/wxgui/brokerlogon.py:84 ../pyhoca/wxgui/logon.py:92
+msgid "Authenticate"
+msgstr "Authenticate"
+
+#: ../pyhoca/wxgui/brokerlogon.py:86 ../pyhoca/wxgui/logon.py:124
+#: ../pyhoca/wxgui/passphrase.py:93 ../pyhoca/wxgui/profilemanager.py:393
+#: ../pyhoca/wxgui/listdesktops.py:83 ../pyhoca/wxgui/messages.py:133
+#: ../pyhoca/wxgui/printingprefs.py:148 ../pyhoca/wxgui/sessiontitle.py:71
+msgid "Cancel"
+msgstr "Cancel"
+
+#: ../pyhoca/wxgui/brokerlogon.py:165
+#, python-format
+msgid "%s - success"
+msgstr "%s - success"
+
+#: ../pyhoca/wxgui/brokerlogon.py:165
+msgid ""
+"Authentication to session broker has been\n"
+"successful."
+msgstr ""
+"Authentication to session broker has been\n"
+"successful."
+
+#: ../pyhoca/wxgui/brokerlogon.py:167
+#, python-format
+msgid "%s - failure"
+msgstr "%s - failure"
+
+#: ../pyhoca/wxgui/brokerlogon.py:167
+msgid "Authentication to session broker failed."
+msgstr "Authentication to session broker failed."
+
+#: ../pyhoca/wxgui/brokerlogon.py:171
+#, python-format
+msgid "%s: Connection refused error"
+msgstr "%s: Connection refused error"
+
+#: ../pyhoca/wxgui/brokerlogon.py:171
+#, python-format
+msgid "Connection to %s failed. Retry?"
+msgstr "Connection to %s failed. Retry?"
+
+#: ../pyhoca/wxgui/logon.py:81
+#, python-format
+msgid "%s (via %s)"
+msgstr "%s (via %s)"
+
+#: ../pyhoca/wxgui/logon.py:104
+msgid "Start SSH tunnel"
+msgstr "Start SSH tunnel"
+
+#: ../pyhoca/wxgui/logon.py:112
+msgid "Session login"
+msgstr "Session login"
+
+#: ../pyhoca/wxgui/logon.py:113
+msgid "SSH proxy server login"
+msgstr "SSH proxy server login"
+
+#: ../pyhoca/wxgui/logon.py:296 ../pyhoca/wxgui/logon.py:349
+#: ../pyhoca/wxgui/passphrase.py:216 ../pyhoca/wxgui/passphrase.py:223
+#: ../pyhoca/wxgui/passphrase.py:230 ../pyhoca/wxgui/passphrase.py:237
+#: ../pyhoca/wxgui/frontend.py:638
+#, python-format
+msgid "%s - connect failure"
+msgstr "%s - connect failure"
+
+#: ../pyhoca/wxgui/logon.py:297 ../pyhoca/wxgui/frontend.py:638
+msgid "User is not allowed to start X2Go sessions!"
+msgstr "User is not allowed to start X2Go sessions!"
+
+#: ../pyhoca/wxgui/logon.py:302 ../pyhoca/wxgui/passphrase.py:198
+#: ../pyhoca/wxgui/frontend.py:645
+#, python-format
+msgid "%s - connect"
+msgstr "%s - connect"
+
+#: ../pyhoca/wxgui/logon.py:303 ../pyhoca/wxgui/passphrase.py:199
+msgid "Authentication has been successful."
+msgstr "Authentication has been successful."
+
+#: ../pyhoca/wxgui/logon.py:345 ../pyhoca/wxgui/logon.py:445
+msgid "SSH tunnel started"
+msgstr "SSH tunnel started"
+
+#: ../pyhoca/wxgui/logon.py:350 ../pyhoca/wxgui/passphrase.py:231
+msgid "Authentication failed!"
+msgstr "Authentication failed!"
+
+#: ../pyhoca/wxgui/logon.py:358
+#, python-format
+msgid "%s - SSH proxy"
+msgstr "%s - SSH proxy"
+
+#: ../pyhoca/wxgui/logon.py:359 ../pyhoca/wxgui/passphrase.py:238
+msgid "Authentication to the SSH proxy server failed!"
+msgstr "Authentication to the SSH proxy server failed!"
+
+#: ../pyhoca/wxgui/logon.py:386 ../pyhoca/wxgui/passphrase.py:244
+#: ../pyhoca/wxgui/frontend.py:750
+#, python-format
+msgid "%s - socket error"
+msgstr "%s - socket error"
+
+#: ../pyhoca/wxgui/logon.py:393 ../pyhoca/wxgui/passphrase.py:251
+#: ../pyhoca/wxgui/frontend.py:729 ../pyhoca/wxgui/frontend.py:736
+#, python-format
+msgid "%s - host key error"
+msgstr "%s - host key error"
+
+#: ../pyhoca/wxgui/logon.py:394 ../pyhoca/wxgui/passphrase.py:252
+#: ../pyhoca/wxgui/frontend.py:729
+msgid ""
+"The remote server's host key is invalid or has not been accepted by the user"
+msgstr ""
+"The remote server's host key is invalid or has not been accepted by the user"
+
+#: ../pyhoca/wxgui/logon.py:401 ../pyhoca/wxgui/passphrase.py:259
+#: ../pyhoca/wxgui/frontend.py:764
+#, python-format
+msgid "%s - missing home directory"
+msgstr "%s - missing home directory"
+
+#: ../pyhoca/wxgui/logon.py:402 ../pyhoca/wxgui/passphrase.py:260
+#: ../pyhoca/wxgui/frontend.py:764
+msgid "The remote user's home directory does not exist."
+msgstr "The remote user's home directory does not exist."
+
+#: ../pyhoca/wxgui/logon.py:409 ../pyhoca/wxgui/passphrase.py:282
+#, python-format
+msgid "%s - key error"
+msgstr "%s - key error"
+
+#: ../pyhoca/wxgui/logon.py:417 ../pyhoca/wxgui/passphrase.py:290
+#: ../pyhoca/wxgui/frontend.py:771
+#, python-format
+msgid "%s - auth error"
+msgstr "%s - auth error"
+
+#: ../pyhoca/wxgui/logon.py:449 ../pyhoca/wxgui/passphrase.py:278
+#: ../pyhoca/wxgui/passphrase.py:309 ../pyhoca/wxgui/frontend.py:699
+msgid ""
+"Host key verification failed. The X2Go server may have been compromised.\n"
+"\n"
+"It is also possible that the host key has just been changed.\n"
+"\n"
+"However, for security reasons the connection will not be established!!!"
+msgstr ""
+"Host key verification failed. The X2Go server may have been compromised.\n"
+"\n"
+"It is also possible that the host key has just been changed.\n"
+"\n"
+"However, for security reasons the connection will not be established!!!"
+
+#: ../pyhoca/wxgui/logon.py:454 ../pyhoca/wxgui/passphrase.py:314
+#: ../pyhoca/wxgui/frontend.py:707 ../pyhoca/wxgui/frontend.py:727
+#, python-format
+msgid "%s - SSH error"
+msgstr "%s - SSH error"
+
+#: ../pyhoca/wxgui/logon.py:464 ../pyhoca/wxgui/passphrase.py:322
+#, python-format
+msgid "%s - unknown error"
+msgstr "%s - unknown error"
+
+#: ../pyhoca/wxgui/logon.py:465 ../pyhoca/wxgui/passphrase.py:323
+msgid "An unknown error occured during authentication!"
+msgstr "An unknown error occured during authentication!"
+
+#: ../pyhoca/wxgui/passphrase.py:69
+#, python-format
+msgid "%s (SSH proxy)"
+msgstr "%s (SSH proxy)"
+
+#: ../pyhoca/wxgui/passphrase.py:71
+#, python-format
+msgid "%s (X2Go Server)"
+msgstr "%s (X2Go Server)"
+
+#: ../pyhoca/wxgui/passphrase.py:81
+#, python-format
+msgid "Unlock SSH private key (%s)..."
+msgstr "Unlock SSH private key (%s)..."
+
+#: ../pyhoca/wxgui/passphrase.py:83
+msgid "Unlock auto-discovered SSH private key..."
+msgstr "Unlock auto-discovered SSH private key..."
+
+#: ../pyhoca/wxgui/passphrase.py:85
+msgid "Passphrase"
+msgstr "Passphrase"
+
+#: ../pyhoca/wxgui/passphrase.py:88
+msgid "Unlock SSH key"
+msgstr "Unlock SSH key"
+
+#: ../pyhoca/wxgui/passphrase.py:217
+msgid "SSH key file (for X2Go server) could not be unlocked!"
+msgstr "SSH key file (for X2Go server) could not be unlocked!"
+
+#: ../pyhoca/wxgui/passphrase.py:224
+msgid "SSH key file (for SSH proxy) could not be unlocked!"
+msgstr "SSH key file (for SSH proxy) could not be unlocked!"
+
+#: ../pyhoca/wxgui/taskbar.py:111
+#, python-format
+msgid ""
+"%s\n"
+"Connecting you to ,,%s''"
+msgstr ""
+"%s\n"
+"Connecting you to ,,%s''"
+
+#: ../pyhoca/wxgui/taskbar.py:115
+#, python-format
+msgid ""
+"%s\n"
+"Currently connecting you to remote X2Go server ,,%s''"
+msgstr ""
+"%s\n"
+"Currently connecting you to remote X2Go server ,,%s''"
+
+#: ../pyhoca/wxgui/taskbar.py:125
+#, python-format
+msgid ""
+"%s\n"
+"Connecting you to X2Go..."
+msgstr ""
+"%s\n"
+"Connecting you to X2Go..."
+
+#: ../pyhoca/wxgui/taskbar.py:129
+#, python-format
+msgid ""
+"%s\n"
+"Client for connecting you to a remote X2Go server"
+msgstr ""
+"%s\n"
+"Client for connecting you to a remote X2Go server"
+
+#: ../pyhoca/wxgui/profilemanager.py:81
+msgid "Cinnamon Desktop (CINNAMON)"
+msgstr "Cinnamon Desktop (CINNAMON)"
+
+#: ../pyhoca/wxgui/profilemanager.py:82
+msgid "GNOME Desktop (GNOME)"
+msgstr "GNOME Desktop (GNOME)"
+
+#: ../pyhoca/wxgui/profilemanager.py:83
+msgid "MATE Desktop (MATE)"
+msgstr "MATE Desktop (MATE)"
+
+#: ../pyhoca/wxgui/profilemanager.py:84
+msgid "K Desktop Environment (KDE)"
+msgstr "K Desktop Environment (KDE)"
+
+#: ../pyhoca/wxgui/profilemanager.py:85
+msgid "Lightweight X Desktop (LXDE)"
+msgstr "Lightweight X Desktop (LXDE)"
+
+#: ../pyhoca/wxgui/profilemanager.py:86
+msgid "Trinity X Desktop (KDE3-like)"
+msgstr "Trinity X Desktop (KDE3-like)"
+
+#: ../pyhoca/wxgui/profilemanager.py:87
+msgid "Unity X Desktop Shell (UNITY)"
+msgstr "Unity X Desktop Shell (UNITY)"
+
+#: ../pyhoca/wxgui/profilemanager.py:88
+msgid "XFCE Desktop (XFCE)"
+msgstr "XFCE Desktop (XFCE)"
+
+#: ../pyhoca/wxgui/profilemanager.py:89
+msgid "Published Applications"
+msgstr "Published Applications"
+
+#: ../pyhoca/wxgui/profilemanager.py:90
+msgid "Single Application"
+msgstr "Single Application"
+
+#: ../pyhoca/wxgui/profilemanager.py:91
+msgid "Share desktop session (SHADOW)"
+msgstr "Share desktop session (SHADOW)"
+
+#: ../pyhoca/wxgui/profilemanager.py:92
+msgid "XDMCP Query"
+msgstr "XDMCP Query"
+
+#: ../pyhoca/wxgui/profilemanager.py:93
+msgid "Windows Terminal Server (X2Go-proxied RDP)"
+msgstr "Windows Terminal Server (X2Go-proxied RDP)"
+
+#: ../pyhoca/wxgui/profilemanager.py:94
+msgid "Windows Terminal Server (Direct RDP)"
+msgstr "Windows Terminal Server (Direct RDP)"
+
+#: ../pyhoca/wxgui/profilemanager.py:95 ../pyhoca/wxgui/profilemanager.py:263
+msgid "Custom command"
+msgstr "Custom command"
+
+#: ../pyhoca/wxgui/profilemanager.py:100 ../pyhoca/wxgui/menus_taskbar.py:413
+msgid "Internet Browser"
+msgstr "Internet Browser"
+
+#: ../pyhoca/wxgui/profilemanager.py:101 ../pyhoca/wxgui/menus_taskbar.py:414
+msgid "Email Client"
+msgstr "Email Client"
+
+#: ../pyhoca/wxgui/profilemanager.py:102 ../pyhoca/wxgui/menus_taskbar.py:415
+msgid "Office"
+msgstr "Office"
+
+#: ../pyhoca/wxgui/profilemanager.py:103 ../pyhoca/wxgui/menus_taskbar.py:416
+msgid "Terminal"
+msgstr "Terminal"
+
+#: ../pyhoca/wxgui/profilemanager.py:106
+msgid "between client and server"
+msgstr "between client and server"
+
+#: ../pyhoca/wxgui/profilemanager.py:107
+msgid "from server to client only"
+msgstr "from server to client only"
+
+#: ../pyhoca/wxgui/profilemanager.py:108
+msgid "from client to server only"
+msgstr "from client to server only"
+
+#: ../pyhoca/wxgui/profilemanager.py:109
+msgid "not at all"
+msgstr "not at all"
+
+#: ../pyhoca/wxgui/profilemanager.py:127
+msgid "Open file with system's default application"
+msgstr "Open file with system's default application"
+
+#: ../pyhoca/wxgui/profilemanager.py:128
+msgid "Open application chooser dialog"
+msgstr "Open application chooser dialog"
+
+#: ../pyhoca/wxgui/profilemanager.py:129
+msgid "Save incoming file as ..."
+msgstr "Save incoming file as ..."
+
+#: ../pyhoca/wxgui/profilemanager.py:157
+msgid "settings derived from "
+msgstr "settings derived from "
+
+#. boxes for all tabs
+#: ../pyhoca/wxgui/profilemanager.py:205
+msgid "Session Title"
+msgstr "Session Title"
+
+#: ../pyhoca/wxgui/profilemanager.py:206
+msgid "Session Window"
+msgstr "Session Window"
+
+#: ../pyhoca/wxgui/profilemanager.py:207
+msgid "Session Startup"
+msgstr "Session Startup"
+
+#: ../pyhoca/wxgui/profilemanager.py:208
+msgid "Server"
+msgstr "Server"
+
+#: ../pyhoca/wxgui/profilemanager.py:209
+msgid "Proxy"
+msgstr "Proxy"
+
+#: ../pyhoca/wxgui/profilemanager.py:210
+msgid "Connection Link Speed"
+msgstr "Connection Link Speed"
+
+#: ../pyhoca/wxgui/profilemanager.py:211
+msgid "Compression"
+msgstr "Compression"
+
+#: ../pyhoca/wxgui/profilemanager.py:212
+msgid "Display"
+msgstr "Display"
+
+#: ../pyhoca/wxgui/profilemanager.py:213
+msgid "Clipboard"
+msgstr "Clipboard"
+
+#: ../pyhoca/wxgui/profilemanager.py:214
+msgid "Keyboard"
+msgstr "Keyboard"
+
+#: ../pyhoca/wxgui/profilemanager.py:215
+msgid "Sound"
+msgstr "Sound"
+
+#: ../pyhoca/wxgui/profilemanager.py:216
+msgid "Printing"
+msgstr "Printing"
+
+#: ../pyhoca/wxgui/profilemanager.py:217
+msgid "Folder Exports"
+msgstr "Folder Exports"
+
+#: ../pyhoca/wxgui/profilemanager.py:218
+msgid "File Import"
+msgstr "File Import"
+
+#. ##
+#. ## widgets for the PROFILE tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:223
+msgid "Name"
+msgstr "Name"
+
+#: ../pyhoca/wxgui/profilemanager.py:230
+msgid "Set session window title"
+msgstr "Set session window title"
+
+#: ../pyhoca/wxgui/profilemanager.py:231
+msgid "Use a default session window title"
+msgstr "Use a default session window title"
+
+#: ../pyhoca/wxgui/profilemanager.py:232
+msgid "Custom session window title"
+msgstr "Custom session window title"
+
+#: ../pyhoca/wxgui/profilemanager.py:251
+msgid "Window Icon"
+msgstr "Window Icon"
+
+#. ##
+#. ## widgets for the SESSION tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:257
+msgid "Start session automatically after login"
+msgstr "Start session automatically after login"
+
+#: ../pyhoca/wxgui/profilemanager.py:258
+#, python-format
+msgid "Login automatically after %s has started (needs --auto-connect)"
+msgstr "Login automatically after %s has started (needs --auto-connect)"
+
+#: ../pyhoca/wxgui/profilemanager.py:259
+msgid "Type"
+msgstr "Type"
+
+#: ../pyhoca/wxgui/profilemanager.py:261
+msgid "Application"
+msgstr "Application"
+
+#: ../pyhoca/wxgui/profilemanager.py:265
+msgid "XDMCP server"
+msgstr "XDMCP server"
+
+#: ../pyhoca/wxgui/profilemanager.py:267
+msgid "RDP server"
+msgstr "RDP server"
+
+#: ../pyhoca/wxgui/profilemanager.py:269
+msgid "RDP options"
+msgstr "RDP options"
+
+#: ../pyhoca/wxgui/profilemanager.py:271
+msgid "Integrate remote application(s) into local desktop (rootless mode)"
+msgstr "Integrate remote application(s) into local desktop (rootless mode)"
+
+#: ../pyhoca/wxgui/profilemanager.py:272
+msgid "Menu of published applications"
+msgstr "Menu of published applications"
+
+#. ##
+#. ## widgets for the CONNECTION tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:279 ../pyhoca/wxgui/profilemanager.py:293
+msgid "User"
+msgstr "User"
+
+#: ../pyhoca/wxgui/profilemanager.py:281 ../pyhoca/wxgui/profilemanager.py:300
+msgid "Host"
+msgstr "Host"
+
+#: ../pyhoca/wxgui/profilemanager.py:283 ../pyhoca/wxgui/profilemanager.py:302
+msgid "Port"
+msgstr "Port"
+
+#: ../pyhoca/wxgui/profilemanager.py:285
+msgid "Key"
+msgstr "Key"
+
+#: ../pyhoca/wxgui/profilemanager.py:288
+msgid "Discover SSH keys or use SSH agent for X2Go authentication"
+msgstr "Discover SSH keys or use SSH agent for X2Go authentication"
+
+#: ../pyhoca/wxgui/profilemanager.py:290
+msgid "Enable forwarding of SSH authentication agent connections"
+msgstr "Enable forwarding of SSH authentication agent connections"
+
+#: ../pyhoca/wxgui/profilemanager.py:291
+msgid "Store SSH host keys under (unique) X2Go session profile ID"
+msgstr "Store SSH host keys under (unique) X2Go session profile ID"
+
+#: ../pyhoca/wxgui/profilemanager.py:292
+msgid "Server behind SSH proxy"
+msgstr "Server behind SSH proxy"
+
+#: ../pyhoca/wxgui/profilemanager.py:295
+msgid "Use same username for X2Go and proxy host"
+msgstr "Use same username for X2Go and proxy host"
+
+#: ../pyhoca/wxgui/profilemanager.py:296
+msgid "Use same authentication for X2Go and proxy host"
+msgstr "Use same authentication for X2Go and proxy host"
+
+#: ../pyhoca/wxgui/profilemanager.py:297
+msgid "Key file"
+msgstr "Key file"
+
+#: ../pyhoca/wxgui/profilemanager.py:304
+msgid "Discover SSH keys or use SSH agent for proxy authentication"
+msgstr "Discover SSH keys or use SSH agent for proxy authentication"
+
+#: ../pyhoca/wxgui/profilemanager.py:307
+msgid "Modem"
+msgstr "Modem"
+
+#: ../pyhoca/wxgui/profilemanager.py:308
+msgid "ISDN"
+msgstr "ISDN"
+
+#: ../pyhoca/wxgui/profilemanager.py:309
+msgid "ADSL"
+msgstr "ADSL"
+
+#: ../pyhoca/wxgui/profilemanager.py:310
+msgid "WAN"
+msgstr "WAN"
+
+#: ../pyhoca/wxgui/profilemanager.py:311
+msgid "LAN"
+msgstr "LAN"
+
+#: ../pyhoca/wxgui/profilemanager.py:313
+msgid "Method"
+msgstr "Method"
+
+#: ../pyhoca/wxgui/profilemanager.py:315
+msgid "Image quality"
+msgstr "Image quality"
+
+#. ##
+#. ## wigdets for the IO tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:321
+msgid "Fullscreen"
+msgstr "Fullscreen"
+
+#: ../pyhoca/wxgui/profilemanager.py:322
+msgid "Maximized"
+msgstr "Maximized"
+
+#: ../pyhoca/wxgui/profilemanager.py:323
+msgid "Custom Size"
+msgstr "Custom Size"
+
+#: ../pyhoca/wxgui/profilemanager.py:328
+msgid "Set display DPI"
+msgstr "Set display DPI"
+
+#: ../pyhoca/wxgui/profilemanager.py:330
+msgid "Allow copy'n'paste"
+msgstr "Allow copy'n'paste"
+
+#: ../pyhoca/wxgui/profilemanager.py:332
+msgid "Do not set (use server-side tools to configure the keyboard)"
+msgstr "Do not set (use server-side tools to configure the keyboard)"
+
+#: ../pyhoca/wxgui/profilemanager.py:333
+msgid ""
+"Automatically detect and use client-side keyboard configuration inside the "
+"session"
+msgstr ""
+"Automatically detect and use client-side keyboard configuration inside the "
+"session"
+
+#: ../pyhoca/wxgui/profilemanager.py:334
+msgid "Use custom keyboard settings as provided below"
+msgstr "Use custom keyboard settings as provided below"
+
+#: ../pyhoca/wxgui/profilemanager.py:335
+msgid "Keyboard model"
+msgstr "Keyboard model"
+
+#: ../pyhoca/wxgui/profilemanager.py:337
+msgid "Layout"
+msgstr "Layout"
+
+#: ../pyhoca/wxgui/profilemanager.py:339
+msgid "Layout variant"
+msgstr "Layout variant"
+
+#. ##
+#. ## wigdets for the MEDIA tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:344
+msgid "Enable sound support"
+msgstr "Enable sound support"
+
+#: ../pyhoca/wxgui/profilemanager.py:345
+msgid "Pulse Audio"
+msgstr "Pulse Audio"
+
+#. Arts daemon is not supported by PyHoca-GUI / Python X2Go as it is outdated.
+#. However, config files can contain an Arts configuration, so we will honour this
+#: ../pyhoca/wxgui/profilemanager.py:349
+msgid "Arts (not supported)"
+msgstr "Arts (not supported)"
+
+#: ../pyhoca/wxgui/profilemanager.py:352
+msgid "esd"
+msgstr "esd"
+
+#: ../pyhoca/wxgui/profilemanager.py:353
+msgid "Use default sound port"
+msgstr "Use default sound port"
+
+#: ../pyhoca/wxgui/profilemanager.py:354
+msgid "Custom sound port"
+msgstr "Custom sound port"
+
+#: ../pyhoca/wxgui/profilemanager.py:357
+msgid "Client Side printing"
+msgstr "Client Side printing"
+
+#. ##
+#. ## wigdets for the SHARING tab
+#. ##
+#: ../pyhoca/wxgui/profilemanager.py:363
+msgid "Use local folder sharing"
+msgstr "Use local folder sharing"
+
+#: ../pyhoca/wxgui/profilemanager.py:364
+msgid "Store share list at end of session"
+msgstr "Store share list at end of session"
+
+#: ../pyhoca/wxgui/profilemanager.py:365
+msgid "Path"
+msgstr "Path"
+
+#: ../pyhoca/wxgui/profilemanager.py:368 ../pyhoca/wxgui/profilemanager.py:387
+msgid "Add"
+msgstr "Add"
+
+#: ../pyhoca/wxgui/profilemanager.py:370
+msgid "Local Path"
+msgstr "Local Path"
+
+#: ../pyhoca/wxgui/profilemanager.py:371
+msgid "Connect Method"
+msgstr "Connect Method"
+
+#: ../pyhoca/wxgui/profilemanager.py:372
+msgid "Delete"
+msgstr "Delete"
+
+#: ../pyhoca/wxgui/profilemanager.py:374
+msgid "Convert between client and server encodings"
+msgstr "Convert between client and server encodings"
+
+#: ../pyhoca/wxgui/profilemanager.py:375
+msgid "Client encoding"
+msgstr "Client encoding"
+
+#: ../pyhoca/wxgui/profilemanager.py:377
+msgid "Server encoding"
+msgstr "Server encoding"
+
+#: ../pyhoca/wxgui/profilemanager.py:380
+msgid "Use file MIME box for local file import"
+msgstr "Use file MIME box for local file import"
+
+#: ../pyhoca/wxgui/profilemanager.py:381
+msgid "Extensions"
+msgstr "Extensions"
+
+#: ../pyhoca/wxgui/profilemanager.py:383
+msgid "Action"
+msgstr "Action"
+
+#: ../pyhoca/wxgui/profilemanager.py:388
+msgid "Defaults"
+msgstr "Defaults"
+
+#: ../pyhoca/wxgui/profilemanager.py:390
+msgid "Save"
+msgstr "Save"
+
+#: ../pyhoca/wxgui/profilemanager.py:391
+msgid "Reset"
+msgstr "Reset"
+
+#: ../pyhoca/wxgui/profilemanager.py:392 ../pyhoca/wxgui/printingprefs.py:144
+msgid "Apply"
+msgstr "Apply"
+
+#: ../pyhoca/wxgui/profilemanager.py:453
+#: ../pyhoca/wxgui/profilemanager.py:1184
+#: ../pyhoca/wxgui/profilemanager.py:2364
+msgid "automatically"
+msgstr "automatically"
+
+#: ../pyhoca/wxgui/profilemanager.py:455
+#: ../pyhoca/wxgui/profilemanager.py:1186
+msgid "manually"
+msgstr "manually"
+
+#: ../pyhoca/wxgui/profilemanager.py:464
+#, python-format
+msgid "%s Profile Manager - new profile"
+msgstr "%s Profile Manager - new profile"
+
+#: ../pyhoca/wxgui/profilemanager.py:467
+#, python-format
+msgid "%s Profile Manager - %s (connected)"
+msgstr "%s Profile Manager - %s (connected)"
+
+#: ../pyhoca/wxgui/profilemanager.py:469
+#, python-format
+msgid "%s Profile Manager - %s (connected, immutable)"
+msgstr "%s Profile Manager - %s (connected, immutable)"
+
+#: ../pyhoca/wxgui/profilemanager.py:472
+#, python-format
+msgid "%s Profile Manager - %s"
+msgstr "%s Profile Manager - %s"
+
+#: ../pyhoca/wxgui/profilemanager.py:474
+#, python-format
+msgid "%s Profile Manager - %s (immutable)"
+msgstr "%s Profile Manager - %s (immutable)"
+
+#: ../pyhoca/wxgui/profilemanager.py:851
+msgid "Profile"
+msgstr "Profile"
+
+#: ../pyhoca/wxgui/profilemanager.py:852
+msgid "Session"
+msgstr "Session"
+
+#: ../pyhoca/wxgui/profilemanager.py:853
+msgid "Connection"
+msgstr "Connection"
+
+#: ../pyhoca/wxgui/profilemanager.py:854
+msgid "Link Quality"
+msgstr "Link Quality"
+
+#: ../pyhoca/wxgui/profilemanager.py:855
+msgid "Input/Output"
+msgstr "Input/Output"
+
+#: ../pyhoca/wxgui/profilemanager.py:856
+msgid "Media"
+msgstr "Media"
+
+#: ../pyhoca/wxgui/profilemanager.py:857
+msgid "Sharing"
+msgstr "Sharing"
+
+#: ../pyhoca/wxgui/profilemanager.py:1044
+msgid "<xkbtype>"
+msgstr "pc105/us"
+
+#: ../pyhoca/wxgui/profilemanager.py:1045
+msgid "<xkblayout>"
+msgstr "us"
+
+#: ../pyhoca/wxgui/profilemanager.py:1046
+msgid "<xkbvariant>"
+msgstr "basic"
+
+#: ../pyhoca/wxgui/profilemanager.py:1504
+msgid "Icon Files (*.png)|*.png|All files (*.*)|*"
+msgstr "Icon Files (*.png)|*.png|All files (*.*)|*"
+
+#: ../pyhoca/wxgui/profilemanager.py:1507
+msgid "Choose an icon for this session profile"
+msgstr "Choose an icon for this session profile"
+
+#: ../pyhoca/wxgui/profilemanager.py:1956
+msgid "All files (*.*)|*"
+msgstr "All files (*.*)|*"
+
+#: ../pyhoca/wxgui/profilemanager.py:1958
+#: ../pyhoca/wxgui/profilemanager.py:1982
+msgid "Choose a public SSH key"
+msgstr "Choose a public SSH key"
+
+#: ../pyhoca/wxgui/profilemanager.py:2316
+msgid "Choose a folder to share within a session"
+msgstr "Choose a folder to share within a session"
+
+#: ../pyhoca/wxgui/profilemanager.py:2444
+#: ../pyhoca/wxgui/profilemanager.py:2447
+#: ../pyhoca/wxgui/profilemanager.py:2450 ../pyhoca/wxgui/menus_taskbar.py:122
+msgid "Profile Manager"
+msgstr "Profile Manager"
+
+#: ../pyhoca/wxgui/profilemanager.py:2444
+msgid "Profile name is missing, profile unusable!!!"
+msgstr "Profile name is missing, profile unusable!!!"
+
+#: ../pyhoca/wxgui/profilemanager.py:2447
+#: ../pyhoca/wxgui/profilemanager.py:2450
+#, python-format
+msgid "Profile name %s already exists!!!"
+msgstr "Profile name %s already exists!!!"
+
+#: ../pyhoca/wxgui/profilemanager.py:2478
+#, python-format
+msgid "%s - profile added"
+msgstr "%s - profile added"
+
+#: ../pyhoca/wxgui/profilemanager.py:2479
+msgid "A new session profile has been added."
+msgstr "A new session profile has been added."
+
+#: ../pyhoca/wxgui/profilemanager.py:2483
+#, python-format
+msgid "%s - modified"
+msgstr "%s - modified"
+
+#: ../pyhoca/wxgui/profilemanager.py:2484
+msgid "Changes to profile have been saved."
+msgstr "Changes to profile have been saved."
+
+#: ../pyhoca/wxgui/listdesktops.py:66
+#, python-format
+msgid "Share Desktop Session - %s"
+msgstr "Share Desktop Session - %s"
+
+#: ../pyhoca/wxgui/listdesktops.py:68
+msgid "Select one of the available desktop sessions on this server"
+msgstr "Select one of the available desktop sessions on this server"
+
+#: ../pyhoca/wxgui/listdesktops.py:74
+msgid "View session only"
+msgstr "View session only"
+
+#: ../pyhoca/wxgui/listdesktops.py:75
+msgid "Gain full access"
+msgstr "Gain full access"
+
+#: ../pyhoca/wxgui/listdesktops.py:79
+msgid "Share Desktop"
+msgstr "Share Desktop"
+
+#: ../pyhoca/wxgui/listdesktops.py:82
+msgid "Refresh list"
+msgstr "Refresh list"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:65
+msgid "Edit Profile"
+msgstr "Edit Profile"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:67
+msgid "View Profile"
+msgstr "View Profile"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:75
+msgid "Use as Template for New Profile"
+msgstr "Use as Template for New Profile"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:79
+msgid "Export Profile"
+msgstr "Export Profile"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:83
+msgid "Delete Profile"
+msgstr "Delete Profile"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:109 ../pyhoca/wxgui/menus_taskbar.py:110
+#, python-format
+msgid "About %s (%s)..."
+msgstr "About %s (%s) ..."
+
+#: ../pyhoca/wxgui/menus_taskbar.py:139
+msgid "Manage Session Profile"
+msgstr "Manage Session Profile"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:148
+msgid "Disconnect from session broker"
+msgstr "Disconnect from session broker"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:153
+msgid "Printing Preferences"
+msgstr "Printing Preferences"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:161
+msgid "Client Options"
+msgstr "Client Options"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:169 ../pyhoca/wxgui/menus_taskbar.py:849
+#: ../pyhoca/wxgui/menus_taskbar.py:1070
+msgid "E&xit"
+msgstr "E&xit"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:241
+msgid "Window title"
+msgstr "Window title"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:247 ../pyhoca/wxgui/menus_taskbar.py:649
+msgid "Resume Session"
+msgstr "Resume Session"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:249
+msgid "Resume Session (not possible)"
+msgstr "Resume Session (not possible)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:260
+msgid "Transfer Session"
+msgstr "Transfer Session"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:262
+msgid "Transfer Session (not possible)"
+msgstr "Transfer Session (not possible)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:267 ../pyhoca/wxgui/menus_taskbar.py:640
+msgid "Suspend Session (and disconnect/exit)"
+msgstr "Suspend Session (and disconnect/exit)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:269 ../pyhoca/wxgui/menus_taskbar.py:642
+msgid "Suspend Session (and disconnect)"
+msgstr "Suspend Session (and disconnect)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:271 ../pyhoca/wxgui/menus_taskbar.py:644
+msgid "Suspend Session"
+msgstr "Suspend Session"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:277 ../pyhoca/wxgui/menus_taskbar.py:653
+msgid "Terminate Session (and disconnect/exit)"
+msgstr "Terminate Session (and disconnect/exit)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:279 ../pyhoca/wxgui/menus_taskbar.py:655
+msgid "Terminate Session (and disconnect)"
+msgstr "Terminate Session (and disconnect)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:281 ../pyhoca/wxgui/menus_taskbar.py:657
+msgid "Terminate Session"
+msgstr "Terminate Session"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:284
+msgid "End Desktop Sharing (and disconnect/exit)"
+msgstr "End Desktop Sharing (and disconnect/exit)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:286
+msgid "End Desktop Sharing (and disconnect)"
+msgstr "End Desktop Sharing (and disconnect)"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:288
+msgid "End Desktop Sharing"
+msgstr "End Desktop Sharing"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:292 ../pyhoca/wxgui/menus_taskbar.py:637
+msgid "Refresh menu tree"
+msgstr "Refresh menu tree"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:301
+msgid "Rename Session Window"
+msgstr "Rename Session Window"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:302
+msgid "Show Session Window"
+msgstr "Show Session Window"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:344
+msgid "&Share custom local folder"
+msgstr "&Share custom local folder"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:356
+msgid "Share:"
+msgstr "Share:"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:366
+msgid "Unshare:"
+msgstr "Unshare:"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:374
+msgid "Unshare &all local folders"
+msgstr "Unshare &all local folders"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:380
+msgid "Restore shares in next session"
+msgstr "Restore shares in next session"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:461
+msgid "Multimedia"
+msgstr "Multimedia"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:462
+msgid "Development"
+msgstr "Development"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:463
+msgid "Education"
+msgstr "Education"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:464
+msgid "Games"
+msgstr "Games"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:465
+msgid "Graphics"
+msgstr "Graphics"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:466
+msgid "Internet"
+msgstr "Internet"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:467
+msgid "Office Applications"
+msgstr "Office Applications"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:468
+msgid "System"
+msgstr "System"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:469
+msgid "Utilities"
+msgstr "Utilities"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:470
+msgid "Other Applications"
+msgstr "Other Applications"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:545 ../pyhoca/wxgui/menus_taskbar.py:1035
+msgid "Connect to"
+msgstr "Connect to"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:550 ../pyhoca/wxgui/menus_taskbar.py:565
+#, python-format
+msgid "Connect %s"
+msgstr "Connect %s"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:559
+msgid "Currently connecting..."
+msgstr "Currently connecting..."
+
+#: ../pyhoca/wxgui/menus_taskbar.py:574
+msgid "Start &new Desktop Session"
+msgstr "Start &new Desktop Session"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:578 ../pyhoca/wxgui/menus_taskbar.py:678
+msgid "Start Desktop Sharing Session"
+msgstr "Start Desktop Sharing Session"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:584 ../pyhoca/wxgui/menus_taskbar.py:728
+msgid "Retrieving Application Menu..."
+msgstr "Retrieving Application Menu..."
+
+#: ../pyhoca/wxgui/menus_taskbar.py:588 ../pyhoca/wxgui/menus_taskbar.py:731
+msgid "Retrieve Application Menu"
+msgstr "Retrieve Application Menu"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:591
+msgid "Start &new RDP Session"
+msgstr "Start &new RDP Session"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:594
+msgid "Start &new Session"
+msgstr "Start &new Session"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:674
+msgid "Launch Single Application"
+msgstr "Launch Single Application"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:715
+msgid "Manage Application Menu"
+msgstr "Manage Application Menu"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:770
+msgid "Running"
+msgstr "Running"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:772
+msgid "Suspended"
+msgstr "Suspended"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:791
+msgid "&Clean all sessions"
+msgstr "&Clean all sessions"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:798
+msgid "Customize &profile"
+msgstr "Customize &profile"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:800
+msgid "View &profile"
+msgstr "View &profile"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:815
+msgid "Shared &folders"
+msgstr "Shared &folders"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:827
+msgid "Server Information"
+msgstr "Server Information"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:834
+msgid "&Disconnect from Server"
+msgstr "&Disconnect from Server"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:841
+msgid "Suspend Session and E&xit application"
+msgstr "Suspend Session and E&xit application"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:845
+msgid "Disconnect and E&xit application"
+msgstr "Disconnect and E&xit application"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:899
+msgid "Add Profile"
+msgstr "Add Profile"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:976
+msgid "Session broker is not connected"
+msgstr "Session broker is not connected"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:978
+msgid "No session profiles defined"
+msgstr "No session profiles defined"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:989
+msgid "Export all Profiles"
+msgstr "Export all Profiles"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:991
+msgid "Export Profile Group"
+msgstr "Export Profile Group"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:997
+msgid "Import Session Profiles"
+msgstr "Import Session Profiles"
+
+#: ../pyhoca/wxgui/menus_taskbar.py:1040
+msgid "Connect Server"
+msgstr "Connect Server"
+
+#: ../pyhoca/wxgui/about.py:78 ../pyhoca/wxgui/about.py:80
+#, python-format
+msgid "About %s ..."
+msgstr "About %s ..."
+
+#: ../pyhoca/wxgui/frontend.py:489
+msgid "Suspending sessions and exiting application..."
+msgstr "Suspending sessions and exiting application..."
+
+#: ../pyhoca/wxgui/frontend.py:492
+#, python-format
+msgid "Disconnecting %s and exiting application..."
+msgstr "Disconnecting %s and exiting application..."
+
+#: ../pyhoca/wxgui/frontend.py:494
+msgid "Exiting application..."
+msgstr "Exiting Application..."
+
+#: ../pyhoca/wxgui/frontend.py:594
+#, python-format
+msgid "%s - server warning"
+msgstr "%s - server warning"
+
+#: ../pyhoca/wxgui/frontend.py:594
+msgid "The X2Go Server does not publish an application menu."
+msgstr "The X2Go Server does not publish an application menu."
+
+#: ../pyhoca/wxgui/frontend.py:645
+msgid "SSH key authentication has been successful."
+msgstr "SSH key authentication has been successful."
+
+#: ../pyhoca/wxgui/frontend.py:719
+msgid ""
+"Host key verification failed. The SSH proxy server may have been "
+"compromised.\n"
+"\n"
+"It is also possible that the host key has just been changed.\n"
+"\n"
+"However, for security reasons the connection will not be established!!!"
+msgstr ""
+"Host key verification failed. The SSH proxy server may have been "
+"compromised.\n"
+"\n"
+"It is also possible that the host key has just been changed.\n"
+"\n"
+"However, for security reasons the connection will not be established!!!"
+
+#: ../pyhoca/wxgui/frontend.py:736
+msgid ""
+"The SSH proxy's host key is invalid or has not been accepted by the user"
+msgstr ""
+"The SSH proxy's host key is invalid or has not been accepted by the user"
+
+#: ../pyhoca/wxgui/frontend.py:757
+#, python-format
+msgid "%s - EOF error"
+msgstr "%s - EOF error"
+
+#: ../pyhoca/wxgui/frontend.py:757
+msgid "Authentication protocol communication incomplete! Try again..."
+msgstr "Authentication protocol communication incomplete! Try again..."
+
+#: ../pyhoca/wxgui/frontend.py:778
+msgid "An unknown error occurred during authentication!"
+msgstr "An unknown error occurred during authentication!"
+
+#: ../pyhoca/wxgui/frontend.py:807
+#, python-format
+msgid "%s: DirectRDP not supported yet"
+msgstr "%s: DirectRDP not supported yet"
+
+#: ../pyhoca/wxgui/frontend.py:808
+#, python-format
+msgid ""
+"We apologize for the inconvenience...\n"
+"\n"
+"Session profiles of type ,,DirectRDP'' are not\n"
+"supported by %s (%s), yet!!\n"
+"\n"
+"DirectRDP support will be available in %s (>= 1.0.0.0)."
+msgstr ""
+"We apologize for the inconvenience...\n"
+"\n"
+"Session profiles of type ,,DirectRDP'' are not\n"
+"supported by %s (%s), yet!!\n"
+"\n"
+"DirectRDP support will be available in %s (>= 1.0.0.0)."
+
+#: ../pyhoca/wxgui/frontend.py:823
+msgid "Unknown session profile, configure before using it..."
+msgstr "Unknown session profile, configure before using it..."
+
+#: ../pyhoca/wxgui/frontend.py:884
+#, python-format
+msgid "Desktop Sharing with %s not supported by server"
+msgstr "Desktop Sharing with %s not supported by server"
+
+#: ../pyhoca/wxgui/frontend.py:885
+#, python-format
+msgid ""
+"We apologize for the inconvenience...\n"
+"\n"
+"Session profiles of type ,,SHADOW'' are not\n"
+"supported by X2Go Server (v%s)!!!\n"
+"\n"
+"Desktop Sharing with %s requires\n"
+"X2Go Server 4.1.0.0 and above."
+msgstr ""
+"We apologize for the inconvenience...\n"
+"\n"
+"Session profiles of type ,,SHADOW'' are not\n"
+"supported by X2Go Server (v%s)!!!\n"
+"\n"
+"Desktop Sharing with %s requires\n"
+"X2Go Server 4.1.0.0 and above."
+
+#: ../pyhoca/wxgui/frontend.py:943 ../pyhoca/wxgui/frontend.py:1730
+#, python-format
+msgid "%s - session warning"
+msgstr "%s - session warning"
+
+#: ../pyhoca/wxgui/frontend.py:943
+#, python-format
+msgid "Execution of command ,,%s'' failed."
+msgstr "Execution of command ,,%s'' failed."
+
+#: ../pyhoca/wxgui/frontend.py:1084
+msgid "Cleaning X2Go sessions..."
+msgstr "Cleaning X2Go sessions..."
+
+#: ../pyhoca/wxgui/frontend.py:1132
+#, python-format
+msgid "%s - disconnect"
+msgstr "%s - disconnect"
+
+#: ../pyhoca/wxgui/frontend.py:1132
+msgid "X2Go Profile is now disconnected."
+msgstr "X2Go Profile is now disconnected."
+
+#: ../pyhoca/wxgui/frontend.py:1153
+msgid "New Session Profile"
+msgstr "New Session Profile"
+
+#: ../pyhoca/wxgui/frontend.py:1208
+#, python-format
+msgid "Really Delete Session Profile ,,%s''?"
+msgstr "Really Delete Session Profile ,,%s''?"
+
+#: ../pyhoca/wxgui/frontend.py:1213
+#, python-format
+msgid "%s - profile deleted"
+msgstr "%s - profile deleted"
+
+#: ../pyhoca/wxgui/frontend.py:1213
+msgid "The session profile has been deleted."
+msgstr "The session profile has been deleted."
+
+#: ../pyhoca/wxgui/frontend.py:1225
+msgid "import session profile(s)"
+msgstr "import session profile(s)"
+
+#: ../pyhoca/wxgui/frontend.py:1237
+#, python-format
+msgid "%s: Import of session profile(s) failed"
+msgstr "%s: Import of session profile(s) failed"
+
+#: ../pyhoca/wxgui/frontend.py:1238
+#, python-format
+msgid ""
+"The selected session profile(s) could not be imported from \n"
+"file »%s«.\n"
+"\n"
+"Are you sure the session profiles file has the correct format?"
+msgstr ""
+"The selected session profile(s) could not be imported from \n"
+"file »%s«.\n"
+"\n"
+"Are you sure the session profiles file has the correct format?"
+
+#: ../pyhoca/wxgui/frontend.py:1266
+#, python-format
+msgid "%s: Write failure after import"
+msgstr "%s: Write failure after import"
+
+#: ../pyhoca/wxgui/frontend.py:1267
+msgid ""
+"The session profiles configuration could not be written to file after "
+"import\n"
+"\n"
+"Check for common problems (disk full, insufficient access, etc.)."
+msgstr ""
+"The session profiles configuration could not be written to file after "
+"import\n"
+"\n"
+"Check for common problems (disk full, insufficient access, etc.)."
+
+#: ../pyhoca/wxgui/frontend.py:1272
+msgid "None of the session profiles could be imported..."
+msgstr "None of the session profiles could be imported..."
+
+#: ../pyhoca/wxgui/frontend.py:1275 ../pyhoca/wxgui/frontend.py:1285
+#, python-format
+msgid "For details, start %s from the command line and retry the import."
+msgstr "For details, start %s from the command line and retry the import."
+
+#: ../pyhoca/wxgui/frontend.py:1279
+msgid "Only these session profiles could be imported..."
+msgstr "Only these session profiles could be imported..."
+
+#: ../pyhoca/wxgui/frontend.py:1282
+msgid "Whereas these session profiles failed to import..."
+msgstr "Whereas these session profiles failed to import..."
+
+#: ../pyhoca/wxgui/frontend.py:1288
+msgid "New session profiles have been imported..."
+msgstr "New session profiles have been imported..."
+
+#: ../pyhoca/wxgui/frontend.py:1293
+msgid "New session profile has been imported..."
+msgstr "New session profile has been imported..."
+
+#: ../pyhoca/wxgui/frontend.py:1322
+#, python-format
+msgid "%s - export session profiles"
+msgstr "%s - export session profiles"
+
+#: ../pyhoca/wxgui/frontend.py:1327
+#, python-format
+msgid "%s - export session profile"
+msgstr "%s - export session profile"
+
+#: ../pyhoca/wxgui/frontend.py:1339
+#, python-format
+msgid "%s: Export file already exists"
+msgstr "%s: Export file already exists"
+
+#: ../pyhoca/wxgui/frontend.py:1340
+#, python-format
+msgid ""
+"The file »%s« already exists in this folder.\n"
+"\n"
+"Do you want to replace it?"
+msgstr ""
+"The file »%s« already exists in this folder.\n"
+"\n"
+"Do you want to replace it?"
+
+#: ../pyhoca/wxgui/frontend.py:1361
+#, python-format
+msgid "%s - profiles exported"
+msgstr "%s - profiles exported"
+
+#: ../pyhoca/wxgui/frontend.py:1361
+#, python-format
+msgid "Successfully exported session profile group »%s« to file »%s«."
+msgstr "Successfully exported session profile group »%s« to file »%s«."
+
+#: ../pyhoca/wxgui/frontend.py:1363
+#, python-format
+msgid "%s - profile exported"
+msgstr "%s - profile exported"
+
+#: ../pyhoca/wxgui/frontend.py:1363
+#, python-format
+msgid "Successfully exported single session profile »%s« to file »%s«."
+msgstr "Successfully exported single session profile »%s« to file »%s«."
+
+#: ../pyhoca/wxgui/frontend.py:1367
+#, python-format
+msgid "%s: Exporting session profile(s) failed"
+msgstr "%s: Exporting session profile(s) failed"
+
+#: ../pyhoca/wxgui/frontend.py:1368
+#, python-format
+msgid ""
+"The selected session profile(s) could not be exported to the \n"
+"file »%s«.\n"
+"\n"
+"Check for common problems (disk full, insufficient access, etc.)."
+msgstr ""
+"The selected session profile(s) could not be exported to the \n"
+"file »%s«.\n"
+"\n"
+"Check for common problems (disk full, insufficient access, etc.)."
+
+#: ../pyhoca/wxgui/frontend.py:1387
+#, python-format
+msgid "%s - share local folder with sessions of this profile"
+msgstr "%s - share local folder with sessions of this profile"
+
+#: ../pyhoca/wxgui/frontend.py:1553
+#, python-format
+msgid ""
+"The authenticity of host [%s]:%s can't be established.\n"
+"%s key fingerprint is ,,%s''.\n"
+"\n"
+"Are you sure you want to continue connecting?"
+msgstr ""
+"The authenticity of host [%s]:%s can't be established.\n"
+"%s key fingerprint is ,,%s''.\n"
+"\n"
+"Are you sure you want to continue connecting?"
+
+#: ../pyhoca/wxgui/frontend.py:1561
+#, python-format
+msgid "%s: Confirm Host Authorization"
+msgstr "%s: Confirm Host Authorization"
+
+#: ../pyhoca/wxgui/frontend.py:1607
+#, python-format
+msgid "%s - channel error"
+msgstr "%s - channel error"
+
+#: ../pyhoca/wxgui/frontend.py:1607
+#, python-format
+msgid ""
+"Lost connection to server %s unexpectedly!\n"
+"\n"
+"Try to re-authenticate to the server..."
+msgstr ""
+"Lost connection to server %s unexpectedly!\n"
+"\n"
+"Try to re-authenticate to the server..."
+
+#: ../pyhoca/wxgui/frontend.py:1625
+#, python-format
+msgid "%s - SFTP client error"
+msgstr "%s - SFTP client error"
+
+#: ../pyhoca/wxgui/frontend.py:1625
+msgid ""
+"New X2Go session will lack SFTP client support.\n"
+"Check your server setup.\n"
+"\n"
+"Avoid echoing ~/.*shrc files on server!!!\n"
+"\n"
+"Not starting new session..."
+msgstr ""
+"New X2Go session will lack SFTP client support.\n"
+"Check your server setup.\n"
+"\n"
+"Avoid echoing ~/.*shrc files on server!!!\n"
+"\n"
+"Not starting new session..."
+
+#: ../pyhoca/wxgui/frontend.py:1642 ../pyhoca/wxgui/frontend.py:1655
+#: ../pyhoca/wxgui/frontend.py:1711 ../pyhoca/wxgui/frontend.py:1713
+#: ../pyhoca/wxgui/frontend.py:1756
+#, python-format
+msgid "%s - session failure"
+msgstr "%s - session failure"
+
+#: ../pyhoca/wxgui/frontend.py:1642
+msgid "The session startup failed."
+msgstr "The session startup failed."
+
+#: ../pyhoca/wxgui/frontend.py:1655
+msgid "The session initialization failed."
+msgstr "The session initialization failed."
+
+#: ../pyhoca/wxgui/frontend.py:1668
+#, python-format
+msgid "%s - desktop sharing failure"
+msgstr "%s - desktop sharing failure"
+
+#: ../pyhoca/wxgui/frontend.py:1668
+msgid ""
+"Desktop sharing was denied by the other user or\n"
+"both of you have insufficient privileges to share one another's desktop."
+msgstr ""
+"Desktop sharing was denied by the other user or\n"
+"both of you have insufficient privileges to share one another's desktop."
+
+#: ../pyhoca/wxgui/frontend.py:1681
+#, python-format
+msgid "%s - timeout"
+msgstr "%s - timeout"
+
+#: ../pyhoca/wxgui/frontend.py:1681
+msgid ""
+"The server took long to provide a list of sharable desktops.\n"
+"This can happen from time to time, please try again"
+msgstr ""
+"The server took long to provide a list of sharable desktops.\n"
+"This can happen from time to time, please try again"
+
+#: ../pyhoca/wxgui/frontend.py:1693
+#, python-format
+msgid "%s - desktop sharing failed"
+msgstr "%s - desktop sharing failed"
+
+#: ../pyhoca/wxgui/frontend.py:1693
+#, python-format
+msgid "The desktop %s is not available for sharing (anymore)."
+msgstr "The desktop %s is not available for sharing (anymore)."
+
+#: ../pyhoca/wxgui/frontend.py:1711
+#, python-format
+msgid "The command ,,%s'' is not available on X2Go server."
+msgstr "The command ,,%s'' is not available on X2Go server."
+
+#: ../pyhoca/wxgui/frontend.py:1713
+#, python-format
+msgid ""
+"The command ,,%s'' is not available on X2Go server\n"
+"%s."
+msgstr ""
+"The command ,,%s'' is not available on X2Go server\n"
+"%s."
+
+#: ../pyhoca/wxgui/frontend.py:1730
+#, python-format
+msgid ""
+"Reverse TCP port forwarding request for session %s to server port %s has "
+"been denied."
+msgstr ""
+"Reverse TCP port forwarding request for session %s to server port %s has "
+"been denied."
+
+#: ../pyhoca/wxgui/frontend.py:1756
+#, python-format
+msgid ""
+"Forwarding tunnel request to [%s]:%s for session %s was denied by remote "
+"X2Go/SSH server. Subsystem %sstartup failed."
+msgstr ""
+"Forwarding tunnel request to [%s]:%s for session %s was denied by remote "
+"X2Go/SSH server. Subsystem %sstartup failed."
+
+#: ../pyhoca/wxgui/frontend.py:1775
+#, python-format
+msgid "%s - audio warning"
+msgstr "%s - audio warning"
+
+#: ../pyhoca/wxgui/frontend.py:1775
+msgid ""
+"The X2Go PulseAudio system is not available within Remote Desktop sessions."
+msgstr ""
+"The X2Go PulseAudio system is not available within Remote Desktop sessions."
+
+#: ../pyhoca/wxgui/frontend.py:1782 ../pyhoca/wxgui/frontend.py:1789
+#, python-format
+msgid "%s - audio error"
+msgstr "%s - audio error"
+
+#: ../pyhoca/wxgui/frontend.py:1782
+msgid "The X2Go PulseAudio system could not be started."
+msgstr "The X2Go PulseAudio system could not be started."
+
+#: ../pyhoca/wxgui/frontend.py:1789
+msgid "The X2Go PulseAudio system has died unexpectedly."
+msgstr "The X2Go PulseAudio system has died unexpectedly."
+
+#: ../pyhoca/wxgui/frontend.py:1801
+#, python-format
+msgid "%s - audio problem"
+msgstr "%s - audio problem"
+
+#: ../pyhoca/wxgui/frontend.py:1801
+#, python-format
+msgid ""
+"The audio connection could not be set up for this session.\n"
+"%s"
+msgstr ""
+"The audio connection could not be set up for this session.\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1813
+#, python-format
+msgid "%s - client-side printing not available"
+msgstr "%s - client-side printing not available"
+
+#: ../pyhoca/wxgui/frontend.py:1813
+#, python-format
+msgid ""
+"The server denies client-side printing from within this session.\n"
+"%s"
+msgstr ""
+"The server denies client-side printing from within this session.\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1825
+#, python-format
+msgid "%s - MIME box not available"
+msgstr "%s - MIME box not available"
+
+#: ../pyhoca/wxgui/frontend.py:1825
+#, python-format
+msgid ""
+"The server does not support the X2Go MIME box.\n"
+"%s"
+msgstr ""
+"The server does not support the X2Go MIME box.\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1837
+#, python-format
+msgid "%s - client-side folders not sharable"
+msgstr "%s - client-side folders not sharable"
+
+#: ../pyhoca/wxgui/frontend.py:1837
+#, python-format
+msgid ""
+"The server denies client-side folder sharing with this session.\n"
+"%s"
+msgstr ""
+"The server denies client-side folder sharing with this session.\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1849
+#, python-format
+msgid "%s - client resources not sharable"
+msgstr "%s - client resources not sharable"
+
+#: ../pyhoca/wxgui/frontend.py:1849
+#, python-format
+msgid ""
+"Client-side folders and printers cannot be shared with this session.\n"
+"%s"
+msgstr ""
+"Client-side folders and printers cannot be shared with this session.\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1868 ../pyhoca/wxgui/frontend.py:1870
+#, python-format
+msgid "%s - print error"
+msgstr "%s - print error"
+
+#: ../pyhoca/wxgui/frontend.py:1868
+#, python-format
+msgid ""
+"%s\n"
+"...caused on printer %s by session\n"
+"%s"
+msgstr ""
+"%s\n"
+"...caused on printer %s by session\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1870
+#, python-format
+msgid ""
+"%s\n"
+"...caused by session\n"
+"%s"
+msgstr ""
+"%s\n"
+"...caused by session\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1885 ../pyhoca/wxgui/frontend.py:1900
+#, python-format
+msgid "%s - start"
+msgstr "%s - start"
+
+#: ../pyhoca/wxgui/frontend.py:1885
+#, python-format
+msgid ""
+"New X2Go session starting up...\n"
+"%s"
+msgstr ""
+"New X2Go session starting up...\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1900
+#, python-format
+msgid ""
+"Another client started X2Go session\n"
+"%s"
+msgstr ""
+"Another client started X2Go session\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1915 ../pyhoca/wxgui/frontend.py:1930
+#, python-format
+msgid "%s - resume"
+msgstr "%s - resume"
+
+#: ../pyhoca/wxgui/frontend.py:1915
+#, python-format
+msgid ""
+"Resuming X2Go session...\n"
+"%s"
+msgstr ""
+"Resuming X2Go session...\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1930
+#, python-format
+msgid ""
+"Another client resumed X2Go session\n"
+"%s"
+msgstr ""
+"Another client resumed X2Go session\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1945
+#, python-format
+msgid "%s - running"
+msgstr "%s - running"
+
+#: ../pyhoca/wxgui/frontend.py:1945
+#, python-format
+msgid ""
+"Found already running session\n"
+"%s"
+msgstr ""
+"Found already running session\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1965
+#, python-format
+msgid "%s - suspend"
+msgstr "%s - suspend"
+
+#: ../pyhoca/wxgui/frontend.py:1965
+#, python-format
+msgid ""
+"X2Go Session has been suspended\n"
+"%s"
+msgstr ""
+"X2Go Session has been suspended\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:1992
+#, python-format
+msgid "%s - terminate"
+msgstr "%s - terminate"
+
+#: ../pyhoca/wxgui/frontend.py:1992
+#, python-format
+msgid ""
+"X2Go Session has terminated\n"
+"%s"
+msgstr ""
+"X2Go Session has terminated\n"
+"%s"
+
+#: ../pyhoca/wxgui/frontend.py:2016 ../pyhoca/wxgui/frontend.py:2022
+#, python-format
+msgid "%s: connection failure"
+msgstr "%s: connect failure"
+
+#: ../pyhoca/wxgui/frontend.py:2017
+#, python-format
+msgid ""
+"While initializing a session for profile '%s' the connection\n"
+"to %s has failed.\n"
+"\n"
+"It is possible to attempt session initialization anyway. Do you\n"
+"want to continue?"
+msgstr ""
+"While initializing a session for profile '%s' the connection\n"
+"to %s has failed.\n"
+"\n"
+"It is possible to attempt session initialization anyway. Do you\n"
+"want to continue?"
+
+#: ../pyhoca/wxgui/frontend.py:2023
+#, python-format
+msgid ""
+"While connecting to profile '%s' the connection\n"
+"to %s has failed.\n"
+"\n"
+"It is possible to attempt session initialization anyway. Do you\n"
+"want to continue?"
+msgstr ""
+"While connecting to profile '%s' the connection\n"
+"to %s has failed.\n"
+"\n"
+"It is possible to attempt session initialization anyway. Do you\n"
+"want to continue?"
+
+#: ../pyhoca/wxgui/messages.py:70
+#, python-format
+msgid ""
+"Are you really sure you want to\n"
+"delete the session profile ,,%s''?"
+msgstr ""
+"Are you really sure you want to\n"
+"delete the session profile ,,%s''?"
+
+#: ../pyhoca/wxgui/messages.py:71
+#, python-brace-format
+msgid ""
+"{appname} is already running for user ,,{username}''!\n"
+"\n"
+"Only one instance of {appname} can be started per\n"
+"user. The {appname} icon can be found in your desktop's\n"
+"notification area/systray."
+msgstr ""
+"{appname} is already running for user ,,{username}''!\n"
+"\n"
+"Only one instance of {appname} can be started per\n"
+"user. The {appname} icon can be found in your desktop's\n"
+"notification area/systray."
+
+#: ../pyhoca/wxgui/messages.py:109
+msgid "Yes"
+msgstr "Yes"
+
+#: ../pyhoca/wxgui/messages.py:110
+msgid "No"
+msgstr "No"
+
+#: ../pyhoca/wxgui/messages.py:127 ../pyhoca/wxgui/printingprefs.py:143
+msgid "Ok"
+msgstr "Ok"
+
+#: ../pyhoca/wxgui/printingprefs.py:67
+#, python-format
+msgid "%s - Printing Preferences"
+msgstr "%s - Printing Preferences"
+
+#: ../pyhoca/wxgui/printingprefs.py:69
+#, python-format
+msgid "%s - Incoming Print Job from  %s (%s)"
+msgstr "%s - Incoming Print Job from  %s (%s)"
+
+#: ../pyhoca/wxgui/printingprefs.py:74
+msgid "Open this dialog window"
+msgstr "Open this dialog window"
+
+#: ../pyhoca/wxgui/printingprefs.py:75
+msgid "Open with PDF viewer"
+msgstr "Open with PDF viewer"
+
+#: ../pyhoca/wxgui/printingprefs.py:76
+msgid "Save to a local folder"
+msgstr "Save to a local folder"
+
+#: ../pyhoca/wxgui/printingprefs.py:77
+msgid "Print to a local printer"
+msgstr "Print to a local printer"
+
+#: ../pyhoca/wxgui/printingprefs.py:78
+msgid "Run custom print command"
+msgstr "Run custom print command"
+
+#: ../pyhoca/wxgui/printingprefs.py:81
+msgid "<Select a print action here>"
+msgstr "<Select a print action here>"
+
+#: ../pyhoca/wxgui/printingprefs.py:115
+msgid "Print action"
+msgstr "Print action"
+
+#: ../pyhoca/wxgui/printingprefs.py:117
+msgid "Default action for incoming print jobs"
+msgstr "Default action for incoming print jobs"
+
+#. widgets for print action PDFVIEW
+#: ../pyhoca/wxgui/printingprefs.py:121
+msgid "PDF viewer command"
+msgstr "PDF viewer command"
+
+#. widgets for print action PDFSAVE
+#: ../pyhoca/wxgui/printingprefs.py:128
+msgid "Save PDFs to folder"
+msgstr "Save PDFs to folder"
+
+#. widgets for print action PRINT
+#: ../pyhoca/wxgui/printingprefs.py:135
+msgid "Use this printer"
+msgstr "Use this printer"
+
+#. widgets for print action PRINTCMD
+#: ../pyhoca/wxgui/printingprefs.py:139
+msgid "Custom print command"
+msgstr "Custom print command"
+
+#: ../pyhoca/wxgui/printingprefs.py:146
+msgid "Print"
+msgstr "Print"
+
+#: ../pyhoca/wxgui/printingprefs.py:250
+msgid "- no printers installed -"
+msgstr "- no printers installed -"
+
+#: ../pyhoca/wxgui/printingprefs.py:255
+msgid "- print system is not available -"
+msgstr "- print system is not available -"
+
+#: ../pyhoca/wxgui/printingprefs.py:409
+msgid "Choose PDF viewer application"
+msgstr "Choose PDF viewer application"
+
+#: ../pyhoca/wxgui/printingprefs.py:432
+msgid "Choose PDF saving location"
+msgstr "Choose PDF saving location"
+
+#: ../pyhoca/wxgui/sessiontitle.py:65
+#, python-format
+msgid "Session Title - %s"
+msgstr "Session Title - %s"
+
+#: ../pyhoca/wxgui/sessiontitle.py:67
+msgid "Change session title to"
+msgstr "Change session title to"
+
+#: ../pyhoca/wxgui/sessiontitle.py:69
+msgid "OK"
+msgstr "OK"
+
+#: ../pyhoca/wxgui/serverinfo.py:61
+#, python-format
+msgid "Server Information - %s"
+msgstr "Server Information - %s"
+
+#: ../pyhoca/wxgui/serverinfo.py:63
+#, python-format
+msgid ""
+"Session Profile: %s\n"
+"\n"
+"List of X2Go Server components, add-ons and their versions..."
+msgstr ""
+"Session Profile: %s\n"
+"\n"
+"List of X2Go Server components, add-ons and their versions..."
+
+#: ../pyhoca/wxgui/serverinfo.py:68
+msgid "Refresh"
+msgstr "Refresh"
+
+#: ../pyhoca/wxgui/serverinfo.py:69
+msgid "Close"
+msgstr "Close"
+
+#: ../pyhoca/wxgui/serverinfo.py:138
+msgid "X2Go Server"
+msgstr "X2Go Server"
+
+#: ../pyhoca/wxgui/serverinfo.py:139
+msgid "Server Core"
+msgstr " Server Core"
+
+#: ../pyhoca/wxgui/serverinfo.py:147
+msgid "Server Extensions"
+msgstr "Server Extensions"
+
+#: ../pyhoca/wxgui/serverinfo.py:153
+msgid "X2Go Server Add-ons"
+msgstr "X2Go Server Add-ons"
+
+#: ../pyhoca/wxgui/serverinfo.py:157
+msgid "X2Go Server Features"
+msgstr "X2Go Server Features"
+
+#~ msgid "PyHoca-GUI Profile Manager - %s"
+#~ msgstr "PyHoca-GUI Profile Manager - %s"
+
+#~ msgid "%s - auth key error"
+#~ msgstr "%s - auth key error"
+
+#~ msgid "Settings"
+#~ msgstr "Settings"
+
+#, fuzzy
+#~ msgid "%s (%s)\n"
+#~ msgstr "%s (via %s)"
+
+#~ msgid "Start/Resume Session"
+#~ msgstr "Start/Resume Session"
+
+#~ msgid "SSH Proxy Tunnel"
+#~ msgstr "SSH Proxy Tunnel"
+
+#~ msgid "The SSH proxy configuration is incomplete. Try again."
+#~ msgstr "The SSH proxy configuration is incomplete. Try again."
+
+#~ msgid ""
+#~ "Another session profile (%s) already uses [%s]:%s for binding a local SSH "
+#~ "proxy to.\n"
+#~ "Please change the SSH proxy settings accordingly."
+#~ msgstr ""
+#~ "Another session profile (%s) already uses [%s]:%s for binding a local SSH "
+#~ "proxy to.\n"
+#~ "Please change the SSH proxy settings accordingly."
+
+#, fuzzy
+#~ msgid "Remember shared folders"
+#~ msgstr "Shared &folders"
+
+#~ msgid "RSA/DSA private key"
+#~ msgstr "RSA/DSA private key"
+
+#~ msgid "Host[:Port]"
+#~ msgstr "Host[:Port]"
+
+#~ msgid "us"
+#~ msgstr "us"
+
+#~ msgid "pc105/us"
+#~ msgstr "pc105/us"
+
+#~ msgid "Keyboard layout"
+#~ msgstr "Keyboard layout"
+
+#~ msgid "%s - DNS error"
+#~ msgstr "%s - DNS error"
+
+#~ msgid "still loading"
+#~ msgstr "still loading"
+
+#~ msgid ""
+#~ "On slow connections, the loading of the application menu can take a "
+#~ "couple of seconds."
+#~ msgstr ""
+#~ "On slow connections, the loading of the application menu can take a "
+#~ "couple of seconds."
+
+#~ msgid "Disconnect and E&xit"
+#~ msgstr "Disconnect and E&xit"
+
+#~ msgid "Exiting..."
+#~ msgstr "Exiting..."
+
+#~ msgid "Unknown Session Profile"
+#~ msgstr "Unknown Session Profile"
+
+#~ msgid "Network"
+#~ msgstr "Network"
+
+#~ msgid "Retrieving Application menu..."
+#~ msgstr "Retrieving Application menu..."
+
+#~ msgid "RDP settings"
+#~ msgstr "RDP settings"
+
+#~ msgid ""
+#~ "Set session window title (leave field below empty for default title from "
+#~ "server)"
+#~ msgstr ""
+#~ "Set session window title (leave field below empty for default title from "
+#~ "server)"
+
+#~ msgid "Bring to Foreground"
+#~ msgstr "Bring to Foreground"
+
+#~ msgid "Icon"
+#~ msgstr "Icon"
+
+#~ msgid "%s - print job"
+#~ msgstr "%s - print job"
+
+#~ msgid ""
+#~ "Opening print job dialog not implemented yet!!!\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Opening print job dialog not implemented yet!!!\n"
+#~ "%s"
+
+#~ msgid "Profile icon"
+#~ msgstr "Profile icon"
+
+#~ msgid "Arts"
+#~ msgstr "Arts"

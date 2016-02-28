@@ -1,0 +1,10 @@
+*.pyc
+build/lib.linux-x86_64-2.6/
+debian/files
+debian/pyhoca-gui.debhelper.log
+debian/pyhoca-gui.postinst.debhelper
+debian/pyhoca-gui.postrm.debhelper
+debian/pyhoca-gui.prerm.debhelper
+debian/pyhoca-gui.substvars
+debian/pyhoca-gui/
+pyhoca_gui.egg-info/

@@ -1,0 +1,1235 @@
+pyhoca-gui (0.5.0.1-0x2go1) unstable; urgency=medium
+
+  * New upstream version (0.5.0.1):
+    - Update README.Unity file.
+    - Add author name to README.ssh-agent file.
+    - Update TODO file.
+    - Provide my email addres in README.ssh-agent and README.i18n.
+    - Update README file.
+    - man page: Update version and date.
+  * debian/control:
+    + Fix wxPython dependencies as proposed by Olly Betts (Thanks!).
+    + Bump Standards: to 3.9.6. No changes needed.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 20 Oct 2014 23:49:15 +0200
+
+pyhoca-gui (0.5.0.0-0x2go1) unstable; urgency=low
+
+  [ Mike Gabriel ]
+  * New upstream version (0.5.0.0):
+    - (Now really) Support Python wxWidgets 3.0.
+    - Add X2Go Session Broker support.
+    - Adapt to new backend concept found in Python X2Go (>= 0.5.0.0).
+    - Move most code of the pyhoca-gui executable into a dedicated class
+      named PyHocaGUI_Launcher.
+    - Allow automatic image branding (splash, about image, tray icon) by
+      setting another application name than the default.
+    - Rename icon files to match default application name (PyHoca-GUI).
+    - Make default cmdline option parameters overridable before the
+      arg parser gets initialized.
+    - Make SCRIPT_NAME in setup.py configurable (monkey-patchable).
+    - Make setup.py importable, only run setup() function on direct calls.
+    - Don't refer to py2exe anymore in nsis_template's naming scheme.
+    - Provide separate mswin_logging module.
+    - Install more modules into setup.exe: hmac (for ecdsa).
+    - NSIS script: empty installation destination before installing new files
+      into $INSTDIR.
+    - Allow appname based mini icons on About... windows.
+    - Make the hover text of the tray icon brandable (drop hard-coded
+      PyHoca-GUI application name).
+    - NSIS script: make sure SetOutPath gets called at the beginning of
+      every section.
+    - Show printing preferences when tray icon is in restricted mode.
+    - Session profile manager: the host parameter will be of type ListType
+      for future versions of Python X2Go (>= 0.5.0.0).
+    - Focus the user name field on logon if no user name is stored in the
+      session profile.
+    - Re-order cmdline sections (man page, defaults.py).
+    - Optimize menu rendering. Reduce accessing session profile data as best
+      as is possible.
+    - Provide cmdline option --broker-cacertfile. Enable https:// connections
+      with SSL certificates that have been self-signed against a non-public
+      root-CA certificate file.
+    - Handle "Connection refused" errors during broker login attempts.
+    - Gracefully handle "Connection refused" errors after a broker login has
+      already been successful.
+    - Properly set focus in broker logon window (default: password, if no
+      username
+      provided: username, if no URL provided: broker-URL field).
+    - Fix check_running() method in PyHocaGUI_Launcher on MS Windows.
+    - Make broker support available for the MS Windows build of PyHoca-GUI.
+    - Make check_running() test terminal server / multi-session safe.
+      (Fixes: #19).
+    - Windows PyHoca-GUI.log file: create with PID in file name. On log file
+      creation try removing all old log files that are not still open.
+    - Create Windows log file folder before attempting clean up (old log file
+      removal).
+    - Make sure new session profiles are mutable in the session profile manager
+      GUI.
+    - Gray-out Apply button in session profile GUI on profile creation.
+    - Windows builder: Explicitly add the requests module to the set of
+      bundled Python modules.
+    - In session profile manager GUI: handle multiple clicks on the Apply button
+      gracefully.
+    - Notification about multiply started PyHoca-GUI instances. Don't hard code the
+      application name.
+    - Fix path name detection for default icons. (Fixes: #394).
+    - Update English / German translation.
+    - Add subsystem string support for HOOK_forward_tunnel_setup_failed hook.
+    - Improve NX performance by reducing reactivity of wx widgets.
+    - Grey-out all SSH related options for DirectRDP sessions.
+    - Make the clipboard mode configurable through the session profile manager
+      window. (Fixes: #507).
+    - Make the published applications menu tree more robust against unknown
+      icon image types.
+    - Prepare for running against wxPython 3.0. More testing needed. (Fixes:
+      #534).
+    - Rename LICENSE.txt to COPYING.
+    - Add Keywords= field to pyhoca-gui.desktop file.
+    - Don't flood PyHocaGUI._eventid_(uns)hared_folders_map dict with
+      non-valid-anymore event IDs.
+    - pyhoca-gui.desktop: Set Categories: to Network;RemoteAccess;.
+    - setup.py: Install .mo files into DESTDIR.
+    - brokerlogin.py: Fix parameter error when evoking message box.
+    - More reliably handle errors in a given --broker-url option value.
+  * debian/control:
+    + Add D (bin:package pyhoca-gui): python-cups. (Fixes: #460).
+  * pyhoca-gui.spec:
+    + Adapt to building on openSUSE/SLES.
+    + openSUSE has python-notify whereas Fedora/RHEL has notify-python.
+    + openSUSE (at least >= 12.3) has wxPython 2.9. So let's use it. (On openSUSE
+      13.1, pyhoca-gui segfaults with wxPython 2.8).
+    + Try to build the .po -> .mo files during package build.
+    + Install locale files into bin:package.
+    + No extra BR on gettext, intltool will pull it in anyway.
+
+  [ Mike DePaulo ]
+  * New upstream version (0.5.0.0):
+    - Windows: Set the pyhoca-gui icon on pyhoca-gui.exe (Fixes: #548)
+      The icon will show up in Task Manager too.
+    - Windows: Upgrade PulseAudio from 1.1 to 5.0-rev18 from OBS.
+      Fixes choppy sound in Adobe Flash Player (Fixes: #533) 
+    - Windows: Upgrade from VcXsrv 1.14.2.0 to VcXsrv-xp 1.14.3.2
+      Windows: Update nxproxy from 3.5.0.12 to 3.5.0.27
+      (linked against latest cygwin packages as of 2014-06-09)
+    - Windows: Update Python from an earlier version of 2.7.x to 2.7.8
+    - Windows: Update wxPython from 2.9.x to 3.0.0.0
+    - Windows: Updates/Upgrades to other libraries also
+    - Windows: List as "PyHoca-GUI (A graphical X2Go client)"
+      instead of "PyHoca-GUI" in add/remove programs
+    - Windows: Use Unicode NSIS instead of regular NSIS.
+      See x2goclient bug #528 for reasoning.
+    - Windows: Reduce size of NSIS installer by switching to lzma solid compression
+    - Windows: Numerous other improvements to NSIS installer.
+      For example, in add/remove programs, add version string, icon, size, etc.
+
+  [ Daniel Lindgren ]
+  * New upstream version (0.5.0.0):
+    - Update Swedish translation file.
+
+  [ Ricardo Díaz Martín ]
+  * New upstream version (0.5.0.0):
+    - Update Spanish translation file (2x).
+
+  [ Martti Pitkänen ]
+  * New upstream version (0.5.0.0):
+    - Add Finnish translation file.
+
+  [ Jos Wolfram ]
+  * New upstream version (0.5.0.0):
+    - Update Dutch translation file.
+
+  [ Robert Parts ]
+  * New upstream version (0.5.0.0):
+    - Add Estonian translation file.
+
+  [ Klaus Ade Johnstad ]
+  * New upstream version (0.5.0.0):
+    - Update Bokmal (Norway) translation file.
+
+  * Translation status:
+    + UNTRANSLATED - bg: 0 translated messages, 398 untranslated messages.
+    + INCOMPLETE - da: 350 translated messages, 28 fuzzy translations, 20 untranslated
+      messages.
+    + OK - de: 398 translated messages.
+    + OK - en: 398 translated messages.
+    + OK - es: 398 translated messages.
+    + INCOMPLETE - et: 366 translated messages, 32 untranslated messages.
+    + UNTRANSLATED - fr: 0 translated messages, 398 untranslated messages.
+    + BROKEN - fi: 0 translated messages, 188 fuzzy translations, 210 untranslated messages.
+    + OK - nb_NO: 398 translated messages.
+    + OK - nl: 398 translated messages.
+    + INCOMPLETE - ru: 351 translated messages, 28 fuzzy translations, 19 untranslated
+      messages.
+    + OK - sv: 398 translated messages.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 20 Oct 2014 12:51:05 +0200
+
+pyhoca-gui (0.4.0.10-0x2go1) UNRELEASED; urgency=low
+
+  * New upstream release (0.4.0.10):
+    - Fix referencing backends X2GoServerSessionInfo and X2GoServerSessionList.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 08 Jan 2014 21:28:37 +0100
+
+pyhoca-gui (0.4.0.9-0x2go1) unstable; urgency=low
+
+  [ Mike Gabriel ]
+  * New upstream release (0.4.0.9):
+    - Make notifications more robust.
+    - Add support for encrypted/locked/passphrase-protected SSH private key
+      files.
+    - Only show notifications if there really is something to show.
+    - Support encrypted on SSH proxy whith password authentication on X2Go
+      Server.
+    - Implement two-factor authentication.
+    - Don't crash if no notification-daemon provide is registered in DBUS.
+      (Fixes: #321).
+    - Become aware of new Python X2Go hook method
+      (HOOK_on_failing_SFTP_client).
+    - Become aware of new Python X2Go hook method (HOOK_desktop_sharing_denied).
+    - Connect to sharable desktop session when selecting the session display
+      with double click from the list of available desktop sessions.
+    - Allow multiple PyHoca-GUI instances for the same user, one per $DISPLAY.
+    - Allow for full path taskbar icon names, resolve tilde char in icon file
+      path.
+    - Allow for full path about image icon names, resolve tilde char in icon
+      file path.
+    - Resolve tilde char in file path of the about image.
+    - Resolve tilde char in file path of the splash image.
+    - Resolve tilde char in base directories for the PyHoca-GUI application.
+    - Resolve tilde char in session icon names.
+    - Fix termination of published application sessions.
+    - Initialize thisPyHocaGUI instance as NoneType object before starting
+      the wxApplication.
+    - Slight notification layout change for HOOK_on_control_session_death() method.
+    - Update German and English translation.
+    - When installing icons via setup.py, let's use the copied icons rather than
+      the icon set from icons_symlinked. That assures that really all icons are
+      present. (The icons_symlinked folder is rather Debianic and not appropriate
+      for non-Debian derived distributions).
+  * debian/copyright:
+    + Update file. Add entry for file icon2exe.py.
+  * debian/control:
+    + Recommend mate-notification-daemon (or notification-daemon as fallback).
+  * debian/source/format:
+    + Switch to format 1.0.
+  * pyhoca-gui.spec:
+    + Ship pyhoca-gui.spec (RPM package definitions) in upstream project.
+      (Thanks to the Fedora package maintainers).
+    + Add to BR: python-argparse, python-cups.
+
+  [ Ricardo Díaz Martín ]
+  * New upstream release (0.4.0.9):
+    - Update Spanish translation.
+
+  [ Daniel Lindgren ]
+  * New upstream release (0.4.0.9):
+    - Update Swedish translation.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 08 Jan 2014 15:20:20 +0100
+
+pyhoca-gui (0.4.0.8-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.8):
+    - Fix updating/editing session profiles.
+    - Throw exceptions on ,,unknown errors'' during authentication when
+      application is run in debug/libdebug mode.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 27 Aug 2013 18:08:23 +0200
+
+pyhoca-gui (0.4.0.7-0~x2go1) unstable; urgency=low
+
+  [ Nicolai Hansen ]
+  * New upstream version (0.4.0.7):
+    - Update Danish translation file.
+
+  [ Terje Andersen ]
+  * New upstream version (0.4.0.7):
+    - Update Norwegian Bokmaal translation file.
+
+  [ Mike Gabriel ]
+  * New upstream version (0.4.0.7):
+    - Add import feature to the session profile manager.
+    - Update German and English translation files.
+    - Tolerate blanks during profile name validation.
+    - Hand over the complete session profile parameter to add_profile() on
+      profile creation.
+  * /debian/control:
+    + Replace LDAP support with session brokerage support in LONG_DESCRIPTION.
+    + Depend on python-x2go (>= 0.4.0.7).
+
+  [ Dick Kniep ]
+  * New upstream version (0.4.0.7):
+    - Update Dutch translation file.
+
+  [ Nable 80 ]
+  * New upstream version (0.4.0.7):
+    - Update Russion translation file.
+
+  [ Ricardo Díaz Martín ]
+  * New upstream version (0.4.0.7):
+    - Update of Spanish translation file.
+
+  [ Daniel Lindgren ]
+  * New upstream version (0.4.0.7):
+    - Update Swedish translation file.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 26 Aug 2013 14:44:29 +0200
+
+pyhoca-gui (0.4.0.6-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.6):
+    - Fix AttributeError in setup.py when using py2exe build method.
+    - Only use default speed if it cannot be obtained from the session profile
+      configuration. Makes the speed setting now configurable. (Fixes: #274).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 30 Jul 2013 13:19:41 +0200
+
+pyhoca-gui (0.4.0.5-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.5):
+    - Make PyHoca-GUI aware of the MATE desktop environment.
+  * Depend on Python X2Go (>= 0.4.0.6).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 28 Jul 2013 19:50:28 +0200
+
+pyhoca-gui (0.4.0.4-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.4):
+    - Allow custom window titles for About...windows.
+    - Fix size of ,,About...'' windows for Win32 version.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 19 Jul 2013 22:32:33 +0200
+
+pyhoca-gui (0.4.0.3-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.3):
+    - On selecting »Unshare All Local Folders« purge all shares from the
+      »export« session profile parameter if »restoreexports« is set to true
+      in the session profile.
+    - Catch SSH Exception for mismatching host keys and make it translatable.
+      (Fixes: #166).
+    - Add an ,,About Python X2Go...'' menu item that opens a window providing
+      information on the Python X2Go source code download location.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 19 Jul 2013 20:50:06 +0200
+
+pyhoca-gui (0.4.0.2-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.2):
+    - Make PyHoca-GUI aware of the Cinnamon desktop shell.
+    - Make sure that there is no KeyException when checking/unchecking the
+      restoreexports item in the shared folders menu.
+  * MS Windows specific: 
+    + Use bbfreeze to freeze the Win32 version of PyHoca-GUI.
+    + Make sure PyHoca-GUI freezing works with gevent 1.0b3 and later.
+    + Freeze with gui_only enabled, hides the console Window PyHoca-GUI runs in.
+    + Provide icon2exe.py for adding .ico files to .exe files. Thanks
+      to the original authors: Giovanni Bajo and previously McMillan
+      Enterprises, Inc.
+    + Use TaskBarIcon.ShowBalloon() instead of wx.NotificationMessage for
+      notifications. Let's us get rid of the multiple notification icons
+      in the system tray.
+    + On MS Windows, also use the PyHoca icon in the system tray.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 21 Apr 2013 22:45:46 +0200
+
+pyhoca-gui (0.4.0.1-0~x2go1) unstable; urgency=low
+
+  * Fix image installation in setup.py. Thanks to Orion Poplawski for spotting.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 13 Feb 2013 12:50:40 +0100
+
+pyhoca-gui (0.4.0.0-0~x2go1) unstable; urgency=low
+
+  [ Orion Poplawski ]
+  * New upstream version (0.4.0.0):
+    - Importing all of pyhoca.wxgui in setup.py causes rpmbuild problems due to
+      DISPLAY not being set.  It is overkill as well, causing extra dependencies
+      to be installed at build time. (Fixes: #91).
+
+  [ Mike Gabriel ]
+  * Bump version to 0.4.0.0.
+  * WARNING: starting with version 0.4.0.0 of PyHoca-GUI, PyHoca-CLI and Python
+    X2Go, all class identifiers are now X2Go..., not X2go... anymore.
+  * New upstream version (0.4.0.0):
+    - Add rules to setup.py that install PyHoca-GUI's data files under Linux
+      (i.e. icons, images, man page, etc.). Thanks to Orion Poplawski for
+      coming up with an inspiring patch. (Fixes: #92).
+    - Add support for exporting session profiles and session profile groups.
+    - Translation source file (.pot) updated. Update of en.po and de.po.
+    - Drop SSH proxy tunnel configuration parameter. Adapt PyHoca-GUI to the
+      way X2GoClient configures the SSH proxy settings. (Fixes: #85).
+    - Add cmdline option --add-to-known-hosts. Add SSH host keys automatically
+      to the client's known_hosts file.
+    - Add checkbox for unique host key aliases feature to session profile
+      manager.
+    - Show ,,Start RDP sessions'' in menu if RDP (X2Go-proxied) has been
+      selected as command.
+    - Give control of auto-starting and auto-resuming fully into the hands
+      of the session profiles. No extra cmdline options needed anymore to
+      activate auto-starting/-resuming of sessions.
+    - Add support for desktop sharing in PyHoca-GUI. Requires X2Go Server
+      4.1.0.0 and above. (Fixes: #37).
+    - Filter out other session types than desktop sessions from the list
+      of sharable desktops.
+    - Add dialog box that shows server information (components, add-ons,
+      features, versions).
+    - Add »Apply« to session profile manager window.
+    - Add another tab »Media« to session profile configuration window.
+      Makes the windows display on netbook screens again (Fixes: #13).
+    - Become aware of multiple PyHoca-GUI processes being allowed.
+      Pre-requisited, that each instance runs on its own $DISPLAY
+      ($DISPLAY detection yet unfinished).
+    - Fix print dialog box: update the configuration from the GUI widgets
+      before handing it over to some calling agent.
+  * /debian/control:
+    + Thanks to Orion's patch in bug #91 we can drop many build dependencies.
+    + Versioned Depend: on python-x2go (>= 0.4.0.0-0~).
+    + Add gnome-colors-common to Build-Depends.
+
+  [ Christoffer Krakou ]
+  * New upstream version (0.4.0.0):
+    - Update Danish translation file.
+
+  [ Daniel Lindgren ]
+  * New upstream version (0.4.0.0):
+    - Update Swedish translation file.
+
+  [ Dick Kniep ]
+  * New upstream version (0.4.0.0):
+    - Update Dutch translation file.
+
+  [ Ricardo Díaz Martín ]
+  * New upstream version (0.4.0.0):
+    - Update Spanish translation file.
+
+  [ Terje Andersen ]
+  * New upstream version (0.4.0.0):
+    - Update Bokmal (Norway) translation file.
+
+  [ Oleksandr Shneyder ]
+  * New upstream version (0.4.0.0):
+    - Update russian translation file.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 12 Feb 2013 11:10:06 +0100
+
+pyhoca-gui (0.2.1.1-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.1.1):
+    - Do not disable the session profile template when creating a session
+      profile from an already existing session profile. (Fixes: #90).
+    - Use new feature in Python X2Go 0.2.1.1 that allows the differentiation
+      of sessions associated to different session profiles.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 18 Dec 2012 12:52:57 +0100
+
+pyhoca-gui (0.2.1.0-0~x2go1) unstable; urgency=low
+
+  [ Mike Gabriel ]
+  * New upstream version (0.2.1.0):
+    - Session profile file option ,,export'': stay empty if no exports are
+      definded.
+    - Make sure RDP (X2Go-proxy) sessions stored by PyHoca-GUI get recognized
+      as such by X2goClient.
+    - Make session icon handling more robust, be more compatible with X2Go
+      Client about the session icon name. Rewrite mistakes pyhoca-gui 
+      (<= 0.2.0.4) did on the icon attribute in the session profile config.
+    - Make DirectRDP sessions configurable through PyHoca-GUI profile manager.
+    - Slight change in internal message box API, rename custom_message class
+      option to msg.
+    - Add a warning message box that DirectRDP is not yet supported by
+      PyHoca-GUI.
+    - Widen session type widget to make sure all widget (also when translated)
+      fit in.
+    - Do not offer DirectRDP sessions in profile manager while connected to a
+      real X2Go server via SSH.
+    - Configure SSH proxy port in a separate session profile option
+      (sshproxyport).
+    - Make sure that SSH proxy port migration works flawlessly.
+    - Rework session profile manager around SSH proxy settings. Implement
+      session
+      profile options ,,sshproxysameuser'' and ,,sshproxysamepass''.
+    - Rebuild of i18n files, update of en.po and de.po.
+    - Disable ,,usesshproxy'' for DirectRDP sessions.
+    - Make ,,maxdim'' option configurable through session profile manager.
+    - Fix naming mismatch ,,autologin'' vs. ,,autoconnect''.
+    - Introduce profile manager tab ,,Link Quality''. Move printing into renamed
+      tab ,,Resource Sharing''. Shrink profile manager window. (Fixes: #13).
+    - Implement SSH agent, automatic key discovery, and SSH agent authentication
+      request forwarding in session profile manager.
+    - Add SSH agent README.
+    - Rename session type XFCE4 to XFCE (using an unversioned session type name).
+    - Make pub app session startup more robust.
+    - Allow autologin and SSH key file at the same time.
+    - Scale profile manager differently on Windows and Linux (Windows needs
+      a slightly larger window).
+    - Profile manager: apply text field height to keyboard configuration radio
+      buttons.
+    - Disable SSH agent forwarding for Windows. Code in Python Paramiko is no
+      executable on MS Windows, currently.
+    - Use threading.Lock() to prevent from simultaneous calls of the
+      _init_pubapp_sessions() method.
+    - Implement functionality for restoring mounted shares on session
+      resumption / re-start. Sponsored by Dick Kniep, LinDix NL.
+    - Hide the file sharing submenu if the master session's submenu is currently
+      disabled due to some current action and an expected session status change.
+    - If the profile manager is open for a certain session profile, disable
+      all menu items that relate to this session profile. Re-enable the menu
+      items again, once the corresponding profile manager window has been
+      closed.
+    - Rebuild i18n files prior to release.
+  * /debian/control:
+    + Maintainer change in package: X2Go Developers
+      <x2go-dev@lists.berlios.de>.
+    + Add Oleksandr Shneyder to Uploaders.
+    + Depend on python-x2go (>=0.2.0.11-0~).
+    + Reduce python version in Build-Depends to allow build against Ubuntu
+      10.04.
+  * /debian/rules:
+    + Allow package build on systems with missing dh_python2.
+  * /debian/pyhoca-gui.docs:
+    + Install README.i18n into package.
+
+  [ Christoffer Krakou ]
+  * New upstream version (0.2.1.0):
+    - Add Danish translation.
+    - Add Danish translation (restoreexports feature).
+
+  [ Daniel Lindgren ]
+  * New upstream version (0.2.1.0):
+    - Update Swedish translation file.
+    - Add Swedish translation for NSIS installer.
+    - Update Swedish translation file (restoreexports).
+
+  [ Dick Kniep ]
+  * New upstream version (0.2.1.0):
+    - Update Dutch translation file.
+
+  [ Ricardo Díaz Martín ]
+  * New upstream version (0.2.1.0):
+    - Update Spanish translation file.
+    - Update Spanish translation file (restoreexports).
+
+  [ Nable ]
+  * New upstream version (0.2.1.0):
+    - Add Russian translation for NSIS installer.
+    - Fine-tune Russion translation.
+
+  [ Terje Andersen ]
+  * New upstream version (0.2.1.0):
+    - Update Bokmal (Norway) translation file.
+    - Update Bokmal (Norway) translation file (restoreexports).
+
+  [ Oleksandr Shneyder ]
+  * New upstream version (0.2.1.0):
+    - Add Russian translation.
+    - Update Russian translation.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 10 Dec 2012 13:06:10 +0100
+
+pyhoca-gui (0.2.0.4-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.0.4):
+    - Add namespace pyhoca to setup.py.
+    - Avoid Python exception: UnboundLocalError: local variable
+      'thisPyHocaGUI' referenced before assignment
+  * Update packaging files from Debian package.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 17 Aug 2012 16:32:29 +0200
+
+pyhoca-gui (0.2.0.3-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.0.3):
+    - Fix faulty copyright headers in setup.py, pyhoca/wxgui/messages.py
+      and nsis_template.py.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 24 Jul 2012 02:38:29 +0200
+
+pyhoca-gui (0.2.0.2-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.0.2):
+    - Allow modifications of session icon and shared folder tab while
+      a session profile is connected.
+    - Allow SSH ports less than 22 in session profile manager. SSH ports
+      below port 22 is not that much of a common practice, but it eases
+      keyboard input in the corresponding wx widgets.
+    - Avoid KeyError in logon window.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 12 Jul 2012 21:43:33 +0200
+
+pyhoca-gui (0.2.0.1-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.0.1):
+    - Drop Encoding key from .desktop file (deprecated as of latest
+      FreeDesktop.org specs.
+    - Fix grammatical error in man page.
+    - Let logon window and session title window be positioned at top
+      of screen also for ,,gnome-fallback'' sessions.
+    - Let logon window and session title window be positioned at top
+      of screen also for ,,ubuntu-2d'' sessions.
+    - Provide empty template for the French translation of PyHoca-GUI.
+    - Let logon window and session title window be positioned at top
+      of screen also for ,,openbox-gnome'' sessions.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 02 Jul 2012 20:26:40 +0200
+
+pyhoca-gui (0.2.0.0-0~x2go1) unstable; urgency=low
+
+  [ Mike Gabriel ]
+  * New upstream version (0.2.0.0):
+    - Add XFCE4 support.
+    - Add support for renaming session window titles from the client-side.
+    - Add switch that enables/disables custom/server-side session window
+      titles.
+    - Add switch that enables/disables default/custom session window title.
+    - Fix profile manager window size (shrinking for usage on netbooks).
+    - Existing profiles can be used as templates for new session profiles.
+    - Session profile menu: allow multi-depth submenu structures, use '/'
+      as submenu separator item in session profile name.
+    - Port session profile submenus functionality to profile manager.
+    - Rename single application OFFICE from Openoffice.org to Office (more
+      generic name).
+    - Add extra menu: launch single application, once a session profile is
+      connected.
+    - Add extra session menu item: Rename Session Window.
+    - Show desktop session name in menu for ,,start session'' item.
+    - Show session window title in session menu.
+    - Add support for bringing a session window on top of all other 
+      windows (i.e. to foreground). Currently only works on MS Windows.
+    - Add icons folder ,,icons_symlinked'' for people who will package
+      PyHoca-GUI on Debian or other Distros that also ship the
+      gnome-colors-common icon theme.
+    - Replace non-code string ,,X2go'' by ,,X2Go''.
+    - Rearrange profile manager. Add one more tab to the profile manager
+      window.
+    - Use x2golistmounts to detect server-side unsharing of client-side
+      folders.
+    - Remove pointed brackets from new/derived session profile names.
+    - Introduce master session concept. Only master sessions can mount
+      client-side folders into a session. Mark master sessions with a
+      marker ,,(*)''.
+    - Catch AttributeError during taskbar menu generation that occured
+      during querying the session command from a non-existent session.
+    - Enforce startup of rootless session if launching a single application.
+    - Fix profile manager GUI layout, make default keyboard layout i18n
+      capable.
+    - Handle the situation that no printer is installed with CUPS/WinSpool
+      gracefully.
+    - Hook methods that notify about non-availabilities around printing,
+      MIME box, local folder sharing.
+    - Only allow session window manipulations for sessions that are associated
+      to the running PyHoca-GUI client.
+    - Fix icon and button sizes in profile manager.
+    - Use different textfield sizes for wxMSWin and wxGTK.
+    - Beautify MIME box configuration block in profile manager.
+    - Add published applications support.
+    - Send a libnotify warning if server does not support published
+      applications.
+    - Add icon support for the published applications menu (any icon
+      type except SVGs work).
+    - On exit only suspend running sessions we are associated with.
+    - Provide icons for category submenus.
+    - Provide 'en' as default language if --lang has not been given on the
+      command line (MS Windows issue).
+    - Published Applications on MS Windows: icon size is 16x16.
+    - Catch X2GoSessionRegistryException if used session UUID is not valid
+      anymore.
+    - Implement single session profile support (--single-session-profile
+      boolean command line option).
+    - Rendering of published applications menu tree has partially been moved 
+      into Python X2Go.
+    - Fix disabling of published applications tick box in profile manager.
+    - Show the detected GUI language in GUI output.
+    - Add support for published applications with no category submenus.
+      Introduce cmd line option --published-applications-no-submenus <int>.
+    - The maximum number of menu items in published applications mode can now
+      be specified as a session option for X2goSession instances.
+    - Fix for CUPS printer recognition if no default printer was defined.
+    - Add widget to configure autologin and autostart session profile
+      parameters.
+    - Auto-resuming and auto-starting of sessions, as well as auto-connecting
+      to session profiles has been moved into Python X2Go.
+    - Do not let wx.EndBusyCursor crash the application on Windows.
+    - Add connect and exit menu items if in single-session-profile mode.
+    - Properly catch CTRL-C and SIGTERM signals (not working on MS Windows,
+      yet).
+    - Make sure application really exits gracefully.
+    - Provide a separate SetExitHandler function to catch signals from outside
+      (currently unused, though).
+    - Windows binary: include pulseaudio 1.1 and vcxsrv 1.12.0.1.
+    - Provide code for Windows packaging (py2exe, NSIS) in PyHoca-GUI's
+      setup.py.
+    - Stdout/stderr diversion when frozen with py2exe: stdout will overwrite
+      the last log file, stderr will append to the very same file.
+    - Allow TCP ports higher than 64000 for SSH and sound server connections.
+    - Be more precise on error causes during SSH authentication.
+    - Fix cmdline option --restricted-trayicon.
+    - Add cmdline option --disable-notifications.
+    - Drop unused cmdline option --username. Introduce new cmdline option
+      --remember-username.
+    - Implement X2Go-Top category in .desktop files that get used in the
+      context of published applications.
+    - Allow one PyHoca-GUI instance per user, not per system.
+    - Fix folder path extraction from session profile config if client-side
+      folders contain a Windows drive letter.
+    - Update license information and source download location in About-Window.
+    - Add timeout as **kwarg for prepare method in the Windows notification
+      API.
+    - Add menu item ,,Refresh menu tree'' for sessions with published
+      applications mode.
+    - Fix/improve --non-interactive command line option.
+    - When packaging Windows binary with py2exe, use nxproxy-3.5.0.12.
+    - Fix missing declaration of notificationmessage_NotifierPopup.timeout.
+    - Make sure the log file on Windows does not grow limitlessly.
+    - Catch AttributeError in case a published applications session has not yet
+      fully started.
+    - Catch and notify command startup failures for published applications
+      sessions.
+    - Do not suspend session if profile is disconnected.
+    - Non-interactive application runs only disconnect/exit for associated
+      sessions.
+    - Only auto-resume if session profile is not configured for published
+      applications.
+    - Windows packaging: remove dist directory before calling py2exe.
+    - For empty menu maps create a dummy menu.
+    - Python gevent will drop gevent.dns in v1.0. Not using it anymore.
+    - Add options --tray-icon and --tray-icon-connecting to customize the
+      system tray icon (e.g. for branding).
+    - Add option --splash-image that allows to name a custom splash image
+      that gets shown during application startup.
+    - Only show splash if the splash image file does exist.
+    - Fallback to default splash image if the custom splash does not exist.
+    - Do not crash if a provided system tray icon cannot be found. Use a
+      fallback icon instead.
+    - os.path.is<type> require string options, not Unicode.
+    - Add option --about-image. Allow changing the application's name by
+      renaming (or symlinking) the ,,pyhoca-gui'' script.
+    - Allow custom commands to be desktop sessions.
+    - Make new session option keyboard ,,variant'' configurable in profile
+      manager.
+    - Re-register available/registered sessions after session profile changes.
+    - Update man page.
+    - Let logon and session title window appear at top of screen for pyhoca-gui
+      running within a Ubuntu Unity session.
+    - Provide README.Unity that explains how to re-allow the PyHoca-GUI icon in
+      the systray of the panel.
+    - Make auto-detected keyboard setup (i.e. usage of x2gosetkeyboard)
+      configurable in the profile manager.
+  * Depend on Python X2Go 0.2.0.2.
+  * Install GNOME icons via dh_links.
+  * Install X2Go icons with explicit install paths.
+  * Add /debian/source/options file with entry single-debian-patch. Fix control
+    file.
+  * Depend on icons in gnome-colors-common package.
+  * Include dialog-*.png icons for 64x64 pixel size as they are missing in
+    gnome-colors-common package.
+  * Install published applications icons in Debian package.
+
+  [ Terje Andersen ]
+  * New upstream version (0.2.0.0):
+    - Add Bokmal (Norway) translation file (not complete, yet).
+
+  [ Daniel Lindgren ]
+  * New upstream version (0.2.0.0):
+    - Add Swedish translation file.
+
+  [ Dick Kniep ]
+  * New upstream version (0.2.0.0):
+    - Update Dutch translation file.
+
+  [ Ricardo Díaz Martín ]
+  * New upstream version (0.2.0.0):
+    - Update Spanish translation file.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 10 Jun 2012 21:19:13 +0200
+
+pyhoca-gui (0.1.0.10-0~x2go1) unstable; urgency=low
+
+  * Bugfix release for Windows (0.1.0.10):
+    - Fix for shared folders tab in profile manager on Windows platform.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 02 Nov 2011 08:41:15 +0100
+
+pyhoca-gui (0.1.0.9-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.0.9):
+    - Add folder unsharing (umount) support.
+    - Update of en/de translation files.
+    - Suspend running sessions properly on application exit (or STRG-C in
+      terminal window if run from the command line).
+    - Use X2goClient.session_can_auto_connect method to detect if we can use
+      SSH pubkey authentication. Speeds up appearance of password dialog box.
+    - Profile manager: x2goclient compat fix, add auto-connect flag for shared
+      folders.
+    - Add submenu support for sharing non-auto-connected shared folders.
+    - Only offer foldering sharing in menus if server provides it.
+    - Add error message in case logon fails due to a missing home directory on
+      the remote X2Go server.
+    - Spanish i18n update.
+    - Dutch i18n update.
+    - Update of README.i18n.
+    - Catch SSHExceptions during interactive authentication.
+  * Depend on python-x2go (>=0.1.1.8).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 01 Nov 2011 15:39:13 +0100
+
+pyhoca-gui (0.1.0.8-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.0.8):
+    - fix session profile breakage when switching between rootless and
+      non-rootless sessions, fixes problems with x2goclient after
+      pyhoca-gui has been used on session profiles that have been switched
+      from desktop to rootless to desktop.
+    - x2goclient compat fix: make sure applications property in session
+      profiles gets always set.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 14 Sep 2011 21:45:19 +0200
+
+pyhoca-gui (0.1.0.7-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.0.7)
+    - minor i18n fixes (de)
+    - Delaying taskbar icon closure as much as possible.
+    - Check if print system (CUPS/WinSpool) is available or not.
+    - On no such command errors, detect if we already have a session_name. If
+      not, leave it out in the GUI notification.
+    - Add HOOK_session_startup_failed as a GUI notification (was: exception
+      raisure), requires Python X2Go >= 0.1.1.5.
+    - Provide complete list of compression methods, profile manager GUI
+      improved.
+    - Fix for usekbd session profile option, it was misinterpreted before...
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 11 Sep 2011 18:29:13 +0200
+
+pyhoca-gui (0.1.0.6-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.0.6):
+    - bugfix release.
+    - unicode fix for Windows notifications
+    - i18n fixes
+    - README/TODO update.
+    - Handle X2goSession failures (SFTP open) during authentication.
+  * Properly depend on Python X2Go package.
+  * Depend on Python X2Go 0.1.1.3.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 06 Jul 2011 22:13:14 +0200
+
+pyhoca-gui (0.1.0.5-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.0.5):
+    - bugfix release
+    - Fix for new color depth filter feature if the session is not registered 
+      any more.
+    - Add --logon-window-position option that allows custom placing of the logon
+      window on your desktop.
+    - Add GUI notification message if a seconed instance of PyHoca-GUI is
+      started (PyHoca-GUI is already running...)
+    - Fix for permanently disabled session profile when Cancel button has been
+      hit in logon window.
+    - Make tab traversal work in logon window.
+    - Update i18n (en, de, nl).
+    - Fix session auto-connecting.
+  * React to bug Debian bug #627990, prefer man2html-base over man2html.
+  * Depend on Python X2Go 0.1.1.2
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 01 Jul 2011 13:55:42 +0200
+
+pyhoca-gui (0.1.0.4-0~x2go1) unstable; urgency=low
+
+  New upstream version (0.1.0.4):
+    - minor bug fixes
+    - only offer resume/transfer session for sessions with correct
+      color depth.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 24 Jun 2011 01:52:39 +0200
+
+pyhoca-gui (0.1.0.3-0~x2go1) unstable; urgency=low
+
+  New upstream version (0.1.0.3):
+    - Fix utf-8 errors during authentication.
+    - Release session name on connection errors when greyed out.
+    - Spawn initial list sessions call into background to unblock I/O
+      during/after authentication.
+  * Depend on Python X2Go 0.1.1.0.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 23 Jun 2011 00:45:34 +0200
+
+pyhoca-gui (0.1.0.2-0~x2go1) unstable; urgency=low
+
+  * New upstream release (0.1.0.2):
+    - minor bug fix for authentication of SSH proxy connections
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 08 Jun 2011 16:42:48 +0200
+
+pyhoca-gui (0.1.0.1-0~x2go1) unstable; urgency=low
+
+  * new upstream release (0.1.0.1):
+    - fixes session profile menus
+  * depends on Python X2Go 0.1.0.2
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 31 May 2011 14:40:51 +0200
+
+pyhoca-gui (0.1.0.0-0~x2go3) unstable; urgency=low
+
+  * fixes build sequence
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 26 May 2011 12:09:59 +0200
+
+pyhoca-gui (0.1.0.0-0~x2go2) unstable; urgency=low
+
+  * build-depends on man2html
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 26 May 2011 10:34:36 +0200
+
+pyhoca-gui (0.1.0.0-0~x2go1) unstable; urgency=low
+
+  * new upstream version (0.1.0.0):
+    - adds submenu functionality for session profiles list
+    - adds guidance for managing SSH proxy based profiles
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 26 May 2011 08:00:30 +0200
+
+pyhoca-gui (0.0.34.1-0~x2go1) unstable; urgency=low
+
+  * new upstream version (0.0.34.1):
+    - minor fixes
+  * depends on new Python X2Go release
+  * adds html version of man page in doc folder
+  * minor fixes in upstream code
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 25 May 2011 19:54:20 +0200
+
+pyhoca-gui (0.0.34.0-0~x2go2) unstable; urgency=low
+
+  * fixes dependency on python-x2go
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 26 Apr 2011 07:45:33 +0200
+
+pyhoca-gui (0.0.34.0-0~x2go1) unstable; urgency=low
+
+  * depending on python-x2go 0.0.43.0
+  * new upstream
+    - renames feature x2godropbox to x2gomimebox
+  * fixes in debian folder (now builds with pbuilder in clean chroots)
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 26 Apr 2011 00:49:36 +0200
+
+pyhoca-gui (0.0.33.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * depending on python-x2go 0.0.42.0
+  * new upstream
+    - adds unity-2d support
+    - purges session list after server disconnect
+    - Dutch i18n update (thx to Dick Kniep)
+    - profile manager fixes
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 18 Apr 2011 16:05:53 +0200
+
+pyhoca-gui (0.0.32.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * depending on python-x2go 0.0.41.0
+  * new upstream
+    - adds --disable-splash cmdline option
+    - speeds up application bootstrap
+    - adds --non-interactive cmdline option 
+    - support for Trinity X Desktop sessions
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 26 Mar 2011 21:11:27 +0100
+
+pyhoca-gui (0.0.31.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * depending on python-x2go 0.0.40.0
+  * new upstream
+    - add confirmation dialog on session profile deletion
+    - updated Spanish i18n file, thanks to Ricardo Díaz
+      Martín <oceanosoftlapalma@gmail.com>
+    - session submenus that process an action will be greyed out
+    - making sure that splash screen disappears after five secs
+    - about window can be closed with ESC key
+    - sorting session and connected profile menus by name
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 11 Mar 2011 00:10:00 +0100
+
+pyhoca-gui (0.0.30.1-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * depending on python-x2go 0.0.39.1
+  * new upstream
+    - enabled printing preferences for non-development versions
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 1 Mar 2011 01:10:00 +0100
+
+pyhoca-gui (0.0.30.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * depending on python-x2go 0.0.39.0
+  * new upstream
+    - added printing preferences dialog window
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 1 Mar 2011 00:40:00 +0100
+
+pyhoca-gui (0.0.29.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * depending on python-x2go 0.0.38.0
+  * new upstream
+    - added message box framework
+    - added SSH host key authorization dialog box
+    - Ctrl-C is now possible from the command line that runs PyHoca-GUI
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 27 Feb 2011 02:50:00 +0100
+
+pyhoca-gui (0.0.28.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * depending on python-x2go 0.0.37.0
+  * new upstream: 
+      - reworked profile manager layout (added loads of invisible borders)
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 25 Feb 2011 17:48:00 +0100
+
+pyhoca-gui (0.0.27-0~nwt2) natty lucid maverick stable testing unstable; urgency=low
+
+  * fixed missing i18n translations
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 22 Feb 2011 12:55:00 +0100
+
+pyhoca-gui (0.0.26-0~nwt2) lucid maverick testing unstable; urgency=low
+
+  * depending on python-x2go (>= 0.0.35)
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 19 Jan 2011 18:26:00 +0100
+
+pyhoca-gui (0.0.26-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added PulseAudio support for Windows (still unstable)
+  * Unicode / i18n work (Umlaute in profile names, Umlaute in i18n tags)
+  * work on the Windows version stability
+  * work on audio setup in profile manager
+  * now new config files will be created on first application start
+  * NSIS installer for Windows
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 19 Jan 2011 18:25:00 +0100
+
+pyhoca-gui (0.0.25-0~nwt2) lucid maverick testing unstable; urgency=low
+
+  * changed maintainer email address
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 17 Jan 2011 00:26:00 +0100
+
+pyhoca-gui (0.0.25-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * fixed profile manager for Windows
+  * layout change on profile manager's session tab
+  * added i18n support to Windows version
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Mon, 17 Jan 2011 00:25:00 +0100
+
+pyhoca-gui (0.0.24-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * fixed profile manager window for Windows (and KDE4)
+  * reworked logon window
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 14 Jan 2011 03:54:00 +0100
+
+pyhoca-gui (0.0.23-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * uncommenting debug code
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Wed, 12 Jan 2011 00:36:00 +0100
+
+pyhoca-gui (0.0.22-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * bugfix for error reporting when a non-X2Go user authenticates 
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Wed, 12 Jan 2011 00:35:00 +0100
+
+pyhoca-gui (0.0.21-0~nwt3) lucid maverick testing unstable; urgency=low
+
+  * simple rebuild
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 11 Jan 2011 21:40:00 +0100
+
+pyhoca-gui (0.0.21-0~nwt2) lucid maverick testing unstable; urgency=low
+
+  * uncommented build_icons, build_help
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 11 Jan 2011 21:30:00 +0100
+
+pyhoca-gui (0.0.21-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added ,,Transfer session'' menu item for running sessions that are not
+    associated (i.e. running from within PyHoca-GUI)
+  * now X2goSessionRegistry.update_status() can differentiate between 
+    ,,already running'' sessions (directly after connect) and newly appearing
+    running sessions while having been connected for quite a while
+  * added i18n support
+  * added i18n English translation file en.po
+  * added i18n German translation file de.po
+  * added i18n Dutch translation file nl.po
+  * added i18n Spanish translation file es.po
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 11 Jan 2011 14:00:00 +0100
+
+pyhoca-gui (0.0.20-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * profile manager: added encoding support for local folder sharing
+  * profile manager: removed widgets for fstunnel and soundtunnel (PyHoca-GUI will
+    always tunnel through SSH)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 31 Dec 2010 23:35:00 +0100
+
+pyhoca-gui (0.0.19-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * bugfix release (add_to_known_hosts / known_hosts issue when using X2goSSHProxy)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 31 Dec 2010 13:35:00 +0100
+
+pyhoca-gui (0.0.18-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * bugfix release (enables profilemanager for release versions)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 31 Dec 2010 02:10:00 +0100
+
+pyhoca-gui (0.0.17-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * updated documentation
+  * updated man page
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 31 Dec 2010 02:00:00 +0100
+
+pyhoca-gui (0.0.16-0~nwt3) lucid maverick testing unstable; urgency=low
+
+  * updated Python X2Go dependency
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 31 Dec 2010 01:05:00 +0100
+
+pyhoca-gui (0.0.16-0~nwt2) lucid maverick testing unstable; urgency=low
+
+  * updated Python X2Go dependency
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 31 Dec 2010 00:30:00 +0100
+
+pyhoca-gui (0.0.16-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * implemented profile manager
+  * using X2goClient HOOL_* methods for notifications
+  * menu changes
+  * implemented editing of connected sessions
+  * implemented local folder sharing for connected sessions
+  * added XMDCP support (still buggy)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 30 Dec 2010 23:00:00 +0100
+
+pyhoca-gui (0.0.15-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * using setproctitle module to change the process name during runtime
+  * much work for Windows compatibitity
+  * Windows: added necessary information for build environment (py2exe)
+  * Windows: Logon window now understands ENTER and ESC keys
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 17 Dec 2010 17:00:00 +0100
+
+pyhoca-gui (0.0.14-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * artwork fine-tuning
+  * work on Windows code
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 14 Dec 2010 18:36:00 +0100
+
+pyhoca-gui (0.0.13-0~nwt3) lucid maverick testing unstable; urgency=low
+
+  * fixing image path
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 14 Dec 2010 16:21:00 +0100
+
+pyhoca-gui (0.0.13-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added splash screen
+  * added ,,About...'' window
+  * added new artwork from Heinz-M. Graesing
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 14 Dec 2010 16:15:00 +0100
+
+pyhoca-gui (0.0.12-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added MS remote desktop (RDP) support
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 21:19:00 +0100
+
+pyhoca-gui (0.0.11-0~nwt2) lucid maverick testing unstable; urgency=low
+
+  * added dependencies: wx-common (>=2.8.10.0) and python-wxtools (>=2.8.10.0)
+    Thanks to Udo Lembke!!!
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 17:22:00 +0100
+
+pyhoca-gui (0.0.11-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * forgot to adapt version for Python egg (setup.py)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 13:45:00 +0100
+
+pyhoca-gui (0.0.10-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * depending on Python X2Go 0.0.22
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 13:40:00 +0100
+
+pyhoca-gui (0.0.9-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * reducing CPU usage by factor 2-3 (allowing 25 nxproxy window refreshes 
+    per second, instead of 50)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 12:39:00 +0100
+
+pyhoca-gui (0.0.8-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * reverting back to pixmaps based desktop icon, but now as .svg...
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 12:12:00 +0100
+
+pyhoca-gui (0.0.7-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * still fiddling around with desktop icon... 
+    using hicolor folder in /usr/share/icons now
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 12:10:00 +0100
+
+pyhoca-gui (0.0.6-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * replacing desktop icon .xpm by .png image
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 11:52:00 +0100
+
+pyhoca-gui (0.0.5-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * fixing pixmap desktop icon
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 11:50:00 +0100
+
+pyhoca-gui (0.0.4-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * changed handling of icons
+  * added pixmap for PyHocaGUI app menu item
+  * changed systray icon
+  * removed images.py
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 11:25:00 +0100
+
+pyhoca-gui (0.0.3-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * really disabled options and profilemanager menu (bugfix)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 09 Dec 2010 23:55:00 +0100
+
+pyhoca-gui (0.0.2-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * bugfix in frontend.py
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 09 Dec 2010 23:50:00 +0100
+
+pyhoca-gui (0.0.1-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * initializing PyHoca-GUI .deb package
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 09 Dec 2010 23:30:00 +0100
+

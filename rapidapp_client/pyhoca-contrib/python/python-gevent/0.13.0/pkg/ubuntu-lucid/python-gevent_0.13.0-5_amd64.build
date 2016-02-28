@@ -1,0 +1,414 @@
+ dpkg-buildpackage -rfakeroot -D -us -uc
+dpkg-buildpackage: setze CFLAGS auf Standardwert: -g -O2
+dpkg-buildpackage: setze CPPFLAGS auf Standardwert: 
+dpkg-buildpackage: setze LDFLAGS auf Standardwert: -Wl,-Bsymbolic-functions
+dpkg-buildpackage: setze FFLAGS auf Standardwert: -g -O2
+dpkg-buildpackage: setze CXXFLAGS auf Standardwert: -g -O2
+dpkg-buildpackage: Quellpaket python-gevent
+dpkg-buildpackage: Quellversion 0.13.0-5
+dpkg-buildpackage: Quellen geändert durch Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+dpkg-buildpackage: Host-Architektur amd64
+ fakeroot debian/rules clean
+dh  clean
+   dh_testdir
+   debian/rules override_dh_auto_clean
+make[1]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0'
+dh_auto_clean
+running clean
+'build/lib.linux-x86_64-2.6' does not exist -- can't clean it
+'build/bdist.linux-x86_64' does not exist -- can't clean it
+'build/scripts-2.6' does not exist -- can't clean it
+rm -f gevent/*.so
+cd doc && make clean
+make[2]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc'
+rm -rf _build/*
+make[2]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc'
+rm -f doc/changelog.rst
+make[1]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0'
+   dh_clean
+ dpkg-source -b python-gevent-0.13.0
+dpkg-source: Information: verwende Quellformat »3.0 (quilt)«
+dpkg-source: Information: baue python-gevent unter Benutzung des existierenden ./python-gevent_0.13.0.orig.tar.gz
+dpkg-source: Information: lokale Änderungen in python-gevent-0.13.0/debian/patches/debian-changes-0.13.0-5 gespeichert, die veränderten Dateien sind:
+ python-gevent-0.13.0/doc/gevent.backdoor.rst
+ python-gevent-0.13.0/doc/gevent.baseserver.rst
+ python-gevent-0.13.0/doc/gevent.coros.rst
+ python-gevent-0.13.0/doc/gevent.dns.rst
+ python-gevent-0.13.0/doc/gevent.http.rst
+ python-gevent-0.13.0/doc/gevent.local.rst
+ python-gevent-0.13.0/doc/gevent.monkey.rst
+ python-gevent-0.13.0/doc/gevent.pool.rst
+ python-gevent-0.13.0/doc/gevent.pywsgi.rst
+ python-gevent-0.13.0/doc/gevent.rawgreenlet.rst
+ python-gevent-0.13.0/doc/gevent.select.rst
+ python-gevent-0.13.0/doc/gevent.server.rst
+ python-gevent-0.13.0/doc/gevent.socket.rst
+ python-gevent-0.13.0/doc/gevent.ssl.rst
+ python-gevent-0.13.0/doc/gevent.sslold.rst
+ python-gevent-0.13.0/doc/gevent.thread.rst
+ python-gevent-0.13.0/doc/gevent.util.rst
+ python-gevent-0.13.0/doc/gevent.win32util.rst
+ python-gevent-0.13.0/doc/gevent.wsgi.rst
+ python-gevent-0.13.0/doc/mysphinxext.py
+dpkg-source: Information: baue python-gevent in python-gevent_0.13.0-5.debian.tar.gz
+dpkg-source: Information: baue python-gevent in python-gevent_0.13.0-5.dsc
+ debian/rules build
+dh  build
+   dh_testdir
+   dh_auto_configure
+   debian/rules override_dh_auto_build
+make[1]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0'
+dh_auto_build
+running build
+running build_py
+creating build
+creating build/lib.linux-x86_64-2.6
+creating build/lib.linux-x86_64-2.6/gevent
+copying gevent/util.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/baseserver.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/ssl.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/win32util.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/http.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/socket.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/timeout.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/wsgi.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/event.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/rawgreenlet.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/local.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/server.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/backdoor.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/select.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/coros.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/dns.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/pywsgi.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/pool.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/sslold.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/thread.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/hub.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/monkey.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/greenlet.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/__init__.py -> build/lib.linux-x86_64-2.6/gevent
+copying gevent/queue.py -> build/lib.linux-x86_64-2.6/gevent
+running build_ext
+Running cython (changed: gevent/core.pyx, gevent/evhttp.pxi)
+sh: cython: not found
+No cython found, cannot rebuild core.c
+building 'gevent.core' extension
+creating build/temp.linux-x86_64-2.6
+creating build/temp.linux-x86_64-2.6/gevent
+gcc -pthread -fno-strict-aliasing -DNDEBUG -g -fwrapv -O2 -Wall -Wstrict-prototypes -g -O2 -fPIC -I/usr/include/python2.6 -c gevent/core.c -o build/temp.linux-x86_64-2.6/gevent/core.o
+gcc -pthread -shared -Wl,-O1 -Wl,-Bsymbolic-functions -Wl,-Bsymbolic-functions -g -O2 build/temp.linux-x86_64-2.6/gevent/core.o -levent -o build/lib.linux-x86_64-2.6/gevent/core.so
+Linking /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/build/lib.linux-x86_64-2.6/gevent/core.so to /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/gevent/core.so
+PYTHONPATH=.. make --directory doc/ html
+make[2]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc'
+sphinx-build -b html -d _build/doctrees   . _build/html
+Making output directory...
+Running Sphinx v0.6.4
+generate_rst.py:36: DeprecationWarning: gevent.rawgreenlet is deprecated
+  m = __import__('gevent.%s' % module)
+/usr/lib/pymodules/python2.6/pygments/plugin.py:39: UserWarning: Module greenlet was already imported from /usr/lib/pymodules/python2.6/greenlet.so, but /usr/lib/pymodules/python2.6 is being added to sys.path
+  import pkg_resources
+Linking ../changelog.rst to changelog.rst
+loading pickled environment... not found
+building [html]: targets for 31 source files that are out of date
+updating environment: 31 added, 0 changed, 0 removed
+reading sources... [  3%] changelog
+reading sources... [  6%] contents
+reading sources... [  9%] gevent
+reading sources... [ 12%] gevent.backdoor
+reading sources... [ 16%] gevent.baseserver
+reading sources... [ 19%] gevent.core
+reading sources... [ 22%] gevent.coros
+reading sources... [ 25%] gevent.dns
+reading sources... [ 29%] gevent.event
+reading sources... [ 32%] gevent.http
+reading sources... [ 35%] gevent.hub
+reading sources... [ 38%] gevent.local
+reading sources... [ 41%] gevent.monkey
+reading sources... [ 45%] gevent.pool
+reading sources... [ 48%] gevent.pywsgi
+reading sources... [ 51%] gevent.queue
+reading sources... [ 54%] gevent.rawgreenlet
+/usr/lib/pymodules/python2.6/sphinx/ext/autodoc.py:319: DeprecationWarning: gevent.rawgreenlet is deprecated
+  __import__(self.modname)
+reading sources... [ 58%] gevent.select
+reading sources... [ 61%] gevent.server
+reading sources... [ 64%] gevent.socket
+reading sources... [ 67%] gevent.ssl
+reading sources... [ 70%] gevent.sslold
+reading sources... [ 74%] gevent.thread
+reading sources... [ 77%] gevent.util
+reading sources... [ 80%] gevent.win32util
+reading sources... [ 83%] gevent.wsgi
+reading sources... [ 87%] intro
+reading sources... [ 90%] networking
+reading sources... [ 93%] reference
+reading sources... [ 96%] servers
+reading sources... [100%] synchronization
+
+/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc/gevent.ssl.rst:6: (WARNING/2) missing attribute mentioned in :members: or __all__: module gevent.ssl, attribute PROTOCOL_NOSSLv2
+/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc/gevent.ssl.rst:6: (WARNING/2) missing attribute mentioned in :members: or __all__: module gevent.ssl, attribute SSLObject
+/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc/reference.rst:4: (WARNING/2) toctree references unknown document u'helpers'
+looking for now-outdated files... none found
+pickling environment... done
+checking consistency... /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc/gevent.baseserver.rst:: WARNING: document isn't included in any toctree
+/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc/gevent.http.rst:: WARNING: document isn't included in any toctree
+/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc/gevent.hub.rst:: WARNING: document isn't included in any toctree
+/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc/gevent.rawgreenlet.rst:: WARNING: document isn't included in any toctree
+/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc/gevent.thread.rst:: WARNING: document isn't included in any toctree
+/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc/gevent.util.rst:: WARNING: document isn't included in any toctree
+/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc/gevent.win32util.rst:: WARNING: document isn't included in any toctree
+done
+preparing documents... done
+writing output... [  3%] changelog
+Resolved missing-reference: :class:`StreamServer` -> gevent.server.html#gevent.server.StreamServer
+Resolved missing-reference: :class:`BaseServer` -> gevent.baseserver.html#gevent.baseserver.BaseServer
+Resolved missing-reference: : meth:`socket.sendall` -> gevent.socket.html#gevent.socket.socket.sendall
+Resolved missing-reference: :class:`Pool` -> gevent.pool.html#gevent.pool.Pool
+Resolved missing-reference: :class:`Semaphore` -> gevent.coros.html#gevent.coros.Semaphore
+Resolved missing-reference: :  mod:`gevent.rawgreenlet` -> gevent.rawgreenlet.html
+Resolved missing-reference: :class:`Group` -> gevent.pool.html#gevent.pool.Group
+Resolved missing-reference: : func:`getaddrinfo` -> gevent.socket.html#gevent.socket.getaddrinfo
+Resolved missing-reference: :class:`RLock` -> gevent.coros.html#gevent.coros.RLock
+Resolved missing-reference: :class:`DummySemaphore` -> gevent.coros.html#gevent.coros.DummySemaphore
+Resolved missing-reference: :class:`BoundedSemaphore` -> gevent.coros.html#gevent.coros.BoundedSemaphore
+Resolved missing-reference: : meth:`Event.wait` -> gevent.event.html#gevent.event.Event.wait
+Resolved missing-reference: : meth:`AsyncResult.wait` -> gevent.event.html#gevent.event.AsyncResult.wait
+Resolved missing-reference: :  mod:`gevent.server` -> gevent.server.html
+Resolved missing-reference: :  mod:`gevent.wsgi` -> gevent.wsgi.html
+Resolved missing-reference: :class:`WSGIServer` -> gevent.wsgi.html#gevent.wsgi.WSGIServer
+Resolved missing-reference: :class:`WSGIHandler` -> gevent.wsgi.html#gevent.wsgi.WSGIHandler
+Resolved missing-reference: :class:`event` -> gevent.core.html#gevent.core.event
+Resolved missing-reference: :class:`read_event` -> gevent.core.html#gevent.core.read_event
+Resolved missing-reference: :class:`write_event` -> gevent.core.html#gevent.core.write_event
+Resolved missing-reference: :class:`http_request` -> gevent.core.html#gevent.core.http_request
+Resolved missing-reference: :class:`http` -> gevent.core.html#gevent.core.http
+Resolved missing-reference: :class:`HTTPServer` -> gevent.http.html#gevent.http.HTTPServer
+Resolved missing-reference: :  mod:`gevent.backdoor` -> gevent.backdoor.html
+Resolved missing-reference: :  mod:`gevent.pywsgi` -> gevent.pywsgi.html
+Resolved missing-reference: :  mod:`gevent.baseserver` -> gevent.baseserver.html
+Resolved missing-reference: : meth:`socket.recv` -> gevent.socket.html#gevent.socket.socket.recv
+Resolved missing-reference: : meth:`socket.send` -> gevent.socket.html#gevent.socket.socket.send
+Resolved missing-reference: :  mod:`gevent.dns` -> gevent.dns.html
+Resolved missing-reference: : func:`gethostbyname` -> gevent.socket.html#gevent.socket.gethostbyname
+Resolved missing-reference: : meth:`socket.connect_ex` -> gevent.socket.html#gevent.socket.socket.connect_ex
+Resolved missing-reference: : meth:`socket.dup` -> gevent.socket.html#gevent.socket.socket.dup
+Resolved missing-reference: : func:`socket.connect` -> gevent.socket.html#gevent.socket.socket.connect
+Resolved missing-reference: : func:`wait_readwrite` -> gevent.socket.html#gevent.socket.wait_readwrite
+Resolved missing-reference: : func:`wait_write` -> gevent.socket.html#gevent.socket.wait_write
+Resolved missing-reference: : func:`socket.send` -> gevent.socket.html#gevent.socket.socket.send
+Resolved missing-reference: : func:`socket.sendall` -> gevent.socket.html#gevent.socket.socket.sendall
+Resolved missing-reference: :  exc:`sslerror` -> gevent.sslold.html#gevent.sslold.sslerror
+Resolved missing-reference: :  mod:`gevent.coros` -> gevent.coros.html
+Resolved missing-reference: :class:`BackdoorServer` -> gevent.backdoor.html#gevent.backdoor.BackdoorServer
+Resolved missing-reference: : meth:`JoinableQueue.task_done` -> gevent.queue.html#gevent.queue.JoinableQueue.task_done
+Resolved missing-reference: :class:`Hub` -> gevent.hub.html#gevent.hub.Hub
+Resolved missing-reference: : meth:`Queue.empty` -> gevent.queue.html#gevent.queue.Queue.empty
+Resolved missing-reference: : meth:`Queue.full` -> gevent.queue.html#gevent.queue.Queue.full
+Resolved missing-reference: : meth:`Queue.get` -> gevent.queue.html#gevent.queue.Queue.get
+Resolved missing-reference: : meth:`Queue.put` -> gevent.queue.html#gevent.queue.Queue.put
+Resolved missing-reference: : meth:`Queue.qsize` -> gevent.queue.html#gevent.queue.Queue.qsize
+Resolved missing-reference: :class:`Event` -> gevent.event.html#gevent.event.Event
+Resolved missing-reference: : meth:`Event.set` -> gevent.event.html#gevent.event.Event.set
+Resolved missing-reference: :class:`AsyncResult` -> gevent.event.html#gevent.event.AsyncResult
+Resolved missing-reference: : meth:`Pool.spawn` -> gevent.pool.html#gevent.pool.Pool.spawn
+Resolved missing-reference: : meth:`AsyncResult.set_exception` -> gevent.event.html#gevent.event.AsyncResult.set_exception
+Resolved missing-reference: :  mod:`gevent.core` -> gevent.core.html
+Resolved missing-reference: :class:`wrap_errors` -> gevent.util.html#gevent.util.wrap_errors
+Resolved missing-reference: :  mod:`gevent.util` -> gevent.util.html
+Resolved missing-reference: :class:`LifoQueue` -> gevent.queue.html#gevent.queue.LifoQueue
+Resolved missing-reference: :class:`PriorityQueue` -> gevent.queue.html#gevent.queue.PriorityQueue
+Resolved missing-reference: :class:`active_event` -> gevent.core.html#gevent.core.active_event
+Resolved missing-reference: : attr:`event.fd` -> gevent.core.html#gevent.core.event.fd
+Resolved missing-reference: : attr:`event.events` -> gevent.core.html#gevent.core.event.events
+Resolved missing-reference: : attr:`event.events_str` -> gevent.core.html#gevent.core.event.events_str
+Resolved missing-reference: : attr:`event.flags` -> gevent.core.html#gevent.core.event.flags
+Resolved missing-reference: : attr:`event.callback` -> gevent.core.html#gevent.core.event.callback
+Resolved missing-reference: :class:`DispatchExit` -> gevent.hub.html#gevent.hub.DispatchExit
+Resolved missing-reference: :  mod:`gevent.monkey` -> gevent.monkey.html
+writing output... [  6%] contents
+writing output... [  9%] gevent
+writing output... [ 12%] gevent.backdoor
+writing output... [ 16%] gevent.baseserver
+writing output... [ 19%] gevent.core
+writing output... [ 22%] gevent.coros
+writing output... [ 25%] gevent.dns
+writing output... [ 29%] gevent.event
+writing output... [ 32%] gevent.http
+writing output... [ 35%] gevent.hub
+writing output... [ 38%] gevent.local
+writing output... [ 41%] gevent.monkey
+Resolved missing-reference: :class:`SocketType` -> gevent.socket.html#gevent.socket.SocketType
+Resolved missing-reference: : func:`socketpair` -> gevent.socket.html#gevent.socket.socketpair
+Resolved missing-reference: : func:`fromfd` -> gevent.socket.html#gevent.socket.fromfd
+Resolved missing-reference: :class:`sslerror` -> gevent.sslold.html#gevent.sslold.sslerror
+Resolved missing-reference: : func:`wrap_socket` -> gevent.ssl.html#gevent.ssl.wrap_socket
+Resolved missing-reference: : func:`get_server_certificate` -> gevent.ssl.html#gevent.ssl.get_server_certificate
+Resolved missing-reference: : func:`sslwrap_simple` -> gevent.ssl.html#gevent.ssl.sslwrap_simple
+Resolved missing-reference: : func:`fork` -> gevent.html#gevent.fork
+Resolved missing-reference: : func:`get_ident` -> gevent.thread.html#gevent.thread.get_ident
+Resolved missing-reference: : func:`start_new_thread` -> gevent.thread.html#gevent.thread.start_new_thread
+Resolved missing-reference: : func:`allocate_lock` -> gevent.thread.html#gevent.thread.allocate_lock
+Resolved missing-reference: : func:`stack_size` -> gevent.thread.html#gevent.thread.stack_size
+writing output... [ 45%] gevent.pool
+writing output... [ 48%] gevent.pywsgi
+writing output... [ 51%] gevent.queue
+writing output... [ 54%] gevent.rawgreenlet
+writing output... [ 58%] gevent.select
+writing output... [ 61%] gevent.server
+writing output... [ 64%] gevent.socket
+Resolved missing-reference: : func:`resolve_ipv4` -> gevent.dns.html#gevent.dns.resolve_ipv4
+Resolved missing-reference: : func:`resolve_ipv6` -> gevent.dns.html#gevent.dns.resolve_ipv6
+Resolved missing-reference: :class:`DNSError` -> gevent.dns.html#gevent.dns.DNSError
+writing output... [ 67%] gevent.ssl
+writing output... [ 70%] gevent.sslold
+Resolved missing-reference: :class:`SSLError` -> gevent.ssl.html#gevent.ssl.SSLError
+writing output... [ 74%] gevent.thread
+Resolved missing-reference: :class:`Greenlet` -> gevent.html#gevent.Greenlet
+writing output... [ 77%] gevent.util
+writing output... [ 80%] gevent.win32util
+writing output... [ 83%] gevent.wsgi
+writing output... [ 87%] intro
+Resolved missing-reference: : func:`spawn` -> gevent.html#gevent.spawn
+Resolved missing-reference: :class:`JoinableQueue` -> gevent.queue.html#gevent.queue.JoinableQueue
+Resolved missing-reference: : meth:`Greenlet.start` -> gevent.html#gevent.Greenlet.start
+Resolved missing-reference: : meth:`Greenlet.join` -> gevent.html#gevent.Greenlet.join
+Resolved missing-reference: : meth:`Greenlet.kill` -> gevent.html#gevent.Greenlet.kill
+Resolved missing-reference: : meth:`Greenlet.get` -> gevent.html#gevent.Greenlet.get
+Resolved missing-reference: :  exc:`GreenletExit` -> gevent.html#gevent.GreenletExit
+Resolved missing-reference: : meth:`AsyncResult.get` -> gevent.event.html#gevent.event.AsyncResult.get
+Resolved missing-reference: :class:`Timeout` -> gevent.html#gevent.Timeout
+Resolved missing-reference: : meth:`Greenlet` -> gevent.html#gevent.Greenlet
+writing output... [ 90%] networking
+writing output... [ 93%] reference
+writing output... [ 96%] servers
+writing output... [100%] synchronization
+
+writing additional files... genindex modindex search
+copying static files... done
+dumping search index... done
+dumping object inventory... done
+build succeeded, 10 warnings.
+
+Build finished. The HTML pages are in _build/html.
+make[2]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/doc'
+make[1]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0'
+   dh_auto_test
+ fakeroot debian/rules binary
+dh  binary
+   dh_testroot
+   dh_prep
+   dh_installdirs
+   dh_auto_install
+running install
+running build
+running build_py
+running build_ext
+Running cython (changed: gevent/core.pyx, gevent/evhttp.pxi)
+sh: cython: not found
+No cython found, cannot rebuild core.c
+Linking /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/build/lib.linux-x86_64-2.6/gevent/core.so to /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/gevent/core.so
+running install_lib
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages
+creating /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/util.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/baseserver.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/ssl.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/core.so -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/win32util.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/http.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/socket.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/timeout.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/wsgi.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/event.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/rawgreenlet.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/local.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/server.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/backdoor.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/select.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/coros.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/dns.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/pywsgi.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/pool.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/sslold.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/thread.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/hub.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/monkey.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/greenlet.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/__init__.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+copying build/lib.linux-x86_64-2.6/gevent/queue.py -> /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent
+running install_egg_info
+Writing /net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0/debian/tmp/usr/lib/python2.6/dist-packages/gevent-0.13.0.egg-info
+   dh_install
+   debian/rules override_dh_installdocs
+make[1]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0'
+dh_installdocs --link-doc=python-gevent
+make[1]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0'
+   dh_installchangelogs
+   dh_installexamples
+   dh_installman
+   dh_installcatalogs
+   dh_installcron
+   dh_installdebconf
+   dh_installemacsen
+   dh_installifupdown
+   dh_installinfo
+   dh_pysupport
+   dh_installinit
+   dh_installmenu
+   dh_installmime
+   dh_installmodules
+   dh_installlogcheck
+   dh_installlogrotate
+   dh_installpam
+   dh_installppp
+   dh_installudev
+   dh_installwm
+   dh_installxfonts
+   dh_bugfiles
+   dh_lintian
+   dh_gconf
+   dh_icons
+   dh_perl
+   dh_usrlocal
+   dh_link
+   debian/rules override_dh_compress
+make[1]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0'
+dh_compress -X.js -X_static/* -X _sources/* -X_sources/*/* -X.inv
+make[1]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0'
+   dh_fixperms
+   debian/rules override_dh_strip
+make[1]: Betrete Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0'
+dh_strip --dbg-package=python-gevent-dbg
+make[1]: Verlasse Verzeichnis '/net/homes/mike/MyDocuments/4projects/x2go-git/pyhoca-contrib/python/python-gevent/0.13.0/python-gevent-0.13.0'
+   dh_makeshlibs
+   dh_shlibdeps
+   dh_installdeb
+   dh_gencontrol
+dpkg-gencontrol: Warnung: unbekannte Substitutionsvariable ${shlibs:Depends}
+dpkg-gencontrol: Warnung: unbenutzte Substitutionsvariable ${python:Depends}
+dpkg-gencontrol: Warnung: unbenutzte Substitutionsvariable ${python:Versions}
+dpkg-gencontrol: Warnung: unbenutzte Substitutionsvariable ${python:Provides}
+   dh_md5sums
+   dh_builddeb
+dpkg-deb: Baue Paket »python-gevent-dbg« in »../python-gevent-dbg_0.13.0-5_amd64.deb«.
+dpkg-deb: Baue Paket »python-gevent-doc« in »../python-gevent-doc_0.13.0-5_all.deb«.
+dpkg-deb: Baue Paket »python-gevent« in »../python-gevent_0.13.0-5_amd64.deb«.
+ dpkg-genchanges  >../python-gevent_0.13.0-5_amd64.changes
+dpkg-genchanges: füge Originalquellen beim Hochladen nicht hinzu
+dpkg-buildpackage: Binär und Diff hochzuladen (Originalquellen NICHT enthalten)
+Now running lintian...
+W: python-gevent source: out-of-date-standards-version 3.9.0 (current is 3.9.1)
+Finished running lintian.
+Now signing changes and any dsc files...
+ signfile python-gevent_0.13.0-5.dsc Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+gpg: GPG-Agent ist in dieser Sitzung nicht vorhanden
+
+ signfile python-gevent_0.13.0-5_amd64.changes Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+gpg: GPG-Agent ist in dieser Sitzung nicht vorhanden
+
+Successfully signed dsc and changes files

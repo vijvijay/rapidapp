@@ -1,0 +1,43 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Mon, 16 May 2011 19:55:03 +0200
+Source: python-gevent
+Binary: python-gevent-dbg python-gevent-doc python-gevent
+Architecture: i386
+Version: 0.13.0-5.1~squeeze1
+Distribution: unstable
+Urgency: low
+Maintainer: Örjan Persson <orange@fobie.net>
+Changed-By: X2go Git Administrator <git-admin@x2go.org>
+Description: 
+ python-gevent - gevent is a coroutine-based Python networking library
+ python-gevent-dbg - gevent is a coroutine-based Python networking library - debugging
+ python-gevent-doc - gevent is a coroutine-based Python networking library - documenta
+Changes: 
+ python-gevent (0.13.0-5.1~squeeze1) unstable; urgency=low
+ .
+   * Non-maintainer upload.
+   * build for Debian squeeze (python2.5 + python2.6)
+Checksums-Sha1: 
+ a5d3191248b444bb5c86d86b0e9a09cd0168e223 185350 python-gevent-dbg_0.13.0-5.1~squeeze1_i386.deb
+ 942cf9469304f799441442b292e2c6e44cc84800 176970 python-gevent_0.13.0-5.1~squeeze1_i386.deb
+Checksums-Sha256: 
+ f6841189a5424b7741c405049bcafa995c6bf63a221b982888c04ea2f240f33b 185350 python-gevent-dbg_0.13.0-5.1~squeeze1_i386.deb
+ e73d9343f0f87d584b33213b66953bf9a43471d806b73cc2969e253d322f6d59 176970 python-gevent_0.13.0-5.1~squeeze1_i386.deb
+Files: 
+ 4994c941ee9ae3743f8256e0e91d5a58 185350 debug extra python-gevent-dbg_0.13.0-5.1~squeeze1_i386.deb
+ a04292877fe639f5b6619f958cf822ec 176970 python extra python-gevent_0.13.0-5.1~squeeze1_i386.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJN0XsKAAoJEPSnZ4ycawsre7IH/29swy1ZN9QJnHELnPegNwMe
+2S9IpvTN+yZNT2scTQwnKjTH3+JE2Rvcnr3/YS2ReiN4XOWL9qIrERWNH89pvBO3
+4v1PU6EtAPfVqReiOW36PGACpC9eQ9d4JXqbcem/xFV8qmvZLaoGRLMHSoTCQr/a
+9mYnm1PdUasfF/9gyPDzU+48SuMRXzQ5+OcV9t2o27qjpsJSf+en0eQfcF/eDXA/
+f/k7dQmKMpoXCrJSYhxep0dN+Yl+UI57CQ9lvhtt99ZKIAz6tt+MbvyLIuIF+QC5
+7alMumo7Si9g9+GaPOk8j85TR8WbCEM0UETSFrcX4LPdoJti/FfG6R1tNJQXklg=
+=ULOB
+-----END PGP SIGNATURE-----

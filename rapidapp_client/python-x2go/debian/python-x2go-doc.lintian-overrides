@@ -1,0 +1,2 @@
+# epydoc produces some duplicate files, we cannot change that without great effort
+python-x2go-doc: duplicate-files

@@ -1,0 +1,27 @@
+#!/usr/bin/make -f
+# debian/rules file - for python-x2go
+# Based on sample debian/rules file - for GNU Hello (1.3).
+# Copyright 2010-2014 by Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+
+WITH_PYTHON2 = $(shell test -f /usr/bin/dh_python2 && echo "--with python2")
+
+%:
+	dh ${@} ${WITH_PYTHON2}
+
+override_dh_auto_build:
+	mkdir -p .epydoc/html
+	rm -Rf .epydoc/html/*
+	epydoc --debug -n "Python X2Go" -u http://www.x2go.org -v --html --no-private -o .epydoc/html x2go/
+	dh_auto_build
+
+# tests from upstream are currently broken...
+override_dh_auto_test:
+
+override_dh_python2:
+	rm debian/python-x2go/usr/lib/*/dist-packages/x2go/tests -Rfv
+	dh_python2
+
+override_dh_auto_clean:
+	rm -Rfv build x2go.egg-info .epydoc test.pyc
+	find x2go -name *.pyc -exec rm -fv "{}" \;
+	dh_auto_clean

@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=PyHoca-GUI
+GenericName=PyHoca-GUI
+Comment=Python X2Go Client Applet
+Exec=pyhoca-gui
+Icon=pyhoca_x2go-logo-ubuntu
+X-Window-Icon=pyhoca_x2go-logo-ubuntu
+X-HildonDesk-ShowInToolbar=true
+X-Osso-Type=application/x-executable
+Terminal=false
+Type=Application
+Keywords=X2Go;Remote;Desktop;Published;Applications;Administration;Applet;
+Categories=Network;RemoteAccess;

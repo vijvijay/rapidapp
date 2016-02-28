@@ -1,0 +1,1328 @@
+python-x2go (0.5.0.1-0x2go1) unstable; urgency=medium
+
+  * New upstream version (0.5.0.1):
+    - Update TODO file.
+    - Update README file.
+    - Provide API inline documentation for http(s) session
+      broker client implementation.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 20 Oct 2014 22:52:42 +0200
+
+python-x2go (0.5.0.0-0x2go1) unstable; urgency=low
+
+  [ Mike Gabriel ]
+  * New upstream version (0.5.0.0):
+    - Split up session profile backend into generic and storage specific
+      parts.
+    - Fully rework backend concept in Python X2Go. Breaks compatibility
+      with earlier versions of Python X2Go concerning backends (probably
+      not really used by third-party products, if at all).
+    - Fix setting default values in X2GoClientXConfig class.
+    - Default to xdg-open as default PDF viewer command.
+    - Provide session profile backend for a http broker.
+    - Make session profile backends more unicode robust.
+    - X2GoSessionProfile.get_server_hostname must return unicode objects.
+    - Speed-optimize session profile ID <-> name mapping.
+    - Handle injection of PKey (Paramiko SSH key) objects for authentication
+      from the broker session profiles backend.
+    - Allow catching "connection refused" errors while talking to an X2Go
+      Session Broker (X2GoBrokerConnectionException).
+    - Support cookie based authentication against a http(s) session broker.
+    - On Windows: Improve debugging when a new X-Server port has to be
+      allocated.
+    - Capture broker connection problems during selectsession calls to the
+      broker via a HOOK method.
+    - Allow user interaction via a HOOK if broker connection problems occur.
+    - Handle broker setups that don't require credentials. Connection can
+      be established simply by leaving the password (and authid) empty.
+    - Fix detection of matching path names in X2GoIniFiles.
+    - Make sure X2GoClientXConfig config file really gets written to disk
+      (after we changed the internas of X2GoIniFile for this new major release).
+    - Rename hook method HOOK_no_known_xserver_found to
+      HOOK_no_installed_xservers_found. Call this new hook if no installed
+      X-Servers could be found on the system.
+    - Only check running X-Servers that have the same WMI SessionId as the
+      current X2Go application.
+    - Session profiles: default value type for exports session profile option
+      is an empty dictionary.
+    - Make X2GoClient's constructor aware of non-usable X-Server ports.
+    - Windows: Fix crash while attempting to find the session window.
+    - Support SSH proxy autologin feature of X2Go Session Broker.
+    - Provide Telekinesis support in Python X2Go.
+    - Stop manipulating session profiles in X2GoSshProxy class. Esp. stop
+      manipulating session profiles with deprecated session options.
+    - Type-hardening of X2GoSshProxy class. Accept hosts as list and strings.
+      If hosts are given as a list, a random list element will be taken as
+      host (for connecting and for the SSH proxy tunnel setup).
+    - Type-hardening of X2GoControlSession class's C{connect()} method.
+      Handle hostnames that come in as lists gracefully.
+    - Don't construct the sshproxy_tunnel parameter in x2go/utils.py. Leave
+      that to higher level classes that know more about X2Go internals.
+    - Add support for a subsystem string when setting up port forwarding
+      tunnels.
+    - Use gevent to spawn the TeKi client start-up process (instead of waiting
+      for it to return).
+    - Provide support for new session parameter: clipboard. (Fixes: #508).
+    - Split up NX output and NX errors into two separate files.
+    - Silent ignore it if we cannot detect the local Xlib.display.Display()
+      instance (happens with polyinstantiated /tmp dirs).
+    - Don't start telekinesis client if not support server-side. Don't attempt
+      at starting telekinesis client, if it is not installed.
+    - Disallow server-side users to override X2Go Server commands via
+      ~/bin (or similar). (Fixes: #334).
+    - Handle non-available color depth in X2Go session name gracefully.
+      (Fixes: #358).
+    - Make sure that the x2gosuspend-session/x2goterminate-session commands
+      are sent to the X2Go Server before we take down the NX proxy subprocess.
+    - Create a "session.window" file in the session directory. This file for now
+      contains one line "ID:<window-id>". The file appears once a session window
+      comes up (start/resume), and disappears once the session window closes
+      (suspend/terminate).
+    - Only enable Telekinesis client debugging if the logger instance is in
+      debug mode.
+    - Performance tests have shown, that enabling SSH compression is not a
+      good idea. NX should handle that instead (and does).
+    - Better control the startup bootstrap of the Telekinesis client
+      subsystem.
+    - Newly understand our own Paramiko/SSH forwarding tunnel code. Become
+      aware of handling multiple connects on the same tunnel.
+    - Rename LICENSE.txt to COPYING.
+    - Be more exact when detecting the NX proxy window id.
+    - On non-Windows platforms, enforce usage of the "ares" DNS resolver in
+      python-gevent (which is available since Python gevent 1.0~). (Fixes:
+      #588).
+    - Use Xlib to detect client-side destop geometry.
+    - For reverse port forwardings use IPv4 localhost address only.
+    - Assure proper NX Proxy cleanup when sessions suspends/
+      terminates.
+    - Assure proper Telekinesis client cleanup when sessions suspends/
+      terminates.
+    - Clean up terminal sessions properly when the clean_sessions() method
+      of the control session has got called.
+    - Don't use compression on  TeKi sshfs mounts.
+    - Handle duplicate profile names gracefully (i.e. append a " (1)",
+      " (2)", ... to the session profile name). (Fixes: #500).
+    - Support server-side Telekinesis versions that ship their own
+      (teki-)sftpserver.
+    - Use session_name, not session_info object's __str__() method to obtain
+      session name (in X2GoTelekinesis).
+    - Handle socket errors on the reverse port forwarding tunnels more
+      gracefully.
+    - Handle sudden control session death during local folder sharing
+      gracefully.
+    - Don't choke on non-initialized SSH transport objects when initializing
+      SFTP client.
+    - Fix transport lock release in X2GoControlSession._x2go_sftp_put().
+    - Fix session lock release in various methods of the X2GoSession class.
+    - Release _share_local_folder_lock on instance X2GoTerminalSession
+      destruction.
+    - Detect non-installed sshfs (required for Telekinesis).
+    - X2GoControlSession: Don't mess with the associated_terminals dict if
+      the control session has already died away (i.e. been forcefully
+      disconnect).
+    - If the listsessions command detects a terminated or suspended session,
+      we have to destroy the corresponding X2GoTerminalSession() to trigger
+      a proper cleanup of that instance.
+    - Fix various hrefs in __doc__ strings.
+    - Fix creating/renaming/reconfiguring session profiles. Handle host
+      option properly (as list).
+    - Make sure we do a deepcopy of the default session profile parameters.
+    - Detect more exceptions in the requests module when authenticating against a
+      session broker.
+    - Only convert the value of the export session profile option if not
+      already a Python dictionary.
+    - Capture X2GoControlSessionException occurrences during client-side folder
+      sharing initializaation while starting/resuming a session.
+    - X2GoSessionRegistry: Don't report about sessions that have a not yet
+      fully assigned session name / profile name / profile id.
+  * debian/control:
+    + Add dependencies: python-requests, python-simplejson.
+    + Add R (python-x2go): sshfs.
+    + Add S (python-x2go): telekinesis-client, mteleplayer-clientside.
+    + Update D (python-x2go): python-paramiko (>= 1.15.1-0~). (Fixes: #602).
+  * python-x2go.spec:
+    + Add dependencies: python-requests, python-simplejson.
+    + Additionally adapt to building on openSUSE/SLES.
+    + Add all python packages under R to BR (for epydoc run).
+    + Update R for python-x2go: python-paramiko >= 1.15.1.
+
+  [ Mike DePaulo ]
+  * New upstream version (0.5.0.0):
+    - Windows: Fix compatibility with PulseAudio 3.0 & later (Fixes: #532)
+    - Windows: Prevent high PulseAudio CPU usage on Windows XP by lowering
+      PulseAudio's CPU priority from "high" to "normal" on XP specifically.
+      Also do so on Windows Server 2003 (R2) (Fixes: #537)
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 20 Oct 2014 12:40:34 +0200
+
+python-x2go (0.4.0.10-0x2go1) UNRELEASED; urgency=low
+
+  [ Mike Gabriel ]
+  * New upstream version (0.4.0.10):
+    - Don't pass default values to ConfigParser constructor when initializing
+      an INI file.
+    - Return color depth on MS Windows machines.
+    - Preserve class-wide control session options (like add_to_known_hosts,
+      forward_sshagent, etc.). Thanks to Dick Kniep for reporting this.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 05 Jan 2014 16:35:57 +0100
+
+python-x2go (0.4.0.9-0x2go1) unstable; urgency=low
+
+  [ Mike Gabriel ]
+  * New upstream version (0.4.0.9):
+    - Agent channels in Paramiko can raise an EOFError if the connection
+      has got disrupted. Ignoring this.
+    - Store the session password in base64 encoded string in order to make 
+      it harder spotting the long term stored (for the duration of the session)
+      plain text password.
+    - Support encryption passphrases on SSH private key files (X2Go SSH
+      connections as well as SSH proxy connections).
+    - Invalidate SSH private keys (filename, pkey object) when look_for_keys is
+      requested.
+    - Keep private key information even if force_password_auth is set in the
+      control session's connect() method.
+    - Fix parameter handling in X2GoSession.connect().
+    - Rewrite passwords that are not string/unicode to an empty string.
+    - No Unicode chars in log messages. Eliminated one more in checkhosts.py.
+    - Implement two-factor authentication.
+    - Compat fix in _paramiko monkey patch module to also work with early
+      Paramiko versions.
+    - Handle echoing ~/.*shrc files gracefully via SSH client connections. Do
+      not allow data injections via ~/.*shrc files. (Fixes: #335).
+    - Properly handle (=expand) the "~" character in key filenames. (Brought to
+      attention by Eldamir on IRC. Thanks!).
+    - Differentiate between desktop sharing errors and desktop sharing access
+      that gets denied by the other/remote user.
+    - Report about found session window / session window retitling in debug
+      mode.
+    - Fix session window detection when local session manager is the i3 session
+      manager (which uses _NET_CLIENT_LIST_STACKING instead of
+      _NET_CLIENT_LIST).
+    - Check for pulse cookie file in old (~/.pulse-cookie) and new
+      (~/.config/pulse/cookie) location.
+    - Import python-x2go-py3.patch from Fedora. Thanks to Orion!!!
+    - Improve setup.py script: make it run with Python3 and older Python2
+      versions.
+    - Fix tests for two-factor authentication in control session and SSH proxy
+      code.
+    - Fix regression: Make password logins with PyHoca-CLI succeed again.
+    - Make channel compression to all authentication methods.
+    - Set keepalive on proxy channel.
+    - Only use [<host>]:<port> if <port> is not 22.
+    - Handle host key checks for hosts that do not have a port specified.
+  * debian/source/format:
+    + Switch to format 1.0.
+  * python-x2go.spec:
+    + Ship python-x2go.spec (RPM package definitions) in upstream project.
+      (Thanks to the Fedora package maintainers).
+    + Clear (Fedora package) changelog.
+    + Drop dependency on python-cups.
+
+  [ Orion Poplawski ]
+  * debian/control:
+    + Drop python-cups from Depends: field. Python CUPS is no dependency if
+      Python X2Go. (Fixes: #329).
+
+  [ Kenneth Pedersen ]
+  * New upstream version (0.4.0.9):
+    - Color depth detection: Stop using win32api.GetSystemMetrics(2) which actually
+      returns the width of a vertical scroll bar in pixels. Instead, create a screen
+      display context and query it for the color depth. (Fixes: #330).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 08 Jan 2014 15:14:16 +0100
+
+python-x2go (0.4.0.8-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.8):
+    - Fix session profile updates with changes to the host parameter.
+    - Use the session object's lock to detect if updating the session
+      status in the session registry is something appropriate to do.
+    - Do not overwrite not-yet-suspended terminal session objects during
+      session resumption.
+    - Remove shbang from x2go/tests/runalltests.py, as well.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 07 Aug 2013 12:17:27 +0200
+
+python-x2go (0.4.0.7-0~x2go1) unstable; urgency=low
+
+  [ Mike Gabriel ]
+  * New upstream version (0.4.0.7):
+    - Drop duplicate method in terminal backend: is_desktop_session().
+    - Ignore non-registered session UUIDs in X2GoClient.clean_sessions() method.
+    - Make _update_mounts in session registry cache more failsafe, this probably
+      fixes an accumulation of server disconnects observed in recent version of
+      Python X2Go.
+    - Add some sanity checks before actually starting to add a session profile.
+  * /debian/control:
+    + Replace LDAP support with session brokerage support in LONG_DESCRIPTION.
+
+  [ Orion Poplawski ]
+  * New upstream version (0.4.0.7):
+    - Remove shbangs from python-x2go library code. (Fixes: #283).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sat, 03 Aug 2013 22:28:13 +0200
+
+python-x2go (0.4.0.6-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.6):
+    - Use XFCE as desktop environment in example scripts.
+    - Make Python X2Go aware of the MATE desktop environment.
+    - When resuming sessions be tolerant towards disrupted connections.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 28 Jul 2013 19:42:52 +0200
+
+python-x2go (0.4.0.5-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.5):
+    - Paramiko monkey patch: Hostnames with the default SSH_PORT are stored
+      in hostname-only format to the known_hosts file. Fixes redundant requests
+      for confirming the remote host's fingerprint if port 22 is used.
+    - Improve log message when setting up port forwarding tunnel.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 18 Jul 2013 22:32:11 +0200
+
+python-x2go (0.4.0.4-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.4):
+    - Save exports in session profile directly after mounting/unmounting a share
+      if the session profile parameter restoreexports is set.
+    - Fix the restoreexports logic on mount/unmount/unmount all requests.
+      Make sure client-side offline network shares do not get purged from the
+      session profile configuration if unavailable. (Fixes: #192).
+    - Become aware of fixed paramiko features since paramiko 1.11.0. Stop
+      monkey patching those methods that got fixed in 1.11.0.
+    - Ignore KeyError exceptions in session cache for suddenly removed cache items.
+      Silence/fix some race conditions on connection failures.
+    - Support mounting client-side folders on UNC paths.
+    - Enable keepalive callbacks on open SSH client connections.
+    - Only do x2golistmounts calls for the session cache on running sessions.
+    - Fix renaming of profile names.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 18 Jun 2013 20:27:42 +0200
+
+python-x2go (0.4.0.3-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.3):
+    - Fix inheritance of Paramiko/SSH exception.
+    - Make Python X2Go aware of the Cinnamon desktop shell.
+    - Fix faulty value creations for the export session profile parameter.
+      (Fixes: #162). This issue occured when the restoreexports feature
+      had been activated in the session profile.
+    - Prevent Exception when creating new session profiles. Spotted by 
+      Dick Kniep. Thanks!
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 21 Apr 2013 22:40:43 +0200
+
+python-x2go (0.4.0.2-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.4.0.2):
+    - Empty session profile name/id cache when adding new profiles. (Fixes:
+      #130, #147).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 03 Mar 2013 15:55:57 +0100
+
+python-x2go (0.4.0.1-0~x2go1) unstable; urgency=low
+
+  * Documentation fix and typo fix relevant for win32 build.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 13 Feb 2013 12:36:50 +0100
+
+python-x2go (0.4.0.0-0~x2go1) unstable; urgency=low
+
+  [ Orion Poplawski ]
+  * New upstream version (0.4.0.0):
+    - Importing all of x2go in setup.py causes rpmbuild problems due to
+      DISPLAY not being set.  It is overkill as well, causing extra dependencies
+      to be installed at build time. (Fixes: #91).
+
+  [ Mike Gabriel ]
+  * Bump version to 0.4.0.0.
+  * WARNING: starting with version 0.4.0.0 of PyHoca-GUI, PyHoca-CLI and Python
+    X2Go, all class identifiers are now X2Go..., not X2go... anymore.
+  * New upstream version (0.4.0.0):
+    - Add session profile option ,,display'' to default session profile options.
+    - Catch any kind of exception when writing session profile files and return
+      True or False in cases where I/O errors occur.
+    - Avoid the known_hosts file being flushed with localhost:[<someport>]
+      entries. Store host keys of SSH-proxied hosts under the [<address>]:<port>
+      the system has _behind_ the SSH proxy gateway. (Hopefully fixes: #18,
+      partially fixes: #53).
+    - Add session profile option: uniquehostkeyaliases. Allow the
+      (by-design-unique) X2Go session profile ID to be a representative for
+      <hostname>:<port>. Update session profile IDs on hostname changes.
+      Re-arrange class structure for MissingHostKey policies, also provide an
+      X2goAutoAddPolicy class.
+    - Fix auto-starting and auto-resuming of sessions.
+    - Avoid false-positive notifications of dead control session directly after
+      a disconnect request from the user.
+    - Improve desktop sharing code. Add code to obtain version information of
+      server-side X2Go components.
+    - Add session type filter for list of sharable desktops.
+    - Sort X2Go feature list, add force option for X2GoClient queries of server
+      features and server components. Add alias get_server_components (for 
+      get_server_versions).
+    - Add low latency support for link types 'modem' and 'isdn'. Selecting
+      either link quality will double nearly all connection timeout values.
+      (Fixes: #53).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 12 Feb 2013 08:41:52 +0100
+
+python-x2go (0.2.1.1-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.1.1):
+    - Make sure that internal calls to _X2goClient__list_sessions are not
+      overridden by other method definitions in classes that inherit from
+      X2goClient class. (Fixes: #89).
+    - Rewrite colour depth of 17bits to 16bits when invoking rdesktop.
+      Relevant for X2Go-proxied RDP sessions started with PyHoca-GUI under
+      Windows.
+    - Handle control sessions being None in session list cache.
+    - In cases where several session profiles connect to the same machine
+      under the same user ID, we have to strictly differentiate between
+      running/suspend sessions associated to the several connected session
+      profiles.
+    - Make connection disruptures more robust. (Fixes: #23).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 18 Dec 2012 12:36:34 +0100
+
+python-x2go (0.2.1.0-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.1.0):
+    - Prepare for staying compatible with new SSH proxy feature
+      in X2Go Client.
+    - Add sshproxy_port option to session (SSH proxy) options.
+    - Allow smooth session profile migration, prefer <host>:<port> (set
+      via sshproxy_host) for SSH proxy port detection.
+    - Implementation of session profile parameters ,,sshproxysameuser''
+      and ,,sshproxysameauth''.
+    - Fixing typos in __doc__ strings.
+    - Add support for starting maximized session windows. (Fixes: #12).
+    - Fix category ,,Utility'' when parsing .desktop files.
+    - For ,,maxdim'' session property fallback to _NET_DESKTOP_GEOMETRY if
+      _NET_WORKAREA is not available from the window manager.
+    - Mention ,,maximize'' as possible value for session option geometry
+      in __doc__string of class X2goTerminalSessionSTDOUT.
+    - Implement SSH agent authentication forwarding.
+    - Implement X2Go session profile features ,,autologin'' and
+      ,,sshproxyautologin'' (meaning: look_for_keys and allow_agent in Python
+      Paramiko terms).
+    - Make X2goClient instance available in initial X2goSession instances.
+    - Allow post-initialization updating of forward_sshagent class property.
+    - Enable autologin and sshproxyautologin for new session profiles.
+    - Only monkey patch Python Paramiko based on the currently used Paramiko
+      version (our monkey patches have been sent upstream, so we might not
+      need the monkey patching for paramiko >= 1.8.0 anymore).
+    - Rename session type XFCE4 to XFCE (using an unversioned name).
+    - Avoid false positive notifications about started-by-other sessions.
+    - Introduce locks for session registrations.
+    - Wait for mounting of print and mimebox spooling share.
+    - Allow mixing key file, key object, key discovery and agent
+      authentication.
+    - Add progress bar support for session startup / resuming. (Fixes: #14).
+    - Set the session name in case a session start failed due to lack of
+      forwarding tunneling support in the server's SSH daemon.
+    - Fall back to password auth if agent auth and key discovery fail.
+    - Give the session window more time to appear.
+    - Catch rare condition in utils.find_session_window in case where
+      the list of window IDs is not available.
+    - Disable SSH agent forwarding on MS Windows platform for current
+      versions of Python Paramiko.
+    - Allow usernames containing space characters in user names (common
+      on MS Windows).
+    - Use threading.Lock to prohibit simultaneous calls of
+      get_published_applications() of control sessions.
+    - Implement some internal locking for X2goSession objects.
+    - Add option to disable auto-registration of pubapp sessions.
+    - Implement functionality for restoring mounted shares on session
+      resumption / re-start. Sponsored by Dick Kniep, LinDix NL.
+    - Catch exceptions where a user tries to resume a session that has
+      just been removed from the session list on the server (race
+      condition).
+    - Consolidating management of shared and unshared client-side
+      folders.
+    - Before suspending/terminating a session, make sure that the list of
+      shared folders is up-to-date.
+    - Fix password authentication in case no private RSA/DSA key for a
+      client user exists.
+  * /debian/rules:
+    + Allow package build on systems with missing dh_python2.
+  * /debian/control:
+    + Versioned depend on python-paramiko (>= 1.8.0-0~).
+  * /debian/pyversions:
+    + Drop file as it is deprecated.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 10 Dec 2012 13:01:51 +0100
+
+python-x2go (0.2.0.10-0~x2go2) unstable; urgency=low
+
+  * /debian/control:
+    + Allow build on Ubuntu 10.04 (reduce Python version in Build-Depends).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 25 Sep 2012 20:14:03 +0200
+
+python-x2go (0.2.0.10-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.0.10):
+    - Use session type 'D' for X2Go-proxied RDP session when run in
+      fullscreen mode. (Fixes: #27).
+    - Indentation fix in defaults.py.
+    - Make Python X2Go aware of DirectRDP settings in session profiles.
+    - Ignore DirectRDP options in session profile config for now.
+    - Remove bashism from X2Go server command calls. Caused servers
+      with no installed x2goserver-xsession package to crash desktop
+      sessions (observed with KDE4 on Ubuntu 12.04).
+    - Handle 16bit and 17bit colour depth (Windows clients) as
+      equal when resuming sessions.
+  * Maintainer change in package: X2Go Developers <x2go-dev@lists.berlios.de>.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 25 Sep 2012 16:03:24 +0200
+
+python-x2go (0.2.0.9-0~x2go2) unstable; urgency=low
+
+  * Make sure we can build against python-gevent provided on
+    packages.x2go.org.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 17 Aug 2012 18:13:19 +0200
+
+python-x2go (0.2.0.9-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.0.9):
+    - Become fully functional for users that have SHELLs than sh or bash
+      on remote X2Go server.
+  * Import packaging file from Debian package.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 17 Aug 2012 16:17:26 +0200
+
+python-x2go (0.2.0.8-0~x2go2) unstable; urgency=low
+
+  * New upstream version (0.2.0.8):
+    - Catch IOError exceptions during SFTP client operations.
+    - Proper use of except statement for multiple exception catching.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 23 Jul 2012 21:16:28 +0200
+
+python-x2go (0.2.0.7-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.0.7):
+    - Refresh server feature list on re-connecting (log-off, log-on).
+    - Fix property method X2goControlSession._x2go_remote_home on broken
+      connections.
+    - Make sure SSH proxy sessions get torn down on control session disconnect
+      no matter what happens to the control session itself.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 12 Jul 2012 21:27:24 +0200
+
+python-x2go (0.2.0.6-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.0.6)
+    - Ignore non-master sessions before calling the foldersharing-
+      not-available hook.
+    - Add several double underscore method aliases in X2goSession class.
+    - Add several double underscore method aliases in X2goClient class.
+    - Avoid double notifications on SSHFS being unavailable for the
+      authenticated user.
+    - X2goSession.HOOK_printing_not_available(): Fix log message.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 02 Jul 2012 20:54:37 +0200
+
+python-x2go (0.2.0.5-0~x2go1) unstable; urgency=low
+
+  * Bugfix release (0.2.0.5):
+    - Fix for building Python X2Go in pbuilder environment. Catch
+      Xlib.error.DisplayConnectionError and ignore it. Now the real fix!!!
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 12 Jun 2012 15:50:17 +0200
+
+python-x2go (0.2.0.4-0~x2go1) unstable; urgency=low
+
+  * Bugfix release (0.2.0.4):
+    - Fix for building Python X2Go in pbuilder environment. Catch
+      Xlib.error.DisplayConnectionError and ignore it.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 12 Jun 2012 10:09:26 +0200
+
+python-x2go (0.2.0.3-0~x2go1) unstable; urgency=low
+
+  * Bugfix release (0.2.0.3):
+    - Only notify HOOK_auto_connect, if the session really is configured
+      to auto-connect (while at the same time no SSH key is present).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 10 Jun 2012 21:22:47 +0200
+
+python-x2go (0.2.0.2-0~x2go1) unstable; urgency=low
+
+  * Bugfix release (0.2.0.2):
+    - Be tolerant if we can not terminate a session after failure of the
+      forwarding tunnel.
+    - Improve session management, handle exceptions more gracefully.
+    - Ignoring timeouts for x2golistmounts and x2golistdesktops.
+    - Add support to X2goSession class to launch sessions from the Python
+      interactive shell in five steps.
+    - Mark sessions as dead whenever an X2goControlSessionException occurs.
+    - Catch control session deaths when querying X2goSession.is_alive().
+    - Do not create a high CPU load after a network failure, do not try to
+      execute a remote command if the session has already died away.
+    - The master_sessions dict may never have None values.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 08 Jun 2012 09:19:49 +0200
+
+python-x2go (0.2.0.1-0~x2go1) unstable; urgency=low
+
+  * Bugfix release (0.2.0.1)
+    - Re-add lost line in control session's connect method that let
+      SSH host key checks fail.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 30 May 2012 00:25:59 +0200
+
+python-x2go (0.2.0.0-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.2.0.0)
+    - License change upstream: GPLv3+ -> AGPLv3+
+    - Add support for session window title renaming.
+    - Add support for bringing session windows on top (MS Windows only,
+      for now)
+    - Terminal sessions now remember the X window of a terminal session as
+      an internal property.
+    - Fix many undefined symbols reported by Debian developer
+      Jakub Wilk. (THANKS!)
+    - Add default value for new session profile parameter xinerama (ignored by
+      Python X2Go for now).
+    - Replace any non-code string ,,X2go'' by ,,X2Go''.
+    - Add support for session port re-allocation on session resume (feature of
+      x2goserver >= 3.1.0.0).
+    - Provide client-side cache of shared local folders, detect server-side
+      unsharing of client-side folders.
+    - Introduce concept of master sessions per profile to X2goClient class. Only
+      the master session can mount/unmount client-side shared folders.
+    - Fix IndexError if x2gomountdirs did not deliver any of the expected
+      results to stdout.
+    - Handle session titles that just contain blanks (e.g. " ") gracefully.
+    - Fix X2Go desktop sharing support.
+    - New feature: allow sessions on localhost system.
+    - Tolerate user names containing "-" characters.
+    - Provide hook methods for SSHFS failures (local folder sharing, printing,
+      MIME box).
+    - Code cleanup: remove all unnecessary imports. Stop defining variables that
+      get never used.
+    - Rename control session method is_folder_sharing_available to
+      is_sshfs_available.
+    - Draw all Xlib code into utils.py
+    - Fix faking of WindowsError exception object in printactions.py and
+      mimeboxactions.py.
+    - Amend list of default session options.
+    - Update list of unsupported session options.
+    - Retrieve feature list from X2Go server per session.
+    - Add published applications support.
+    - Handle empty control session in the session list cache.
+    - Render and cache dictionary based published applications menu tree in
+      Python X2Go. Cache the tree once rendered.
+    - Fix availability check of client-side folder sharing.
+    - Add support for published applications with no category submenus. Fix
+      default language in published applications menu tree.
+    - Fix X2Go printing, do not spawn a gevent process for printing.
+    - Make published_applications_no_submenus an <int> session option that
+      controls how many menu items will be shown without rendering category
+      based submenus.
+    - Better support auto-resuming and auto-starting of session with Python
+      X2Go.
+    - Include development location of nxproxy in possible file locations (only
+      takes effect on Windows).
+    - Add X2goClient method is_profile_connected.
+    - Fix auto_start_or_resume method when using SSH proxy with interactive
+      authentication.
+    - Provide default value for PUBAPP_MAX_NO_SUBMENUS in
+      defaults.py.
+    - On MS Windows: make shipped VcXsrv-Server known to Python X2Go.
+      The shipped VcXsrv has to rest in $CLIENTAPPDIR/VcXsrv/vcxsrv.exe.
+    - On MS Windows: make VcXsrv-Server at the development location
+      known to Python X2Go.
+    - Normalize paths to configuration files.
+    - Make new ini config defaults available in configurations, update list
+      of known X-Servers if new ones are provided in defautlts.py.
+    - Provide function merge_ordered_lists in utils.py, merge list of
+      default known_xservers with configured known_xservers.
+    - Make sure xconfig configuration changes provided by defaults.py get
+      written to the X configuration file.
+    - Add X2goClient method is_session_profile(), return registered session
+      for a specific session name if it has already been registered instead
+      of registering a new session.
+    - Provide X2goClient method get_session_info(), do not auto start/resume
+      sessions in published applications mode, provide hook method for
+      auto-connecting interactively.
+    - Provide X2goSession method get_session_profile_option().
+    - Fix unexpected keyword error during connect() in X2goSession instance.
+    - Fix metatype detection of session profiles.
+    - Implement X2Go-Top category in .desktop files that get used in the
+      context of published applications.
+    - If the SSH proxy connection tries to bind to a used port, detect an
+      unused local port and write this port change to the session profile.
+    - Use double-quotes for pulseaudio options.
+    - Export X2GO_SESSION and PULSE_CLIENTCONFIG to published applications.
+    - When starting pulseaudio on Windows use --exit-idle-time=-1.
+    - Fix X2goSession.get_shared_folders() method on Windows.
+    - No list_sessions() calls on server when querying the status of an
+      X2goSession instance.
+    - Fix automatic mounting of Windows-stylish shared local folders.
+    - Transform blanks in mount points into underscores.
+    - Provide X2goClient.get_published_applications() method.
+    - Fill session profile configurations with missing default values and then
+      detect the profile meta type.
+    - Support published applications that have to be run in a terminal window.
+    - Make sure that pulseaudio.exe has its PID directory. Otherwise it will
+      fail to start the first time if the user is new to X2Go.
+    - Silence warnings that occur during session info queries in case a session
+      startup has not yet been completed fully.
+    - On MS Windows: Use nxproxy-3.5.0.12 when testing Python X2Go applications.
+    - On MS Windows: Use VcXsrv-1.12.0.1 when testing Python X2Go applications.
+    - On MS Windows: If the configured X-server display port is already in use,
+      try to detect the next available display number.
+    - Make transitions of master sessions more robust. Only allow local folder
+      sharing for running sessions.
+    - On MS Windows: Re-use a left behind stray X-server that might have not
+      get killed by a previous instance of Python X2Go Client. This trick is
+      nasty, but works around faulty abortion of client implementations.
+    - On MS Windows: Handle detection of free TCP/IP X display port far more
+      intelligently.
+    - On unused port detection bind to 127.0.0.1 by default.
+    - Provide X2goSession.get_session_type() method.
+    - Do not call HOOK method if self.allow_share_local_folders is False.
+    - Try to derive language information from X2goClient instance.
+    - Make timeout on command execution customizable.
+    - Make sure path names in X2goPrintActions and X2goMIMEboxActions get
+      normalized to OS-specific path names.
+    - Protect session cache from deletion while being processed.
+    - Adapt python-x2go to launching Unity-2d on Ubuntu precise.
+    - Ignore X windows with empty title while finding session window..
+    - Catch exceptions while calling SSH transport's getpeername() method.
+    - Fix control session failure notifications. Show them immediately after
+      the connection has broken.
+    - Allow custom commands to be desktop sessions.
+    - X2goSession instances cannot raise X2goClientExceptions.
+    - Be more tolerant against suspension failures while taking over a session.
+    - Use Paramiko/SSH transport compression if available.
+    - Prohibit simultaneous calls to terminal_session.share_local_folders().
+    - Cache SSH transport's getpeername() and get_username().
+    - Catch session startup failures due to faulty port forwarding tunnels
+      and make them notifiable via hooks.
+    - Properly set setkbd value for x2gostartagent and x2goresume-session.
+    - Add support for re-registering sessions after session profile changes.
+    - Add new session profile parameter: ,,variant''. Add support to set the
+      keyboard layout _and_ the keyboard variant from the client-side.
+    - Give functionality to the ,,setdpi'' and the ,,dpi'' session profile
+      parameter (setting the DPI allows font scaling).
+    - Use proper locking of session actions that are critical to being executed
+      in parallel.
+  * Depend on python-xlib.
+  * The Python setuptools module does not have to be installed as dependency
+    with python-x2go.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 29 May 2012 16:51:25 +0200
+
+python-x2go (0.1.1.9-0-x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.1.9), bugfix release for 0.1.1.x series:
+    - Ignore session registry exceptions for profiles that just got disconnected.
+    - Fix exception raisal in X2goTerminalSessionSTDOUT.
+    - Print access to an X2Go server is not controlled by x2goprint group membership,
+      but by fuse membership.
+    - Add XFCE4 support.
+    - Add ,,autostart'' parameter to default session profile parameters.
+    - Add support for session window title renaming from client-side.
+    - Introduce additional session profile parameter: setsessiontitle.
+    - Fix for list processing in  INI files.
+    - Make terminal backend ,,applications'' aware.
+    - Allow session parameter change for already registered sessions.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 27 Jan 2012 23:36:13 +0100
+
+python-x2go (0.1.1.8-0-x2go1) unstable; urgency=low
+
+  [ Mike Gabriel ]
+  * New upstream version (0.1.1.8), bugfix release for 0.1.1.x series:
+    - Bugfix for: Test for existence of remote home directory on connect.
+    - Unshare local folders during session cleanup.
+    - Remove local session cache folders after sessions have terminated.
+    - Fix missing import of socket module in backends/control/_stdout.py.
+    - Catch failures on sftp_write in control session instance.
+    - Always disconnect from X2goSession instance.
+    - Use random passwords for checking SSH host keys.
+    - Fix duplication of SSH keys in known_hosts file, use hashed hostnames in
+      known_hosts file. Make sure SSH keys written to known_hosts file are 
+      available to other SSHClient instances immediately.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 12 Oct 2011 10:54:23 +0200
+
+python-x2go (0.1.1.7-0-x2go1) unstable; urgency=low
+
+  [ Mike Gabriel ]
+  * New upstream version (0.1.1.7), bugfix+feature release for 0.1.1.x series:
+    - Add support for x2goumount-session calls.
+    - Differentiate between spool folders and data folders when unsharing
+      all folders, return exitcode from X2goTerminalSessionSTDOUT.unshare_*
+      methods.
+    - Use TCP_NODELAY socket option for audio rev forwarding tunnels.
+    - Use TCP_NODELAY socket option for graphics forwarding tunnels.
+    - Typo fixes in session.py, related to calling _X2goSession__disconnect
+      method.
+    - Compatibility fix for X2Go folder sharing (session profile attribute:
+      export).
+    - Provide test method to query server if folder sharing is available.
+    - Test for existence of remote home directory on connect.
+
+  [ Dick Kniep ]
+  * Fix for upstream version 0.1.1.7:
+    - Typo in utils.py (true instead of True).
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 25 Sep 2011 02:08:01 +0200
+
+python-x2go (0.1.1.6-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.1.6), bugfix release for 0.1.1.x series:
+    - Fix IPv4 enforcement for localhost connections.
+    - Be tolerant against trailing whitespaces in hostnames.
+    - Fix handling of lists in session profiles (i.e. ini files). Fixes breakage
+      with x2goclient's rootless vs. desktop mode after pyhoca-gui has been used.
+ 
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 14 Sep 2011 21:35:54 +0200
+
+python-x2go (0.1.1.5-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.1.5), bugfix release for 0.1.1.x series:
+    - Call hook method instead of exception raisal if session startup has failed.
+    - Handle full path command string appropriately.
+    - Fix for X2goSessionRegistry.forget method, do not complain if session_uuid
+      is already forgotten.
+    - If sound is set to false in session profile use snd_system='none' in
+      terminal session.
+    - Stabilize sshfs related problems in case remote user is not in fuse group.
+    - Do not ignore usekbd session profile option anymore.
+    - Fix for X2goSession.has_terminated method.
+    - Fix for executing commands with arguments that contain a slash (thanks to Dick
+      Kniep for digging this out).
+    - Make X2goTerminalSessionSTDOUT.has_command resistable against empty command
+      strings.
+    - Catching faulty x2gostartagent behaviour.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 11 Sep 2011 18:31:28 +0200
+
+python-x2go (0.1.1.4-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.1.4):
+    - bugfix for x2gmountdirs calls that occurred if the client username contained blanks.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 18 Jul 2011 13:51:02 +0200
+
+python-x2go (0.1.1.3-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.1.3):
+    - README/TODO update.
+    - Desktop sharing: try ''<user>@<display>.0'' additionally to ''<user>@<display>'' when
+      trying to find a desktop for sharing.
+    - Fix AttributeError if no graphical proxy instance has been declared yet.
+    - Do not allow any interruption during X2Go cleanup calls.
+    - Stabilize desktop sharing if the remote session is not available.
+    - Enforce IPv4 on all SSH proxy and other SSHClient connections when connecting to
+      ''localhost''.
+    - Detect SFTP client connections failures, abort session if that happens.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 06 Jul 2011 22:15:01 +0200
+
+python-x2go (0.1.1.2-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.1.2):
+    - bugfix version
+    - Use X2goRegistryException for session query for non-existing sessions.
+    - Catch this exception in X2goClient.
+    - Fix desktop sharing.
+    - Improve error handling / logging in forward.py.
+    - Add X2goSession method that detects if auto-connecting a session profile
+      is probably possible.
+    - Fix MIME box action SAVEAS.
+    - Fix for session status notification for sessions with PENDING terminal session.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 01 Jul 2011 14:53:43 +0200
+
+python-x2go (0.1.1.1-0~x2go1) unstable; urgency=low
+
+  * New bugfix version (0.1.1.1):
+    - Fix for local_color_depth function if no $DISPLAY is set.
+    - __doc__ string fixes.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 24 Jun 2011 02:25:10 +0200
+
+python-x2go (0.1.1.0-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.1.0):
+    - Add X2Go desktop sharing support.
+    - Fix SSH authentication failures (close session on failure).
+    - Close SSH connection first, then close down SSH proxy.
+    - Make sure SSH proxy password gets forgotten between two sessions.
+    - Add X2goSession status property ,,faulty''.
+    - Make sure list session and list desktop commands always return.
+    - Rely on X2goSessionListInfo backend to handle exceptions appropriately.
+    - Assure that rev forwarding tunnels use IPv4 (replace localhost with 127.0.0.1).
+    - Explicitly tunnel over IPv4 for NX proxy.
+    - Make cache more configurable (session list updates, desktop list updates).
+    - Adds an auto_update_listdesktops_cache to X2goClient constructor kwargs.
+    - Fix multiple notifications for the same session state change, reliably
+      differentiate between found sessions after connect and newly started 
+      sessions from another client.
+    - Mark terminals as PENDING even before the X2goTerminalSession object is
+      created.
+    - Change of sleep times when starting/stopping NX proxy.
+    - Make fw tunneling more robust against failures.
+    - Test focus put on client inter-operation. It is reliably possible now to move
+      sessions between different clients without resume failures.
+    - Add X2goSession lock support.
+    - Skip session auto registration during startups of new sessions (avoids
+      duplicate sessions in the session registry.
+    - Do not start X2Go service tunnels (audio, sshfs) if session startup failed.
+    - Fix NX proxy startup post-check.
+    - Force 16bit colour depth for RDP-proxy sessions.
+    - Faulty sessions (without a NX proxy fw tunnel) will get terminated whenever
+      the X2Go server (SSHd) denies the tunnel setup.
+    - Detect local color depth and use it as default for new sessions.
+    - Add compatibility check methods for color depth.
+    - Provide X2goClient method for retrieval of session by session name.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 24 Jun 2011 01:48:57 +0200
+
+python-x2go (0.1.0.3-0~x2go1) unstable; urgency=low
+
+  * New upstream version (0.1.0.3):
+    - Make SSH proxy code more robust against connection failures.
+    - Make sure, SSH sessions get closed when not needed any more.
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 08 Jun 2011 16:18:45 +0200
+
+python-x2go (0.1.0.2-0~x2go1) unstable; urgency=low
+
+  * new upstream version (bugfix release 0.1.0.2):
+    - fix for creation of new session profile list
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 27 May 2011 14:21:51 +0200
+
+python-x2go (0.1.0.1-0~x2go1) unstable; urgency=low
+
+  * new upstream version (bugfix release 0.1.0.1):
+    - fixes encoding problem on systems that cannot provide an encoding type
+  * adds locales as dependency
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 27 May 2011 13:07:23 +0200
+
+python-x2go (0.1.0.0-0~x2go1) unstable; urgency=low
+
+  * new upstream version (0.1.0.0):
+    - adds/updates many of the __doc__ strings
+    - fix for multiple session notifications
+    - fix for failing MIME box when resuming sessions
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 25 May 2011 19:56:57 +0200
+
+python-x2go (0.0.45.0-0~x2go1) unstable; urgency=low
+
+  * new upstream version (0.0.45.0):
+    - fixes local folder sharing after session resumption
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 23 May 2011 22:48:46 +0200
+
+python-x2go (0.0.44.2-0~x2go1) unstable; urgency=low
+
+  * new upstream (0.0.44.2):
+    - fixes location for test scripts
+    - repair of exmample test scripts (we neeeed tests!!!!!! -> TODO)
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sat, 21 May 2011 23:17:06 +0200
+
+python-x2go (0.0.44.0-0~x2go1) unstable; urgency=low
+
+  * new upstream features (0.0.44.0):
+    - adds get_session_server_hostname method to X2goClient class
+    - removes (for now) group membership check on server (x2gousers)
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 17 May 2011 10:35:09 +0200
+
+python-x2go (0.0.43.0-0~x2go2) unstable; urgency=low
+
+  * fixes control file
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 26 Apr 2011 00:48:30 +0200
+
+python-x2go (0.0.43.0-0~x2go1) unstable; urgency=low
+
+  * new upstream features (0.0.43.0):
+    - renames feature x2godropbox to x2gomimebox
+  * epydoc build now runs during package build
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 26 Apr 2011 00:44:24 +0200
+
+python-x2go (0.0.42.0-0~x2go2) unstable; urgency=low
+
+  * re-arranged the debian folder quite a bit when 
+    testing/building with pbuilder
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 25 Apr 2011 21:56:46 +0200
+
+python-x2go (0.0.42.0-0~x2go1) unstable; urgency=low
+
+  * switches to source format 3.0 (native)
+  * building on behalf of X2Go project (changes version/revision string of 
+    package)
+  * building only for unstable
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 25 Apr 2011 15:09:24 +0200
+
+python-x2go (0.0.42.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * new upstream features (0.0.42.0):
+      - adds unity-2d support
+      - session state update after connect
+      - adds profile name validation
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 18 Mar 2011 15:59:28 +0200
+
+python-x2go (0.0.41.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * new upstream features (0.0.41.0):
+      - improved session state recognition
+      - speeding up bootstrap of X2goClient 
+      - catching missing dropbox/spool folders 
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 26 Mar 2011 20:43:12 +0100
+
+python-x2go (0.0.40.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * new upstream features (0.0.40.0):
+      - fixing false HOOK_* notifications
+      - work on Windows subprocess creation
+      - gsprint.exe path now configurable
+      - ignoring dotfiles in X2goDropbox
+      - hard-coded file extension blacklist for X2goDropbox
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 10 Mar 2011 23:57:00 +0100
+
+python-x2go (0.0.39.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * new upstream features (0.0.39.0):
+      - re-worked infrastructure for providing a printing preferences dialog 
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 1 Mar 2011 00:32:00 +0100
+
+python-x2go (0.0.38.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * new upstream features (0.0.38.0):
+      - added host check/authorization framework
+      - bugfix in case of network failure
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sun, 27 Feb 2011 02:20:00 +0100
+
+python-x2go (0.0.37.0-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * added x2goserver patches for Python X2go's X2goDropbox feature to /doc dir
+  * new upstream features (0.0.37.0):
+      - added support for gsprint.exe on Windows
+      - added basic support for injecting env variables into server session
+      - dropbox extensions are not accepted without preceeding dot (,,.'')
+      - fixed missing X2goSession instance into X2goRevFwTunnelSFTP instances
+      - tested all print actions for Windows/Linux again
+      - non-existent PDFSAVE folders are now created
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Fri, 25 Feb 2011 17:50:15 +0100
+
+python-x2go (0.0.36.1-0~nwt1) natty lucid maverick stable testing unstable; urgency=low
+
+  * New upstream bugfix release: unicode error when using X2goDropbox
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 22 Feb 2011 19:16:35 +0100
+
+python-x2go (0.0.36-0~nwt3) natty lucid maverick stable testing unstable; urgency=low
+
+  * building also for Ubuntu 11.04 (natty)
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 22 Feb 2011 12:42:35 +0100
+
+python-x2go (0.0.36-0~nwt2) lucid maverick stable testing unstable; urgency=low
+
+  * using standards 3.9.1
+  * wrapped too-long-line in Debian changelog
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 22 Feb 2011 12:19:35 +0100
+
+python-x2go (0.0.36-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * fixed non-starting sshfs issue
+  * made XServer VcXsrv known to Python X2Go (relevant for Windows)
+  * catching forward tunnel setup failure by session and client hook method
+  * improved handling of network failures (i.e. when triggering disconnect 
+    events)
+  * added new x2goclient default session profile options
+  * killing PulseAuddio daemon properly on Windows
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Tue, 22 Feb 2011 12:14:22 +0100
+
+python-x2go (0.0.35-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added PulseAudio support for Windows
+  * added fixes for Unicode issues in PyHoca-GUI
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Wed, 19 Jan 2011 18:20:00 +0100
+
+python-x2go (0.0.34-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * catching pulse audio failures (if not installed)
+  * catching exceptions if X2goSession is called as standalone instance
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Mon, 17 Jan 2011 00:20:00 +0100
+
+python-x2go (0.0.33-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * improved stability of SSH forwarding tunneling (nxproxy, SSH proxy)
+  * SSH proxy session profile options can now be changed during runtime
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 14 Jan 2011 03:40:00 +0100
+
+python-x2go (0.0.32-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * fixed a rarely occurring exception when calling 
+    X2goControlSession.terminate()
+  * changing the server name between connects now gets recognized
+  * fixed link speed issue (was complete rubbish so far...)
+  * thanks to Gerry Reno for testing
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 11 Jan 2011 21:00:00 +0100
+
+python-x2go (0.0.31-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * fixing connected status for auto-registered sessions in X2goSessionRegistry
+  * now X2goSessionRegistry.update_status() can differentiate between
+    ,,already running'' sessions (directly after connect and newly appearing
+    running sessions while having been connected for quite a while
+  * added ,,return_session_names'' to X2goSessionRegistry's enumerating methods
+  * PDFVIEW printaction for MS Windows, PRINT (on default printer) action for MS 
+    Windows
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Mon, 3 Jan 2011 21:42:00 +0100
+
+python-x2go (0.0.30-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * adds encodings support to local folder sharing
+  * bugfix: now unknown session profile options are really ignored
+  * introduces new Python-X2Go-only session profile option ,,useexports''
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 31 Dec 2010 22:30:00 +0100
+
+python-x2go (0.0.29-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * bugfix release (add_to_known_host / known_hosts when using X2goSSHProxy)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 31 Dec 2010 13:30:00 +0100
+
+python-x2go (0.0.28-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * bugfix release (add_to_known_host / known_hosts issue)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 31 Dec 2010 00:45:00 +0100
+
+python-x2go (0.0.27-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * bugfix release
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 31 Dec 2010 00:15:00 +0100
+
+python-x2go (0.0.26-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added XDMCP support (does not work due to server-side problems)
+  * added SSH proxy support (NOTE: SSH proxy support adds options to 
+    the sessions file)
+  * notification system and session management improved
+  * stale-paramiko-sessions problem fixed
+  * defunct-nxproxy problem fixed
+  * providing X2goPrintActionDIALOG
+  * introduction of HOOK methods in X2goClient class
+  * many bugfixes and performance improvements
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 30 Dec 2010 22:00:00 +0100
+
+python-x2go (0.0.25-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * renamed set_loglevel_none() method to set_loglevel_quiet()
+  * on Unix: subprocess needs a shell=False, on Windows: shell=True
+  * got rid of nxproxy DOS window, when running on Windows (running nxproxy 
+    in shell)
+  * added X2goXServer class and X2gClientXConfig class -> support for 
+    starting an external XServer application on MS Windows
+  * added support for profile metatype information (analyzing session profile
+    and summarizing the session profile type in a short string)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 17 Dec 2010 16:00:00 +0100
+
+python-x2go (0.0.24-0~nwt2) lucid maverick testing unstable; urgency=low
+
+  * incremented egg version number
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 14 Dec 2010 16:33:00 +0100
+
+python-x2go (0.0.24-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * minor fixes
+  * Depends on Python 2.6 or higher (not Python3)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 14 Dec 2010 11:32:46 +0100
+
+python-x2go (0.0.23-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added MS remote desktop (RDP) support
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 14 Dec 2010 11:31:40 +0100
+
+python-x2go (0.0.22-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * fixed example scripts
+  * catching x2golistsessions exceptions in info-stdout backend
+  * minor fixes
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 10 Dec 2010 13:30:00 +0100
+
+python-x2go (0.0.21-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * fixed add_to_known_hosts/force_password_auth parameter passing
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 09 Dec 2010 23:50:00 +0100
+
+python-x2go (0.0.20-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * skipping some version numbers as we have made quite some changes
+  * much work on error handling
+  * much work on non-blocking I/O
+  * session profile support added
+  * loads of bugfixes
+  * introduction of one control session and many possible terminal sessions 
+    -> all communication between server+client uses a single SSH transport
+  * X2goClient class now has a guardian for all sessions
+  * caching x2golistsession results (increases responsiveness of GUI applications)
+  * etc.
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 09 Dec 2010 23:30:00 +0100
+
+python-x2go (0.0.14-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added X2Go printing support
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 28 Oct 2010 23:00:00 +0200
+
+python-x2go (0.0.13-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added loglevel_DEBUG_SFTPXFER
+  * introduced shutil.rmtree in sFTP server implementation
+  * introduced shutil.move in sFTP server implementation
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Wed, 13 Oct 2010 23:40:00 +0200
+
+python-x2go (0.0.12-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * fixed typo in session.py
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Wed, 13 Oct 2010 14:10:00 +0200
+
+python-x2go (0.0.11-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added local folder sharing support
+  * integrated an SFTP server into Python X2go
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Wed, 13 Oct 2010 14:00:00 +0200
+
+python-x2go (0.0.10-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * added thread cleanup support (X2goSessionGuardian) in case of the sudden 
+    death of an X2goSession instance (SIGINT, SIGTERM, KeyboardInterrupt, sys.exit())
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 07 Oct 2010 14:00:00 +0200
+
+python-x2go (0.0.9-0~nwt1) lucid maverick testing unstable; urgency=low
+
+  * debian dependency: gevent < 0.13.x does not have the StreamServer class,
+    added version dependency to control file
+  * allowing dupload/reprepro for multiple distro versions
+  * changes in authentication handling on X2goSession.connect() calls
+  * X2goProxy descructor now is responsible for proxy shutdown
+  * switching to /usr/bin/nxproxy (Ubuntu/Debian package)
+  * updated README file
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 05 Oct 2010 22:30:00 +0200
+
+python-x2go (0.0.8-0~nwt2) lucid maverick testing unstable; urgency=low
+
+  * fixing a bug (c+p typo) in rforward.py
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Wed, 06 Oct 2010 14:30:00 +0200
+
+python-x2go (0.0.8-0~nwt1) unstable; urgency=low
+
+  * reworked __doc__ strings
+  * add X2goExceptions
+  * typo in license/copyright comment head
+  * update example Python scripts
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 05 Oct 2010 22:30:00 +0200
+
+python-x2go (0.0.7-0~nwt1) unstable; urgency=low
+
+  * minor fix in X2goSession.start_sound()
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 05 Oct 2010 22:30:00 +0200
+
+python-x2go (0.0.6-0~nwt1) unstable; urgency=low
+
+  * added more control mechs for reverse forwarding tunnels
+    i.e. a pause() and resume() method
+  * X2goSession methods to stop audio / folder sharing during
+    a running session
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 05 Oct 2010 18:43:00 +0200
+
+python-x2go (0.0.5-0~nwt1) unstable; urgency=low
+
+  * added Paramiko/SSH reverse forwarding tunnel support
+  * Pulse Audio support has been added
+  * SSH connections back to the X2Go client are possible
+  * distro codename lucid -> unstable
+  * linitian version 3.9.0
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Tue, 05 Oct 2010 16:43:00 +0200
+
+python-x2go (0.0.4-0~nwt1) lucid; urgency=low
+
+  * added force_password_auth param to X2goSession.connect()
+  * replaced *args, **kwargs in X2goSession.connect() by proper param strings
+  * fixed X2goSessionParams.rewrite_session_type(), the method always returned 'R'
+  * added __doc__ strings for client.py (X2goClient class et al.)
+  * fixed password authentication (was broken, only pub/priv key auth worked properly)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 01 Oct 2010 10:00:00 +0200
+
+python-x2go (0.0.3-0~nwt1) lucid; urgency=low
+
+  * fixed a bug in X2goServerSessionInfo.rewrite_session_type()
+    that broke session_type desktop.
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 01 Oct 2010 01:40:00 +0200
+
+python-x2go (0.0.2-0~nwt1) lucid; urgency=low
+
+  * __doc__ strings added for most classes/modules
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Fri, 01 Oct 2010 01:30:00 +0200
+
+python-x2go (0.0.1-0~nwt2) lucid; urgency=low
+
+  * automatic build of epydoc based API documentation: html, pdf
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 30 Sep 2010 09:00:00 +0200
+
+python-x2go (0.0.1-0~nwt1) lucid; urgency=low
+
+  * complete python-x2go rewrite from scratch 
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Thu, 30 Sep 2010 02:00:00 +0200
+

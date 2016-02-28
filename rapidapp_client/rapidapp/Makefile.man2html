@@ -1,0 +1,16 @@
+#!/usr/bin/make -f
+
+MAN2HTML_BIN = man2html
+MAN2HTML_SRC   = man
+MAN2HTML_DEST = .build_man2html/html
+
+man_pages = `cd $(MAN2HTML_SRC) && find * -type f`
+
+all: build
+
+build: build_man2html
+
+build_man2html:
+	mkdir -p $(MAN2HTML_DEST)
+	for man_page in $(man_pages); do mkdir -p `dirname $(MAN2HTML_DEST)/$$man_page`; done
+	for man_page in $(man_pages); do $(MAN2HTML_BIN) -r $(MAN2HTML_SRC)/$$man_page > $(MAN2HTML_DEST)/$$man_page.html; done

@@ -1,0 +1,46 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright (C) 2010-2014 by Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+# Copyright (C) 2010-2014 by Dick Kniep <dick.kniep@lindix.nl>
+#
+# PyHoca GUI is free software; you can redistribute it and/or modify
+# it under the terms of the GNU Affero General Public License as published by
+# the Free Software Foundation; either version 3 of the License, or
+# (at your option) any later version.
+#
+# PyHoca GUI is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU Affero General Public License for more details.
+#
+# You should have received a copy of the GNU Affero General Public License
+# along with this program; if not, write to the
+# Free Software Foundation, Inc.,
+# 51 Franklin St, Fifth Floor, Boston, MA 02110-1301, USA.
+
+try:
+    import wxversion
+    wxversion.select(['3.0', '2.9', '2.8'])
+except: pass
+
+PROG_NAME = "App-O-Cloud"
+try:
+    from pyhoca.wxgui.mswin_logging import setup_mswinlog
+    setup_mswinlog(PROG_NAME)
+except ImportError:
+    pass
+
+from pyhoca.wxgui import __VERSION__
+from pyhoca.wxgui.launcher import PyHocaGUI_Launcher
+
+__author__ = "App-O-Cloud Team"
+__version__ = __VERSION__
+
+if __name__ == '__main__':
+    app = PyHocaGUI_Launcher()
+    app.setup_process()
+    app.setup_progname(PROG_NAME)
+    app.setup_devmode()
+    args, logger, liblogger = app.parseargs()
+    app.main(args=args, logger=logger, liblogger=liblogger)

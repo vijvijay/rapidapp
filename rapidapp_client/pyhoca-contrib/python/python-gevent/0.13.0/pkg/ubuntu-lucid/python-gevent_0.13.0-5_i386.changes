@@ -1,0 +1,43 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Thu, 05 May 2011 01:16:16 +0200
+Source: python-gevent
+Binary: python-gevent-dbg python-gevent-doc python-gevent
+Architecture: i386
+Version: 0.13.0-5
+Distribution: lucid
+Urgency: low
+Maintainer: Örjan Persson <orange@fobie.net>
+Changed-By: Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+Description: 
+ python-gevent - gevent is a coroutine-based Python networking library
+ python-gevent-dbg - gevent is a coroutine-based Python networking library - debugging
+ python-gevent-doc - gevent is a coroutine-based Python networking library - documenta
+Changes: 
+ python-gevent (0.13.0-5) lucid; urgency=low
+ .
+   * adds python-openssl as build dependency
+   * Ubuntnu lucid backport
+Checksums-Sha1: 
+ 78f0fe1ac8919defa1ca490a5a8a8acef54fc324 93464 python-gevent-dbg_0.13.0-5_i386.deb
+ a4cafe57b358dcb4856d03066b5722750b916026 115594 python-gevent_0.13.0-5_i386.deb
+Checksums-Sha256: 
+ 3ef3b2caaf16ecd706d13d2edd4b1217395270b271c13bda5a9f95bab5958bbd 93464 python-gevent-dbg_0.13.0-5_i386.deb
+ a64b1049d8e6e123d5a53d54b8abb2f4dd00488424be652f83eb21f5ce159126 115594 python-gevent_0.13.0-5_i386.deb
+Files: 
+ 3d22726c75c169f56cba4b84488aa7c5 93464 debug extra python-gevent-dbg_0.13.0-5_i386.deb
+ cfc203f9b69a91ce498ece57d26b90bd 115594 python extra python-gevent_0.13.0-5_i386.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJNweBiAAoJEIlP3EWN3QKAMosH/2nQSrPmaBaFN2q+0uFxZ5Se
+rV1MExF1EtVpNlqFurXo9ZZbYHnMRgi9S/lIkCnTkwT7oVOpOHhQ+z35UyVOgpl1
+NGnSwm4LIhLbChKnVSudH65rKsbTLVGs21hxnugdJ3N2C0WT5G6ViuGGGt4DPnB2
+6ZfNLSthoUGTXDoo2FhS7cvKn2nNJkiVW+yn/imN2FK82wjzmeVlj9Sqi4NiyknN
+BYkHrB1iWnX5HSyTji30Bk5joO/TqzeKG6tY23J+EP0UUbn1MwBYukG0AA1SsT9m
+gtMEtP38I6NqqNHbWgU8DjgxGyM8+x/PlA+EjIBDYDPT2NLIIFL7+JvCBh2cWms=
+=CdOz
+-----END PGP SIGNATURE-----

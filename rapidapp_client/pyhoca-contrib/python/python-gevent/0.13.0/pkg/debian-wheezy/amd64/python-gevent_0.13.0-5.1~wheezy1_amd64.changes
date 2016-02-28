@@ -1,0 +1,52 @@
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA1
+
+Format: 1.8
+Date: Mon, 16 May 2011 19:55:03 +0200
+Source: python-gevent
+Binary: python-gevent-dbg python-gevent-doc python-gevent
+Architecture: source amd64 all
+Version: 0.13.0-5.1~wheezy1
+Distribution: unstable
+Urgency: low
+Maintainer: Örjan Persson <orange@fobie.net>
+Changed-By: X2go Git Administrator <git-admin@x2go.org>
+Description: 
+ python-gevent - gevent is a coroutine-based Python networking library
+ python-gevent-dbg - gevent is a coroutine-based Python networking library - debugging
+ python-gevent-doc - gevent is a coroutine-based Python networking library - documenta
+Changes: 
+ python-gevent (0.13.0-5.1~wheezy1) unstable; urgency=low
+ .
+   * Non-maintainer upload.
+   * build for Debian wheezy (python2.6 + python2.7)
+Checksums-Sha1: 
+ 7c037c80ce56aa407705f60a770e0157c3b73e16 1348 python-gevent_0.13.0-5.1~wheezy1.dsc
+ afb997c97d20d91e982b3ca9ddbf533a967b52f8 268685 python-gevent_0.13.0-5.1~wheezy1.tar.gz
+ 945af299a9c8d268f7a2e6ec8d0237d5cc58dbda 237482 python-gevent-dbg_0.13.0-5.1~wheezy1_amd64.deb
+ 1b8581e29e51f07deecbfedb729cbe42ec62b676 132802 python-gevent-doc_0.13.0-5.1~wheezy1_all.deb
+ 34460f5a18013cb006747b4e4e361b66b5457ecf 212116 python-gevent_0.13.0-5.1~wheezy1_amd64.deb
+Checksums-Sha256: 
+ 00dec69c681b1547561c2cceeceb3c40e4f6623dd71024a736ea8b154e3579a2 1348 python-gevent_0.13.0-5.1~wheezy1.dsc
+ 37b02f020380c8883fef117f52e641cc7965263afb1aee776147e5f17cccab5c 268685 python-gevent_0.13.0-5.1~wheezy1.tar.gz
+ fc0f0a1c2f07ccf21bce561ef3adb40f46fa2074141600528a5f07792ec86681 237482 python-gevent-dbg_0.13.0-5.1~wheezy1_amd64.deb
+ 454b9b4422348b4b75034bc04fe3ba2a0268d138ca61119a114cd09f3b3994fe 132802 python-gevent-doc_0.13.0-5.1~wheezy1_all.deb
+ 7ecdd1b9f8d8588ac204828a71985b83dd6c0e8f1720ae10361ecc6b05c3f91f 212116 python-gevent_0.13.0-5.1~wheezy1_amd64.deb
+Files: 
+ a6523479d7ebe8bd1b6f3cdbe6e8fb7d 1348 python extra python-gevent_0.13.0-5.1~wheezy1.dsc
+ 1b793c32463b88be137727bdca7bfcac 268685 python extra python-gevent_0.13.0-5.1~wheezy1.tar.gz
+ 7bcae177fd36166fd9930b29da4df831 237482 debug extra python-gevent-dbg_0.13.0-5.1~wheezy1_amd64.deb
+ 6d73919ed3dc9c818cb509e55fc092b5 132802 doc optional python-gevent-doc_0.13.0-5.1~wheezy1_all.deb
+ be82522ec20a59f806557710c42bdf43 212116 python extra python-gevent_0.13.0-5.1~wheezy1_amd64.deb
+
+-----BEGIN PGP SIGNATURE-----
+Version: GnuPG v1.4.10 (GNU/Linux)
+
+iQEcBAEBAgAGBQJN0Xj2AAoJEPSnZ4ycawsrU6wH/3I00jYHsymJIOksyzrJCNk9
+8WjW7hFpR+govcWCWPeSSLXSWZkFtk8+p7hWtJDk8Al5W/PH3A2p7MgTM1FHvmWd
+mmZyZH0RI1Wnwa9W+vEmKTxFjDEuyPX5mvEWWIzAYzlpfCEoJAUCbkDJweqymKkf
+LXJJYjH+DM6n6w5kgGeAmNtS8G3ak+cDKpN0x/FgIZ+NPbKzSv8tVoUJrAk34Yur
+tNCtoiCzreaeVap4HTeZYIaUvQAuqP5t2kHlOi1Kbnpm+4VfOMDVRPpNjX/PNaw6
+u44MQzZGNLO7zeosYERl7YPY93biHsdWOVm5EUYTrmFpkDiI1b39WdLJ+r4yrAY=
+=DMrU
+-----END PGP SIGNATURE-----

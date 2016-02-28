@@ -1,0 +1,83 @@
+python-gevent (0.13.0-5.1~sid1) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * build for Debian sid (python2.6 + python2.7)
+
+ -- X2go Git Administrator <git-admin@x2go.org>  Mon, 16 May 2011 19:55:03 +0200
+
+python-gevent (0.13.0-5) lucid; urgency=low
+
+  * adds python-openssl as build dependency
+  * Ubuntnu lucid backport
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Thu, 05 May 2011 01:16:16 +0200
+
+python-gevent (0.13.0-4) lucid testing; urgency=low
+
+  * removing our blend (~nwt) from the package version string
+    as it conflicts when installing X2go on Ubuntu lucid / Debian squeeze
+
+ -- Mike Gabriel <mike.gabriel@das-netzwerkteam.de>  Sat, 11 Dec 2010 21:20:00 +0100
+
+python-gevent (0.13.0-3~nwt1) lucid testing; urgency=low
+
+  * allow dupload/reprepro to NWT Debian squeeze also
+  * adding our blend (~nwt) to the package version string
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Wed, 06 Oct 2010 14:00:00 +0200
+
+python-gevent (0.13.0-2) lucid; urgency=low
+
+  * non-maintainer build for DAS-NETZWERKTEAM (lucid backport)
+
+ -- Mike Gabriel <m.gabriel@das-netzwerkteam.de>  Sat, 18 Sep 2010 00:20:00 +0200
+
+python-gevent (0.13.0-1) unstable; urgency=low
+
+  * New upstream version (Closes: #589268).
+  * Removed cython dependency.
+  * Updated doc package and depends on libjs-jquery.
+  * Added support for sphinx 1.0b1 (Closes: #588628).
+
+ -- Örjan Persson <orange@fobie.net>  Thu, 22 Jul 2010 12:09:58 +0200
+
+python-gevent (0.12.2-6) unstable; urgency=low
+
+  * Added missing set_exc_info function. Thanks to Chris Lamb for the
+    bug report (Closes: #585977).
+  * Cython is now used to re-generate the core files. Needed due to the
+    exc_info-leak patch.
+
+ -- Örjan Persson <orange@fobie.net>  Wed, 16 Jun 2010 09:14:51 +0200
+
+python-gevent (0.12.2-5) unstable; urgency=low
+
+  * Added 002-exc_info-leak patch to workaround a problem where exceptions in
+    greenlets under some circumstanes would leak.
+
+ -- Örjan Persson <orange@fobie.net>  Sun, 06 Jun 2010 14:49:27 +0200
+
+python-gevent (0.12.2-4) unstable; urgency=low
+
+  * Moved python-sphinx to build-depends instead of indep.
+
+ -- Örjan Persson <orange@fobie.net>  Mon, 31 May 2010 21:13:54 +0200
+
+python-gevent (0.12.2-3) unstable; urgency=low
+
+  * Updated copyright information.
+
+ -- Örjan Persson <orange@fobie.net>  Tue, 20 Apr 2010 19:57:18 +0200
+
+python-gevent (0.12.2-2) unstable; urgency=low
+
+  * Added optional dependency for python-codespeak-lib instead of
+    the newer python-greenlet.
+
+ -- Örjan Persson <orange@fobie.net>  Tue, 06 Apr 2010 23:31:33 +0200
+
+python-gevent (0.12.2-1) unstable; urgency=low
+
+  * Initial release (Closes: #576437).
+
+ -- Örjan Persson <orange@fobie.net>  Sun, 04 Apr 2010 18:47:51 +0200

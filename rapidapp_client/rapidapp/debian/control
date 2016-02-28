@@ -1,0 +1,48 @@
+Source: pyhoca-gui
+Section: python
+Priority: optional
+Maintainer: X2Go Packaging Team <x2go-dev@lists.berlios.de>
+Uploaders:
+ Mike Gabriel <mike.gabriel@das-netzwerkteam.de>,
+ Oleksandr Shneyder <oleksandr.shneyder@obviously-nice.de>,
+Build-Depends: 
+ debhelper (>= 7.0.50~),
+ man2html-base | man2html,
+ python (>=2.6.5-0~),
+ python-setuptools,
+ python-support,
+ python-distutils-extra,
+ gnome-colors-common,
+Standards-Version: 3.9.6
+Homepage: http://code.x2go.org/releases/source/pyhoca-gui
+Vcs-Git: git://code.x2go.org/pyhoca-gui.git
+Vcs-Browser: http://code.x2go.org/gitweb/?p=pyhoca-gui.git;a=summary
+X-Python-Version: >= 2.6
+
+Package: pyhoca-gui
+Architecture: all
+Depends: 
+ ${misc:Depends},
+ python,
+ python-x2go (>=0.5.0.0-0~),
+ python-argparse,
+ python-notify,
+ python-setproctitle,
+ python-wxgtk3.0 | python-wxgtk2.8,
+ python-support (>=0.90),
+ gnome-colors-common,
+ python-cups,
+Recommends:
+ mate-notification-daemon | notification-daemon,
+Description: Graphical X2Go client written in (wx)Python
+ X2Go is a server based computing environment with
+    - session resuming
+    - low bandwidth support
+    - session brokerage support
+    - client-side mass storage mounting support
+    - client-side printing support
+    - audio support
+    - authentication by smartcard and USB stick
+ .
+ PyHoca-GUI is a slim X2Go client that docks to the desktop's
+ notification area and allows multiple X2Go session handling.

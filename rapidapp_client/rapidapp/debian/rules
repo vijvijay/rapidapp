@@ -1,0 +1,19 @@
+#!/usr/bin/make -f
+# debian/rules file - for pyhoca-gui
+# Based on sample debian/rules file - for GNU Hello (1.3).
+# Copyright 2010-2014 by Mike Gabriel <mike.gabriel@das-netzwerkteam.de>
+
+WITH_PYTHON2 = $(shell test -f /usr/bin/dh_python2 && echo "--with python2")
+
+%:
+	dh ${@} ${WITH_PYTHON2}
+
+override_dh_auto_build:
+	cp po/PyHoca-GUI.pot po/PyHoca-GUI.pot.bak
+	dh_auto_build
+
+override_dh_auto_clean:
+	test -f po/PyHoca-GUI.pot.bak && mv po/PyHoca-GUI.pot.bak po/PyHoca-GUI.pot || true
+	rm -Rf PyHoca_GUI.egg-info/
+	dh_auto_clean
+
